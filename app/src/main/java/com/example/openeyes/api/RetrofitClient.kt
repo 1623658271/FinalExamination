@@ -11,24 +11,25 @@ import retrofit2.converter.gson.GsonConverterFactory
  * date : 2022/7/15 08:57
  */
 class RetrofitClient {
-    private lateinit var retrofitClient: RetrofitClient
-    private lateinit var retrofit: Retrofit
+    companion object{
+        private lateinit var retrofitClient: RetrofitClient
+        private lateinit var retrofit: Retrofit
 
-    fun getInstance(url:String):RetrofitClient{
-        createRetrofit(url)
-        retrofitClient = RetrofitClient()
-        return retrofitClient
+        fun getInstance(url:String):RetrofitClient{
+            createRetrofit(url)
+            retrofitClient = RetrofitClient()
+            return retrofitClient
+        }
+
+        private fun createRetrofit(url:String):Retrofit {
+            retrofit = Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build()
+            return retrofit
+        }
     }
-
-    private fun createRetrofit(url:String):Retrofit {
-        retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-        return retrofit
-    }
-
     fun <T> getSevers(sever: Class<T>): T {
         return retrofit.create(sever)
     }

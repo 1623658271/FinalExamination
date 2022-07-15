@@ -2,6 +2,8 @@ package com.example.openeyes.api
 
 import com.example.openeyes.model.FindMoreBean
 import io.reactivex.rxjava3.core.Observable
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.GET
 
 /**
@@ -11,7 +13,6 @@ import retrofit2.http.GET
  * date : 2022/7/15 08:46
  */
 interface ApiService {
-    @GET
-    fun getFindMoreMsg():Observable<FindMoreBean>
-
+    @GET("discovery")
+    fun getFindMoreMsg():Call<FindMoreBean>
 }

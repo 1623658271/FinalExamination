@@ -1,11 +1,7 @@
 package com.example.openeyes.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.openeyes.fragment.homepageFragment
-import org.jetbrains.annotations.NotNull
-import javax.inject.Inject
 
 /**
  * description ： TODO:类的作用

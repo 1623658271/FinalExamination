@@ -11,6 +11,6 @@
         android:id="@+id/nav_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.openeyes.fragment.hostFragment"/>
+        android:name="com.example.openeyes.fragment.HostFragment"/>
 
 </LinearLayout>

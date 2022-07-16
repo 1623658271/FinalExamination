@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/hostFragment"
-        android:name="com.example.openeyes.fragment.hostFragment"
+        android:name="com.example.openeyes.fragment.HostFragment"
         android:label="hostFragment" />
 </navigation>

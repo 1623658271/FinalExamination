@@ -9,24 +9,23 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.example.openeyes.R
 import com.example.openeyes.adapter.FragmentPagerAdapter
-import javax.inject.Inject
+
 /**
  * description ： TODO:类的作用
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/14 22:20
  */
-class hostFragment: Fragment(), RadioGroup.OnCheckedChangeListener{
+class HostFragment: Fragment(), RadioGroup.OnCheckedChangeListener{
     lateinit var viewPager2:ViewPager2
     lateinit var radioGroup: RadioGroup
     lateinit var pagerAdapter:FragmentPagerAdapter
-    lateinit var fragmentHomepage:homepageFragment
-    lateinit var fragmentDiscover:discoverFragment
-    lateinit var fragmentMine:mineFragment
+    lateinit var fragmentHomepage:HomepageFragment
+    lateinit var fragmentDiscover:DiscoverFragment
+    lateinit var fragmentMine:MineFragment
     lateinit var v:View
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +46,9 @@ class hostFragment: Fragment(), RadioGroup.OnCheckedChangeListener{
         viewPager2 = v.findViewById(R.id.host_view_pager2)
         radioGroup = v.findViewById(R.id.radio_group_host)
         pagerAdapter = FragmentPagerAdapter(this)
-        fragmentHomepage = homepageFragment()
-        fragmentDiscover = discoverFragment()
-        fragmentMine = mineFragment()
+        fragmentHomepage = HomepageFragment()
+        fragmentDiscover = DiscoverFragment()
+        fragmentMine = MineFragment()
         pagerAdapter.addFragment(fragmentHomepage)
         pagerAdapter.addFragment(fragmentDiscover)
         pagerAdapter.addFragment(fragmentMine)

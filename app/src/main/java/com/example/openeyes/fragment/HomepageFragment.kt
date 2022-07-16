@@ -11,16 +11,16 @@ import com.example.openeyes.R
  * description ： TODO:类的作用
  * author : lfy
  * email : 1623658271@qq.com
- * date : 2022/7/15 08:51
+ * date : 2022/7/15 08:49
  */
-class mineFragment:Fragment() {
+class HomepageFragment:Fragment() {
     private lateinit var v: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v = inflater.inflate(R.layout.layout_mine_fragment,container,false)
+        v = inflater.inflate(R.layout.layout_homepage_fragment,container,false)
         return v
     }
 

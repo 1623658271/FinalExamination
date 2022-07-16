@@ -13,14 +13,14 @@ import com.example.openeyes.R
  * email : 1623658271@qq.com
  * date : 2022/7/15 08:51
  */
-class squareFragment:Fragment() {
-    private lateinit var v:View
+class MineFragment:Fragment() {
+    private lateinit var v: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v = inflater.inflate(R.layout.layout_square_fragment,container,false)
+        v = inflater.inflate(R.layout.layout_mine_fragment,container,false)
         return v
     }
 

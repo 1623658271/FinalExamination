@@ -1,8 +1,10 @@
 package com.example.openeyes.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.openeyes.MyApplication
 import com.example.openeyes.api.URL
 import com.example.openeyes.model.CommentModel
 import com.example.openeyes.model.DailyHandpickBean
@@ -57,7 +59,24 @@ class MyViewModel: ViewModel() {
             .getVideoComments(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { commentsLiveData!!.value = it }
+            .subscribe(object :Observer<CommentModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: CommentModel) {
+                    commentsLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
     }
 
 
@@ -67,7 +86,24 @@ class MyViewModel: ViewModel() {
             .getFindMoreClassMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{ findMoreClassBeanLiveData!!.value = it }
+            .subscribe(object :Observer<FindMoreClassBean>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: FindMoreClassBean) {
+                    findMoreClassBeanLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
     }
     fun updateDailyHandpickViewModel(){
         MyRepository(URL.DailyHandpickUrl)
@@ -75,6 +111,23 @@ class MyViewModel: ViewModel() {
             .getDailyHandpickMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { dailyHandpickBeanLiveData!!.value = it }
+            .subscribe(object :Observer<DailyHandpickBean>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: DailyHandpickBean) {
+                    dailyHandpickBeanLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
     }
 }

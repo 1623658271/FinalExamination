@@ -2,7 +2,6 @@ package com.example.openeyes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import cn.jzvd.JzvdStd
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
@@ -20,6 +19,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        JzvdStd.backPress()
     }
 }

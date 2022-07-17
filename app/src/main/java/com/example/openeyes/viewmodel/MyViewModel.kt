@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.openeyes.api.URL
+import com.example.openeyes.model.CommentModel
 import com.example.openeyes.model.DailyHandpickBean
 import com.example.openeyes.model.FindMoreClassBean
 import com.example.openeyes.respository.MyRepository
@@ -23,6 +24,7 @@ class MyViewModel: ViewModel() {
 
     private var findMoreClassBeanLiveData: MutableLiveData<FindMoreClassBean>? = null
     private var dailyHandpickBeanLiveData: MutableLiveData<DailyHandpickBean>? = null
+    private var commentsLiveData:MutableLiveData<CommentModel>? = null
     private val TAG = "lfy"
 
     fun getFindMoreLiveData(): MutableLiveData<FindMoreClassBean> {
@@ -41,6 +43,23 @@ class MyViewModel: ViewModel() {
         return dailyHandpickBeanLiveData!!
     }
 
+    fun getCommentsLiveData(id:Int):MutableLiveData<CommentModel>{
+        if(commentsLiveData == null){
+            commentsLiveData = MutableLiveData()
+            updateCommentsViewModel(id)
+        }
+        return commentsLiveData!!
+    }
+
+    private fun updateCommentsViewModel(id:Int) {
+        MyRepository(URL.CommentsUrl)
+            .getService()
+            .getVideoComments(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { commentsLiveData!!.value = it }
+    }
+
 
     fun updateFindMoreViewModel() {
         MyRepository(URL.FindMoreClassUrl)
@@ -48,24 +67,7 @@ class MyViewModel: ViewModel() {
             .getFindMoreClassMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<FindMoreClassBean> {
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: FindMoreClassBean) {
-                    findMoreClassBeanLiveData!!.value = t
-                    Log.d(TAG, "find onNext: ")
-                }
-
-                override fun onError(e: Throwable) {
-
-                }
-
-                override fun onComplete() {
-
-                }
-            })
+            .subscribe{ findMoreClassBeanLiveData!!.value = it }
     }
     fun updateDailyHandpickViewModel(){
         MyRepository(URL.DailyHandpickUrl)
@@ -73,24 +75,6 @@ class MyViewModel: ViewModel() {
             .getDailyHandpickMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<DailyHandpickBean>{
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: DailyHandpickBean) {
-                    dailyHandpickBeanLiveData!!.value = t
-                    Log.d(TAG, "onNext: ")
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d(TAG, "onError: $e")
-                }
-
-                override fun onComplete() {
-
-                }
-
-            })
+            .subscribe { dailyHandpickBeanLiveData!!.value = it }
     }
 }

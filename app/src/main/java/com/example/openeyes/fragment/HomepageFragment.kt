@@ -1,7 +1,9 @@
 package com.example.openeyes.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cn.jzvd.JzvdStd
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
+import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
 import com.example.openeyes.model.ClassModel
@@ -32,6 +34,7 @@ class HomepageFragment:Fragment() {
     private lateinit var adapter:HomePageRVAdapter
     private lateinit var beanList:MutableList<VideoBean>
     private lateinit var viewModel: MyViewModel
+    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,6 +59,34 @@ class HomepageFragment:Fragment() {
             bing.srHomepage.isRefreshing = false
         }
         updateMessage()
+        adapter.setClickListener(object :HomePageRVAdapter.OnSomethingClickedListener{
+            override fun onVideoImageClickedListener(
+                view: View,
+                holder: RecyclerView.ViewHolder,
+                position: Int,
+                videoBeanList: MutableList<VideoBean>
+            ) {
+                val videoMessages = ArrayList<String>()
+                videoMessages.add(videoBeanList[position].playUrl)
+                videoMessages.add(videoBeanList[position].coverUrl)
+                videoMessages.add(videoBeanList[position].bigTitle)
+                videoMessages.add(videoBeanList[position].smallTitle)
+                videoMessages.add(videoBeanList[position].description)
+                val id = videoBeanList[position].id
+                Log.d(TAG, "onVideoImageClickedListener: $videoMessages")
+                VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,videoMessages,id)
+            }
+
+            override fun onAvatarImageClickedListener(
+                view: View,
+                holder: RecyclerView.ViewHolder,
+                position: Int,
+                videoBeanList: MutableList<VideoBean>
+            ) {
+
+            }
+
+        })
         lifecycle.addObserver(adapter)
     }
 
@@ -69,6 +100,7 @@ class HomepageFragment:Fragment() {
                         if (m.type == "followCard") {
                             beanList.add(
                                 VideoBean(
+                                    m.data.content.data.id,
                                     m.data.content.data.title,
                                     m.data.header.title,
                                     m.data.content.data.cover.feed,

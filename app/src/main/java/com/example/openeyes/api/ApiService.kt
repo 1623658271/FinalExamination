@@ -1,5 +1,6 @@
 package com.example.openeyes.api
 
+import com.example.openeyes.model.CommentModel
 import com.example.openeyes.model.DailyHandpickBean
 import com.example.openeyes.model.FindMoreBean
 import com.example.openeyes.model.FindMoreClassBean
@@ -7,6 +8,7 @@ import io.reactivex.rxjava3.core.Observable
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * description ： TODO:类的作用
@@ -26,4 +28,8 @@ interface ApiService {
     //获取日报精选
     @GET("feed")
     fun getDailyHandpickMsg():Observable<DailyHandpickBean>
+
+    //获取视频的评论信息
+    @GET("video")
+    fun getVideoComments(@Query("videoId")id:Int):Observable<CommentModel>
 }

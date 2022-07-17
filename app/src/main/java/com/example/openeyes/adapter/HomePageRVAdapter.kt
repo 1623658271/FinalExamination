@@ -1,6 +1,7 @@
 package com.example.openeyes.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
@@ -57,6 +58,7 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
     override fun unregisterAdapterDataObserver(observer: RecyclerView.AdapterDataObserver) {
         super.unregisterAdapterDataObserver(observer)
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause(owner: LifecycleOwner?) {
 
@@ -65,6 +67,8 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is MyViewHolder) {
             holder.binding.message = videoBeanList[position]
+            holder.binding.ivItemCoverVideo.setOnClickListener { clickListener.onVideoImageClickedListener(holder.binding.root,holder,position,videoBeanList) }
+            holder.binding.itemPersonCoverCircleImage.setOnClickListener { clickListener.onAvatarImageClickedListener(holder.binding.root,holder,position,videoBeanList) }
         }else{
 
         }
@@ -72,5 +76,15 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
 
     interface LoadCallbackListener{
         fun loadMoreMsg()
+    }
+    private lateinit var clickListener:OnSomethingClickedListener
+    interface OnSomethingClickedListener{
+        fun onVideoImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
+
+        fun onAvatarImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
+    }
+
+    fun setClickListener(clickListener:OnSomethingClickedListener){
+        this.clickListener = clickListener
     }
 }

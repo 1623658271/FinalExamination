@@ -2,6 +2,8 @@ package com.example.openeyes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import cn.jzvd.JzvdStd
+import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
 /**
@@ -14,5 +16,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_main_activity)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        JzvdStd.backPress()
     }
 }

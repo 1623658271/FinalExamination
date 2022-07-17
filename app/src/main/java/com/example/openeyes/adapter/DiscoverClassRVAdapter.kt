@@ -4,11 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemRvDiscoverBinding
 import com.example.openeyes.model.ClassModel
-import com.example.openeyes.model.FindMoreClassBean
+
 
 /**
  * description ： TODO:类的作用
@@ -40,7 +43,6 @@ class DiscoverClassRVAdapter(val classModelList:MutableList<ClassModel>):Recycle
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val classModel = classModelList[position]
-        holder.itemRvDiscoverBinding.itemImageDiscover
         holder.itemRvDiscoverBinding.findClass = classModel
     }
 

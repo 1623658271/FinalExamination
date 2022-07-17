@@ -1,32 +1,25 @@
 package com.example.openeyes.fragment
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.adapter.DiscoverClassRVAdapter
-import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.LayoutDiscoveryClassFragmentBinding
 import com.example.openeyes.model.ClassModel
-import com.example.openeyes.model.FindMoreClassBean
-import com.example.openeyes.respository.MyRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.net.URLDecoder
-import kotlin.math.log
+import com.example.openeyes.viewmodel.MyViewModel
+
 
 /**
  * description ： TODO:类的作用
@@ -39,6 +32,7 @@ class DiscoverClassFragment:Fragment() {
     private lateinit var binding:LayoutDiscoveryClassFragmentBinding
     private lateinit var list:MutableList<ClassModel>
     private lateinit var adapter:DiscoverClassRVAdapter
+    private lateinit var viewModel:MyViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,24 +44,18 @@ class DiscoverClassFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(
+            this,
+            AndroidViewModelFactory(MyApplication.application!!)
+        )[MyViewModel::class.java]
         binding.rvDiscover.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         list = ArrayList()
         adapter = DiscoverClassRVAdapter(list)
         binding.rvDiscover.adapter = adapter
         binding.srDiscover.setOnRefreshListener {
-            updateMessage(false)
+            viewModel.updateFindMoreViewModel()
             binding.srDiscover.isRefreshing = false
         }
-        binding.rvDiscover.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition = LinearLayoutManager(MyApplication.context).findLastVisibleItemPosition()
-                val count = adapter.itemCount
-                if (lastVisibleItemPosition + 1 == count ) {
-                    updateMessage(true)
-                }
-            }
-        })
         adapter.setOnItemClickListener(object:DiscoverClassRVAdapter.OnItemClickListener{
             override fun onItemClick(
                 view: View?,
@@ -76,7 +64,6 @@ class DiscoverClassFragment:Fragment() {
                 classlist: MutableList<ClassModel>
             ) {
                 //MyApplication.context?.let { openDeeplink(it,classlist[position].actionUrl) }
-
             }
 
 
@@ -89,7 +76,7 @@ class DiscoverClassFragment:Fragment() {
             }
 
         })
-        updateMessage(false)
+        updateMessage()
     }
 
 //    //额,好像没什么用，必须要安装了应用才行
@@ -119,44 +106,27 @@ class DiscoverClassFragment:Fragment() {
 //
 //    }
 
-    fun updateMessage(flag:Boolean){
-        Thread {
-            MyRepository(URL.FindMoreClassUrl)
-                .getService()
-                .getFindMoreClassMsg()
-                .enqueue(object : Callback<FindMoreClassBean> {
-                    override fun onResponse(
-                        call: Call<FindMoreClassBean>,
-                        response: Response<FindMoreClassBean>
-                    ) {
-                        Log.d(TAG, "onResponse: "+response.body())
-                        var modellist = response?.body()!!.itemList
-                        if(!flag) {
-                            list.clear()
-                        }
-                        for (m in modellist) {
-                            if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
-                                Log.d(TAG, "onResponse:2 "+m.data)
-                                list.add(
-                                    ClassModel(
-                                        m.data.id,
-                                        m.data.icon,
-                                        m.data.title,
-                                        m.data.description,
-                                        m.data.actionUrl,
-                                        m.data.follow.itemId
-                                    )
-                                )
-                            }
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-
-                    override fun onFailure(call: Call<FindMoreClassBean>, t: Throwable) {
-                        Log.d(TAG, "onFailure: ")
-                    }
-
-                })
-        }.start()
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateMessage() {
+        viewModel.getFindMoreLiveData().observe(viewLifecycleOwner, Observer {
+            val dataList = it.itemList
+            list.clear()
+            for (m in dataList) {
+                if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
+                    list.add(
+                        ClassModel(
+                            m.data.id,
+                            m.data.icon,
+                            m.data.title,
+                            m.data.description,
+                            m.data.actionUrl,
+                            m.data.follow.itemId
+                        )
+                    )
+                }
+            }
+            adapter.notifyDataSetChanged()
+        })
+        viewModel.updateFindMoreViewModel()
     }
 }

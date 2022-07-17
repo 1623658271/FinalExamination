@@ -1,5 +1,6 @@
 package com.example.openeyes.api
 
+import com.example.openeyes.model.DailyHandpickBean
 import com.example.openeyes.model.FindMoreBean
 import com.example.openeyes.model.FindMoreClassBean
 import io.reactivex.rxjava3.core.Observable
@@ -16,9 +17,13 @@ import retrofit2.http.GET
 interface ApiService {
     //获取所有发现更多的信息
     @GET("discovery")
-    fun getFindMoreMsg():Call<FindMoreBean>
+    fun getFindMoreMsg():Observable<FindMoreBean>
 
     //获取发现更多的分类部分
     @GET("list")
-    fun getFindMoreClassMsg():Call<FindMoreClassBean>
+    fun getFindMoreClassMsg():Observable<FindMoreClassBean>
+
+    //获取日报精选
+    @GET("feed")
+    fun getDailyHandpickMsg():Observable<DailyHandpickBean>
 }

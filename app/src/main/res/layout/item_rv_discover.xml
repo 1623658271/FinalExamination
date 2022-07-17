@@ -7,37 +7,35 @@
             type="com.example.openeyes.model.ClassModel" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_discover"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            android:layout_margin="5dp"
             android:layout_gravity="center">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:gravity="center">
                 <ImageView
+                    android:scaleType="fitXY"
                     android:id="@+id/item_image_discover"
-                    android:layout_width="wrap_content"
-                    app:itemImage="@{findClass.icon}"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    app:ImageView="@{findClass.icon}"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:id="@+id/item_title_discover"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    android:textColor="@color/white"
                     android:text="@{findClass.title}"
                     android:gravity="center"/>
-            </LinearLayout>
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
 </layout>

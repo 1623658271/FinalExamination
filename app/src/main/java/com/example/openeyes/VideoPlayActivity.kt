@@ -41,12 +41,14 @@ class VideoPlayActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: $description")
         }else{
             Toast.makeText(this,"读取视频信息出错！",Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
     private fun videoPlay() {
         binding.jcVideo.setUp(playUrl,SCREEN_LAYOUT_NORMAL)
         binding.jcVideo.backButton.setOnClickListener { finish() }
+        binding.jcVideo
         binding.jcVideo.startVideo()
         Glide.with(this).load(coverUrl).into(binding.jcVideo.thumbImageView)
     }

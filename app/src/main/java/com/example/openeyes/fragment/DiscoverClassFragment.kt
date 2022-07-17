@@ -42,6 +42,7 @@ class DiscoverClassFragment:Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(
@@ -76,7 +77,25 @@ class DiscoverClassFragment:Fragment() {
             }
 
         })
-        updateMessage()
+        viewModel.getFindMoreLiveData().observe(viewLifecycleOwner, Observer {
+            val dataList = it.itemList
+            list.clear()
+            for (m in dataList) {
+                if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
+                    list.add(
+                        ClassModel(
+                            m.data.id,
+                            m.data.icon,
+                            m.data.title,
+                            m.data.description,
+                            m.data.actionUrl,
+                            m.data.follow.itemId
+                        )
+                    )
+                }
+            }
+            adapter.notifyDataSetChanged()
+        })
     }
 
 //    //额,好像没什么用，必须要安装了应用才行
@@ -105,28 +124,8 @@ class DiscoverClassFragment:Fragment() {
 //        }
 //
 //    }
-
-    @SuppressLint("NotifyDataSetChanged")
+    
     fun updateMessage() {
-        viewModel.getFindMoreLiveData().observe(viewLifecycleOwner, Observer {
-            val dataList = it.itemList
-            list.clear()
-            for (m in dataList) {
-                if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
-                    list.add(
-                        ClassModel(
-                            m.data.id,
-                            m.data.icon,
-                            m.data.title,
-                            m.data.description,
-                            m.data.actionUrl,
-                            m.data.follow.itemId
-                        )
-                    )
-                }
-            }
-            adapter.notifyDataSetChanged()
-        })
         viewModel.updateFindMoreViewModel()
     }
 }

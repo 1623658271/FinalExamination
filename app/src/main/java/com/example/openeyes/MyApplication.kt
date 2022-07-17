@@ -2,6 +2,7 @@ package com.example.openeyes
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 
 
 /**
@@ -27,4 +28,5 @@ class MyApplication : Application() {
         val application:Application?
             get() = mApplication
     }
+
 }

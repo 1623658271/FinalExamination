@@ -1,5 +1,6 @@
 package com.example.openeyes.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -44,6 +45,7 @@ class HomepageFragment:Fragment() {
         return bing.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         beanList = ArrayList()
@@ -55,10 +57,33 @@ class HomepageFragment:Fragment() {
         bing.rvHomepage.adapter = adapter
         bing.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
         bing.srHomepage.setOnRefreshListener {
-            viewModel.updateDailyHandpickViewModel()
+            updateMessage()
             bing.srHomepage.isRefreshing = false
         }
-        updateMessage()
+        viewModel.getDailyHandpickLiveData().observe(viewLifecycleOwner, Observer {
+            val dataList = it.itemList
+            beanList.clear()
+            for (m in dataList) {
+                if(m.data!=null) {
+                    if (true) {
+                        if (m.type == "followCard") {
+                            beanList.add(
+                                VideoBean(
+                                    m.data.content.data.id,
+                                    m.data.content.data.title,
+                                    m.data.header.title,
+                                    m.data.content.data.cover.feed,
+                                    m.data.content.data.playUrl,
+                                    m.data.content.data.description,
+                                    PersonalModel(m.data.content.data.author.icon,"http://img.kaiyanapp.com/f9a3fddd3f0941404f4b1d30235c2952.png?imageMogr2/quality/60/format/jpg",m.data.content.data.author.description,m.data.content.data.author.name)
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            adapter.notifyDataSetChanged()
+        })
         adapter.setClickListener(object :HomePageRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(
                 view: View,
@@ -91,30 +116,6 @@ class HomepageFragment:Fragment() {
     }
 
     fun updateMessage(){
-        viewModel.getDailyHandpickLiveData().observe(viewLifecycleOwner, Observer {
-            val dataList = it.itemList
-            beanList.clear()
-            for (m in dataList) {
-                if(m.data!=null) {
-                    if (true) {
-                        if (m.type == "followCard") {
-                            beanList.add(
-                                VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.title,
-                                    m.data.header.title,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl,
-                                    m.data.content.data.description,
-                                    PersonalModel(m.data.content.data.author.icon,"http://img.kaiyanapp.com/f9a3fddd3f0941404f4b1d30235c2952.png?imageMogr2/quality/60/format/jpg",m.data.content.data.author.description,m.data.content.data.author.name)
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-            adapter.notifyDataSetChanged()
-        })
         viewModel.updateDailyHandpickViewModel()
     }
 

@@ -15,7 +15,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlin.math.log
 
 /**
  * description ： TODO:类的作用
@@ -66,7 +65,7 @@ class MyViewModel: ViewModel() {
     fun updateRelatedViewModel(id:Int){
         MyRepository(URL.RelatedUrl)
             .getService()
-            .getRelatedMsg(id)
+            .getRelatedVideoMsg(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object :Observer<RelatedRecommendationModel>{

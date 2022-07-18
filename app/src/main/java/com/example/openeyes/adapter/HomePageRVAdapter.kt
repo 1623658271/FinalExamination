@@ -28,7 +28,7 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
     //脚布局
     private val TYPE_FOOTER = 2
     //当前加载状态，默认为加载完成
-    private val loadState = 0
+    private var loadState = 0
     // 正在加载
     val LOADING = 1
     // 加载完成
@@ -88,9 +88,9 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
             }
         }
     }
-
-    interface LoadCallbackListener{
-        fun loadMoreMsg()
+    fun setLoadState(loadState:Int){
+        this.loadState = loadState
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {

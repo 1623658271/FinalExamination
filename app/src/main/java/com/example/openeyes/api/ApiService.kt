@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Observable
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -36,5 +37,9 @@ interface ApiService {
 
     //相关视频推荐
     @GET("related")
-    fun getRelatedMsg(@Query("id")id:Int):Observable<RelatedRecommendationModel>
+    fun getRelatedVideoMsg(@Query("id")id:Int):Observable<RelatedRecommendationModel>
+
+    //加载日报下一个page
+    @GET(".")
+    fun getMoreHomepageMsg(@Query("date")date:Long,@Query("num")num:Int):Observable<HomepageMoreBean>
 }

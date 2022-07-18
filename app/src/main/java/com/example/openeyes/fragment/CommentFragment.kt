@@ -54,7 +54,7 @@ class CommentFragment(val videoId: Int,val application: Application):Fragment() 
                     if (m.type == "reply" && m.data.user != null) {
                         list.add(
                             CommentBean(
-                                m.data.message, m.data.likeCount, PersonalModel(
+                                m.data.message?:"", m.data.likeCount?:0, PersonalModel(
                                     m.data.user.uid, m.data.user.avatar,
                                     DefaultUtil.defaultCoverUrl,
                                     "", m.data.user.nickname
@@ -75,6 +75,11 @@ class CommentFragment(val videoId: Int,val application: Application):Fragment() 
                 commentList.addAll(list)
                 adapter.notifyDataSetChanged()
             }
+        }
+        binding.refreshComment.setOnRefreshListener {
+            commentList.clear()
+            viewModel.updateCommentsViewModel(videoId)
+            binding.refreshComment.isRefreshing = false
         }
         commentList = ArrayList()
         adapter = CommentsRVAdapter(commentList)

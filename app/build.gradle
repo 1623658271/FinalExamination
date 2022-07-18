@@ -25,7 +25,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -69,5 +69,7 @@ dependencies {
     implementation 'fm.jiecao:jiecaovideoplayer:5.5.2'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    implementation 'androidx.paging:paging-runtime:2.1.2'
 
 }

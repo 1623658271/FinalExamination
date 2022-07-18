@@ -17,10 +17,15 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:text="评论："/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>

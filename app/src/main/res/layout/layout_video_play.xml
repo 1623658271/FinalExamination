@@ -30,9 +30,15 @@
             app:tabIndicatorFullWidth="false"
             android:scrollbarSize="10dp"
             android:background="@color/black"/>
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#666666"/>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp2_video"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>

@@ -1,9 +1,6 @@
 package com.example.openeyes.api
 
-import com.example.openeyes.model.CommentModel
-import com.example.openeyes.model.DailyHandpickBean
-import com.example.openeyes.model.FindMoreBean
-import com.example.openeyes.model.FindMoreClassBean
+import com.example.openeyes.model.*
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -32,4 +29,12 @@ interface ApiService {
     //获取视频的评论信息
     @GET("video")
     fun getVideoComments(@Query("videoId")id:Int):Observable<CommentModel>
+
+    //搜索相关
+    @GET("search")
+    fun getSearchMsg(@Query("query")query:String):Observable<SearchModel>
+
+    //相关视频推荐
+    @GET("related")
+    fun getRelatedMsg(@Query("id")id:Int):Observable<RelatedRecommendationModel>
 }

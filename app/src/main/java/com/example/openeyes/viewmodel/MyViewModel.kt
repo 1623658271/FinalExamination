@@ -9,6 +9,7 @@ import com.example.openeyes.api.URL
 import com.example.openeyes.model.CommentModel
 import com.example.openeyes.model.DailyHandpickBean
 import com.example.openeyes.model.FindMoreClassBean
+import com.example.openeyes.model.RelatedRecommendationModel
 import com.example.openeyes.respository.MyRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
@@ -27,6 +28,7 @@ class MyViewModel: ViewModel() {
     private var findMoreClassBeanLiveData: MutableLiveData<FindMoreClassBean>? = null
     private var dailyHandpickBeanLiveData: MutableLiveData<DailyHandpickBean>? = null
     private var commentsLiveData:MutableLiveData<CommentModel>? = null
+    private var relatedLiveData:MutableLiveData<RelatedRecommendationModel>? = null
     private val TAG = "lfy"
 
     fun getFindMoreLiveData(): MutableLiveData<FindMoreClassBean> {
@@ -49,12 +51,45 @@ class MyViewModel: ViewModel() {
         if(commentsLiveData == null){
             commentsLiveData = MutableLiveData()
             updateCommentsViewModel(id)
-            Log.d(TAG, "getCommentsLiveData: $commentsLiveData")
         }
         return commentsLiveData!!
     }
 
-    private fun updateCommentsViewModel(id:Int) {
+    fun getRelatedLiveData(id:Int): MutableLiveData<RelatedRecommendationModel> {
+        if(relatedLiveData == null){
+            relatedLiveData = MutableLiveData()
+            updateRelatedViewModel(id)
+        }
+        return relatedLiveData!!
+    }
+
+    fun updateRelatedViewModel(id:Int){
+        MyRepository(URL.RelatedUrl)
+            .getService()
+            .getRelatedMsg(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<RelatedRecommendationModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: RelatedRecommendationModel) {
+                    relatedLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
+    }
+
+    fun updateCommentsViewModel(id:Int) {
         MyRepository(URL.CommentsUrl)
             .getService()
             .getVideoComments(id)
@@ -71,7 +106,7 @@ class MyViewModel: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                    showNetworkError()
                 }
 
                 override fun onComplete() {
@@ -98,8 +133,7 @@ class MyViewModel: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "onError: $e")
+                    showNetworkError()
                 }
 
                 override fun onComplete() {
@@ -124,7 +158,7 @@ class MyViewModel: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                    showNetworkError()
                 }
 
                 override fun onComplete() {
@@ -132,5 +166,8 @@ class MyViewModel: ViewModel() {
                 }
 
             })
+    }
+    fun showNetworkError(){
+        Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
     }
 }

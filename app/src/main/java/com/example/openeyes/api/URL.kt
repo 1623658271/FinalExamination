@@ -16,4 +16,8 @@ object URL {
     val DailyHandpickUrl = "http://baobab.kaiyanapp.com/api/v5/index/tab/"
     //视频的评论
     val CommentsUrl = "http://baobab.kaiyanapp.com/api/v2/replies/"
+    //搜索
+    val SearchUrl = "http://baobab.kaiyanapp.com/api/v3/"
+    //相关视频推荐
+    val RelatedUrl = "http://baobab.kaiyanapp.com/api/v4/video/"
 }

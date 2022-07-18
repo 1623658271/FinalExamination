@@ -22,7 +22,7 @@ import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
 
 /**
- * description ： TODO:类的作用
+ * description ： 评论Fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/17 21:05

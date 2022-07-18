@@ -1,7 +1,7 @@
 package com.example.openeyes.model
 
 /**
- * description ： TODO:类的作用
+ * description ： 评论格式的Bean数据类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/18 09:36

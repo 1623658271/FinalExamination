@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
- * description ： TODO:类的作用
+ * description ：vp2的适配器
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 10:21

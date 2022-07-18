@@ -1,7 +1,7 @@
 package com.example.openeyes.model
 
 /**
- * description ： TODO:类的作用
+ * description ： 个人信息数据类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/17 10:08

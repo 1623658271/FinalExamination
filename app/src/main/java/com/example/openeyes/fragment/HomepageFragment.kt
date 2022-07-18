@@ -31,7 +31,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
- * description ： TODO:类的作用
+ * description ： 首页的Fragement
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 08:49
@@ -52,6 +52,9 @@ class HomepageFragment:Fragment() {
         return bing.root
     }
 
+    /**
+     * view创建后进行了一系列的操作(绑定RV，获取viewmodel，设置监听等)
+     */
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +67,7 @@ class HomepageFragment:Fragment() {
         bing.rvHomepage.adapter = adapter
         bing.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
         bing.srHomepage.setOnRefreshListener {
-            updateMessage()
+            viewModel.updateDailyHandpickViewModel()
             bing.srHomepage.isRefreshing = false
         }
         viewModel.getDailyHandpickLiveData().observe(viewLifecycleOwner, Observer {
@@ -72,20 +75,24 @@ class HomepageFragment:Fragment() {
             beanList.clear()
             for (m in dataList) {
                 if(m.data!=null) {
-                    if (true) {
-                        if (m.type == "followCard") {
-                            beanList.add(
-                                VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.title,
-                                    m.data.header.title,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl,
-                                    m.data.content.data.description,
-                                    PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name)
+                    if (m.type == "followCard") {
+                        beanList.add(
+                            VideoBean(
+                                m.data.content.data.id,
+                                m.data.content.data.title,
+                                m.data.header.title,
+                                m.data.content.data.cover.feed,
+                                m.data.content.data.playUrl,
+                                m.data.content.data.description,
+                                PersonalModel(
+                                    m.data.content.data.author.id,
+                                    m.data.content.data.author.icon,
+                                    DefaultUtil.defaultCoverUrl,
+                                    m.data.content.data.author.description,
+                                    m.data.content.data.author.name
                                 )
                             )
-                        }
+                        )
                     }
                 }
             }
@@ -133,10 +140,9 @@ class HomepageFragment:Fragment() {
         setRecyclerOnScrollListener()
     }
 
-    fun updateMessage(){
-        viewModel.updateDailyHandpickViewModel()
-    }
-
+    /**
+     * 设置滑动监听，以检查上滑状态更新数据
+     */
     fun setRecyclerOnScrollListener(){
         var isUp:Boolean = false
         bing.rvHomepage.addOnScrollListener(object :RecyclerView.OnScrollListener(){
@@ -162,6 +168,9 @@ class HomepageFragment:Fragment() {
         })
     }
 
+    /**
+     * 加载首页更多的视频精选
+     */
     fun loadingMore(){
         adapter.setLoadState(adapter.LOADING)
         val url = nextUrl.split('?').last().split('&')

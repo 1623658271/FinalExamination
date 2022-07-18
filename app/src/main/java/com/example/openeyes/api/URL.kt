@@ -2,7 +2,7 @@ package com.example.openeyes.api
 
 
 /**
- * description ： TODO:类的作用
+ * description ： 存放各种url
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 14:30

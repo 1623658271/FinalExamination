@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
- * description ： TODO:类的作用
+ * description ： ViewModel类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 14:29

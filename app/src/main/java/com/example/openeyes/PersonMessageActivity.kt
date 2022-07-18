@@ -7,7 +7,12 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
 import com.example.openeyes.model.PersonalModel
-
+/**
+ * description ： 展示个人信息的fragment
+ * author : lfy
+ * email : 1623658271@qq.com
+ * date : 2022/7/14 15:27
+ */
 class PersonMessageActivity : AppCompatActivity() {
     private lateinit var binding:LayoutPersonMessageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +27,10 @@ class PersonMessageActivity : AppCompatActivity() {
             binding.person = PersonalModel(0,avatar, cover, description, nickname)
         }
     }
+
+    /**
+     * 友好的进入方式
+     */
     companion object{
         fun startPersonMessageActivity(context: Context,messages:ArrayList<String>){
             val intent = Intent(context,PersonMessageActivity::class.java)

@@ -11,7 +11,7 @@ import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
 import com.example.openeyes.model.VideoBean
 
 /**
- * description ： TODO:类的作用
+ * description ： 视频详情Fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/17 21:05

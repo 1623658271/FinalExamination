@@ -22,7 +22,7 @@ import com.example.openeyes.viewmodel.MyViewModel
 
 
 /**
- * description ： TODO:类的作用
+ * description ： 发现页的分类Fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 21:52
@@ -64,9 +64,8 @@ class DiscoverClassFragment:Fragment() {
                 position: Int,
                 classlist: MutableList<ClassModel>
             ) {
-                //MyApplication.context?.let { openDeeplink(it,classlist[position].actionUrl) }
-            }
 
+            }
 
             override fun onItemLongClick(
                 view: View?,
@@ -96,9 +95,5 @@ class DiscoverClassFragment:Fragment() {
             }
             adapter.notifyDataSetChanged()
         })
-    }
-    
-    fun updateMessage() {
-        viewModel.updateFindMoreViewModel()
     }
 }

@@ -13,7 +13,7 @@ import com.example.openeyes.R
 import com.example.openeyes.adapter.FragmentPagerAdapter
 
 /**
- * description ： TODO:类的作用
+ * description ： 首页的首Fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/14 22:20

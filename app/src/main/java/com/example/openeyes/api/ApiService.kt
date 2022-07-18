@@ -9,7 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * description ： TODO:类的作用
+ * description ： Retrofit网络请求的必要接口
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 08:46

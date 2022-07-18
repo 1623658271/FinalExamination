@@ -5,7 +5,7 @@ import com.example.openeyes.api.RetrofitClient
 import com.example.openeyes.api.URL
 
 /**
- * description ： TODO:类的作用
+ * description ： 仓库类，根据传入的url生成一个apiService
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 14:43

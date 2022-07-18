@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
- * description ： TODO:类的作用
+ * description ： 自定义DataBindingAdapter，主要是图片的显示
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 11:49

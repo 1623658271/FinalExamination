@@ -14,7 +14,7 @@ import com.example.openeyes.model.ClassModel
 
 
 /**
- * description ： TODO:类的作用
+ * description ： 发现页的RV适配器，传入ClassModel以加载数据
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 13:03

@@ -6,7 +6,7 @@ import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
 /**
- * description ： TODO:类的作用
+ * description ： 第一个活动，包含首页、发现、我的三个子fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/14 22:03

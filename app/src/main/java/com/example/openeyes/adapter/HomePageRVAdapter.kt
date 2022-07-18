@@ -15,14 +15,13 @@ import com.example.openeyes.model.VideoBean
 
 
 /**
- * description ： TODO:类的作用
+ * description ： 首页RV的适配器，传入VideoBean以加载数据
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/16 19:43
  */
 class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),LifecycleObserver {
-    private val context: Context? = MyApplication.context
     //普通布局
     private val TYPE_ITEM = 1
     //脚布局
@@ -43,7 +42,7 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
         val binding = itemView
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
+        //对view类型进行判断，然后做相应处理
         if(viewType==TYPE_ITEM) {
             val binding: ItemHomepageVideoBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -88,6 +87,10 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
             }
         }
     }
+
+    /**
+     * 设置加载状态，以显示或隐藏脚布局
+     */
     fun setLoadState(loadState:Int){
         this.loadState = loadState
         notifyDataSetChanged()
@@ -102,12 +105,19 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>):
     }
 
     private lateinit var clickListener:OnSomethingClickedListener
+
+    /**
+     * 点击监听的接口，头像点击和视频图片点击
+     */
     interface OnSomethingClickedListener{
         fun onVideoImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
 
         fun onAvatarImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
     }
 
+    /**
+     * 设置点击监听
+     */
     fun setClickListener(clickListener:OnSomethingClickedListener){
         this.clickListener = clickListener
     }

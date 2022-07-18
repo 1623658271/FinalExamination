@@ -10,7 +10,7 @@ import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.model.CommentBean
 
 /**
- * description ： TODO:类的作用
+ * description ： 评论RV的适配器，传入一个CommentBean以加载评论
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/18 09:18

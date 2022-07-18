@@ -3,7 +3,7 @@ package com.example.openeyes.utils
 import java.net.URLDecoder
 
 /**
- * description ： TODO:类的作用
+ * description ： url解码工具类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/18 13:24

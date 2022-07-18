@@ -18,6 +18,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
 
+/**
+ * description ： 点击视频播放后进入的活动
+ * author : lfy
+ * email : 1623658271@qq.com
+ * date : 2022/7/14 15:27
+ */
 class VideoPlayActivity : AppCompatActivity() {
     private lateinit var binding:LayoutVideoPlayBinding
     private var id:Int=0
@@ -60,6 +66,9 @@ class VideoPlayActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 播放视频
+     */
     private fun videoPlay() {
         binding.jcVideo.setUp(playUrl,SCREEN_LAYOUT_NORMAL)
         binding.jcVideo.backButton.setOnClickListener { finish() }
@@ -67,6 +76,9 @@ class VideoPlayActivity : AppCompatActivity() {
         Glide.with(this).load(coverUrl).into(binding.jcVideo.thumbImageView)
     }
 
+    /**
+     * 友好的进入方式
+     */
     companion object{
         fun startVideoPlayActivity(context: Context,videoMessages:ArrayList<String>,id:Int){
             val intent = Intent(context,VideoPlayActivity::class.java)

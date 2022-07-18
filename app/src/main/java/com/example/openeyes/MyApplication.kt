@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 
 
 /**
-* description ： TODO:类的作用
+* description ： 全局获取context和application
 * author : lfy
 * email : 1623658271@qq.com
 * date : 2022/7/15 15:27

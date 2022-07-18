@@ -1,7 +1,7 @@
 package com.example.openeyes.model
 
 /**
- * description ： TODO:类的作用
+ * description ： 根据每日精选接收的json生成的数据类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/16 16:24

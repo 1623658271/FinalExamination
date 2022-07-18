@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 /**
- * description ： TODO:类的作用
+ * description ： 发现页的首Fragment
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 08:50

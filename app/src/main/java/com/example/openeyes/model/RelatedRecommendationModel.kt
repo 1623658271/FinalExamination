@@ -1,7 +1,7 @@
 package com.example.openeyes.model
 
 /**
- * description ： TODO:类的作用
+ * description ：根据相关视频推荐返回的json的数据类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/18 15:03

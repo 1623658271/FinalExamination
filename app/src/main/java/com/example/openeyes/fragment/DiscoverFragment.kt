@@ -43,7 +43,7 @@ class DiscoverFragment:Fragment() {
         binding.discoverViewpager2.adapter = adapter
         TabLayoutMediator(
             binding.tlFindmore, binding.discoverViewpager2
-        ) { tab, position -> tab.setText(data.get(position)) }.attach()
+        ) { tab, position -> tab.text = data[position] }.attach()
         binding.discoverViewpager2.offscreenPageLimit = 2
     }
 }

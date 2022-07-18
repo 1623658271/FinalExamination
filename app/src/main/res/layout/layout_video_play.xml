@@ -9,16 +9,30 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/black">
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
             android:id="@+id/jc_video"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center" />
-        <TableLayout
+            android:layout_gravity="center"
+            android:background="@color/black"/>
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_video"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="left"
+            app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="false"
+            android:scrollbarSize="10dp"
+            android:background="@color/black"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp2_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </layout>

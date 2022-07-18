@@ -1,9 +1,7 @@
 package com.example.openeyes.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
+import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
-import com.example.openeyes.model.ClassModel
 import com.example.openeyes.model.PersonalModel
 import com.example.openeyes.model.VideoBean
+import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
 
 /**
@@ -75,7 +74,7 @@ class HomepageFragment:Fragment() {
                                     m.data.content.data.cover.feed,
                                     m.data.content.data.playUrl,
                                     m.data.content.data.description,
-                                    PersonalModel(m.data.content.data.author.icon,"http://img.kaiyanapp.com/f9a3fddd3f0941404f4b1d30235c2952.png?imageMogr2/quality/60/format/jpg",m.data.content.data.author.description,m.data.content.data.author.name)
+                                    PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name)
                                 )
                             )
                         }
@@ -92,11 +91,13 @@ class HomepageFragment:Fragment() {
                 videoBeanList: MutableList<VideoBean>
             ) {
                 val videoMessages = ArrayList<String>()
-                videoMessages.add(videoBeanList[position].playUrl)
-                videoMessages.add(videoBeanList[position].coverUrl)
-                videoMessages.add(videoBeanList[position].bigTitle)
-                videoMessages.add(videoBeanList[position].smallTitle)
-                videoMessages.add(videoBeanList[position].description)
+                videoMessages.apply {
+                    add(videoBeanList[position].playUrl)
+                    add(videoBeanList[position].coverUrl)
+                    add(videoBeanList[position].bigTitle)
+                    add(videoBeanList[position].smallTitle)
+                    add(videoBeanList[position].description)
+                }
                 val id = videoBeanList[position].id
                 Log.d(TAG, "onVideoImageClickedListener: $videoMessages")
                 VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,videoMessages,id)
@@ -108,7 +109,14 @@ class HomepageFragment:Fragment() {
                 position: Int,
                 videoBeanList: MutableList<VideoBean>
             ) {
-
+                var messages = ArrayList<String>()
+                messages.apply {
+                    add(videoBeanList[position].personalModel!!.avatar)
+                    add(videoBeanList[position].personalModel!!.cover)
+                    add(videoBeanList[position].personalModel!!.description)
+                    add(videoBeanList[position].personalModel!!.nickname)
+                }
+                PersonMessageActivity.startPersonMessageActivity(MyApplication.context!!,messages)
             }
 
         })

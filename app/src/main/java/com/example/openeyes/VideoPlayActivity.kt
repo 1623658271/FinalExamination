@@ -2,18 +2,21 @@ package com.example.openeyes
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
-import com.example.openeyes.model.CommentModel
+import com.example.openeyes.fragment.CommentFragment
+import com.example.openeyes.fragment.DetailsFragment
+import com.example.openeyes.model.VideoBean
+import com.google.android.material.tabs.TabLayoutMediator
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
-import kotlinx.android.synthetic.main.layout_video_play.*
-import kotlinx.android.synthetic.main.layout_video_play.view.*
 
 class VideoPlayActivity : AppCompatActivity() {
     private lateinit var binding:LayoutVideoPlayBinding
@@ -23,12 +26,11 @@ class VideoPlayActivity : AppCompatActivity() {
     private lateinit var bigTitle:String
     private lateinit var smallTitle:String
     private lateinit var description:String
+    private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private val TAG = "lfy"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
-
         if(intent!=null) {
             val videoMessages = intent.getStringArrayListExtra("video")
             id = intent.getIntExtra("id", 0)
@@ -39,6 +41,19 @@ class VideoPlayActivity : AppCompatActivity() {
             description = videoMessages?.get(4)?:""
             videoPlay()
             Log.d(TAG, "onCreate: $description")
+            var data:MutableList<String> = ArrayList()
+            data.apply {
+                add("详情")
+                add("评论")
+            }
+            fragmentPagerAdapter = FragmentPagerAdapter(this)
+            fragmentPagerAdapter.addFragment(DetailsFragment(VideoBean(id,bigTitle,smallTitle,coverUrl,playUrl,description,null)))
+            fragmentPagerAdapter.addFragment(CommentFragment(id,application))
+            binding.vp2Video.adapter = fragmentPagerAdapter
+            binding.vp2Video.offscreenPageLimit = 2
+            TabLayoutMediator(binding.tlVideo,binding.vp2Video){
+                tab,position->tab.text = data[position]
+            }.attach()
         }else{
             Toast.makeText(this,"读取视频信息出错！",Toast.LENGTH_SHORT).show()
             finish()
@@ -48,7 +63,6 @@ class VideoPlayActivity : AppCompatActivity() {
     private fun videoPlay() {
         binding.jcVideo.setUp(playUrl,SCREEN_LAYOUT_NORMAL)
         binding.jcVideo.backButton.setOnClickListener { finish() }
-        binding.jcVideo
         binding.jcVideo.startVideo()
         Glide.with(this).load(coverUrl).into(binding.jcVideo.thumbImageView)
     }
@@ -63,9 +77,13 @@ class VideoPlayActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.jcVideo.startVideo()
+    }
     override fun onPause() {
         super.onPause()
-        JCVideoPlayer.releaseAllVideos()
+        binding.jcVideo.release()
     }
 
     override fun onBackPressed() {
@@ -73,11 +91,6 @@ class VideoPlayActivity : AppCompatActivity() {
             return;
         }
         super.onBackPressed()
-    }
-
-    override fun finish() {
-        super.finish()
-        JCVideoPlayer.releaseAllVideos()
     }
 
     override fun onDestroy() {

@@ -7,6 +7,7 @@ package com.example.openeyes.model
  * date : 2022/7/17 10:08
  */
 data class PersonalModel(
+    val uid:Int,
     val avatar: String,
     val cover: String,
     val description: String,

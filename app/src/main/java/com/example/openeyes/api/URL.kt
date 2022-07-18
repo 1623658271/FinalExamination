@@ -14,6 +14,6 @@ object URL {
     val FindMoreClassUrl = "http://baobab.kaiyanapp.com/api/v5/category/"
     //日报精选
     val DailyHandpickUrl = "http://baobab.kaiyanapp.com/api/v5/index/tab/"
-    //评论
+    //视频的评论
     val CommentsUrl = "http://baobab.kaiyanapp.com/api/v2/replies/"
 }

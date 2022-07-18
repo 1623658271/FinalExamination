@@ -15,6 +15,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/text_select_color.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout-sw600dp/layout_person_message.xml" value="0.10689890710382513" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/content_main.xml" value="0.14175724637681159" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_comment.xml" value="0.335" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_homepage_video.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_rv_discover.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_video_play.xml" value="0.21666666666666667" />
@@ -28,6 +29,8 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_mine_fragment.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_person_message.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_square_fragment.xml" value="0.215625" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_comment_fragment.xml" value="0.14175724637681159" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_details_fragment.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_play.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_watch.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.113" />

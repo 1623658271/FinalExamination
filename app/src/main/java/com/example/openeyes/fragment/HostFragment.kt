@@ -9,7 +9,6 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import butterknife.ButterKnife
 import com.example.openeyes.R
 import com.example.openeyes.adapter.FragmentPagerAdapter
 
@@ -38,7 +37,6 @@ class HostFragment: Fragment(), RadioGroup.OnCheckedChangeListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ButterKnife.bind(v)
         initView()
     }
 
@@ -54,7 +52,7 @@ class HostFragment: Fragment(), RadioGroup.OnCheckedChangeListener{
         pagerAdapter.addFragment(fragmentMine)
         viewPager2.adapter = pagerAdapter
         viewPager2.currentItem = 0
-        viewPager2.offscreenPageLimit = 3
+        viewPager2.offscreenPageLimit = 1
         radioGroup.setOnCheckedChangeListener(this)
         //页面与RadioButton按钮联动
         viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {

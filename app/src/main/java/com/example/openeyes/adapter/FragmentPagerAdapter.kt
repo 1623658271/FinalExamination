@@ -1,6 +1,7 @@
 package com.example.openeyes.adapter
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
@@ -10,8 +11,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * date : 2022/7/15 10:21
  */
 
-class FragmentPagerAdapter(fragmentActivity: Fragment) : FragmentStateAdapter(fragmentActivity) {
+class FragmentPagerAdapter: FragmentStateAdapter {
     private var fragments:MutableList<Fragment> = ArrayList()
+
+    constructor(fragment: Fragment) : super(fragment)
+    constructor(fragmentActivity: FragmentActivity):super(fragmentActivity)
 
     override fun getItemCount(): Int = fragments.size
 

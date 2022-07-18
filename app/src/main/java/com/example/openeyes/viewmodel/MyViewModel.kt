@@ -49,6 +49,7 @@ class MyViewModel: ViewModel() {
         if(commentsLiveData == null){
             commentsLiveData = MutableLiveData()
             updateCommentsViewModel(id)
+            Log.d(TAG, "getCommentsLiveData: $commentsLiveData")
         }
         return commentsLiveData!!
     }
@@ -66,6 +67,7 @@ class MyViewModel: ViewModel() {
 
                 override fun onNext(t: CommentModel) {
                     commentsLiveData!!.value = t
+                    Log.d(TAG, "onNext: ${t.count}")
                 }
 
                 override fun onError(e: Throwable) {
@@ -97,6 +99,7 @@ class MyViewModel: ViewModel() {
 
                 override fun onError(e: Throwable) {
                     Toast.makeText(MyApplication.context,"请检查你的网络！",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "onError: $e")
                 }
 
                 override fun onComplete() {

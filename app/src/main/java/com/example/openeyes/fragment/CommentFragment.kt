@@ -18,8 +18,10 @@ import com.example.openeyes.adapter.CommentsRVAdapter
 import com.example.openeyes.databinding.LayoutVideoCommentFragmentBinding
 import com.example.openeyes.model.CommentBean
 import com.example.openeyes.model.PersonalModel
+import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
+import kotlinx.android.synthetic.*
 
 /**
  * description ： 评论Fragment
@@ -27,11 +29,11 @@ import com.example.openeyes.viewmodel.MyViewModel
  * email : 1623658271@qq.com
  * date : 2022/7/17 21:05
  */
-class CommentFragment(val videoId: Int,val application: Application):Fragment() {
+class CommentFragment(val videoBean: VideoBean,val application: Application):Fragment() {
     private lateinit var binding:LayoutVideoCommentFragmentBinding
     private lateinit var viewModel: MyViewModel
     private lateinit var adapter:CommentsRVAdapter
-    private lateinit var commentList:MutableList<CommentBean>
+    private var commentList:MutableList<CommentBean>? = null
     private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +47,7 @@ class CommentFragment(val videoId: Int,val application: Application):Fragment() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
-        viewModel.getCommentsLiveData(videoId).observe(viewLifecycleOwner) {
+        viewModel.getCommentsLiveData(videoBean.id).observe(viewLifecycleOwner) {
             val commentModel = it
             var list:MutableList<CommentBean> = ArrayList()
             if (commentModel?.itemList != null) {
@@ -72,18 +74,24 @@ class CommentFragment(val videoId: Int,val application: Application):Fragment() 
                         }
                     }
                 }
-                commentList.addAll(list)
+                commentList!!.addAll(list)
                 adapter.notifyDataSetChanged()
             }
         }
         binding.refreshComment.setOnRefreshListener {
-            commentList.clear()
-            viewModel.updateCommentsViewModel(videoId)
+            commentList!!.clear()
+            viewModel.updateCommentsViewModel(videoBean.id)
             binding.refreshComment.isRefreshing = false
         }
         commentList = ArrayList()
-        adapter = CommentsRVAdapter(commentList)
+        adapter = CommentsRVAdapter(commentList!!)
         binding.rvContent.adapter = adapter
         binding.rvContent.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
+    }
+
+    override fun onDestroy() {
+        commentList?.clear()
+        clearFindViewByIdCache()
+        super.onDestroy()
     }
 }

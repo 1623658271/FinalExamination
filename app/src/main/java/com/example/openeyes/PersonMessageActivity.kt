@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
 import com.example.openeyes.model.PersonalModel
+import kotlinx.android.synthetic.*
+
 /**
  * description ： 展示个人信息的fragment
  * author : lfy
@@ -38,5 +40,9 @@ class PersonMessageActivity : AppCompatActivity() {
             intent.putStringArrayListExtra("message",messages)
             context.startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

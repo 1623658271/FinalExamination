@@ -159,7 +159,7 @@ data class RelatedRecommendationModel(
                 data class Url(
                     val name: String,
                     val url: String,
-                    val size: Int
+                    val size: Long
                 )
             }
 

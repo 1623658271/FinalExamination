@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
+import kotlinx.android.synthetic.*
+
 /**
  * description ： 第一个活动，包含首页、发现、我的三个子fragment
  * author : lfy
@@ -19,5 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

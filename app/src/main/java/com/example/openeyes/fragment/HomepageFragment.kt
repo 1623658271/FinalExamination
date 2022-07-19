@@ -74,26 +74,24 @@ class HomepageFragment:Fragment() {
             val dataList = it.itemList
             beanList.clear()
             for (m in dataList) {
-                if(m.data!=null) {
-                    if (m.type == "followCard") {
-                        beanList.add(
-                            VideoBean(
-                                m.data.content.data.id,
-                                m.data.content.data.title,
-                                m.data.header.title,
-                                m.data.content.data.cover.feed,
-                                m.data.content.data.playUrl,
-                                m.data.content.data.description,
-                                PersonalModel(
-                                    m.data.content.data.author.id,
-                                    m.data.content.data.author.icon,
-                                    DefaultUtil.defaultCoverUrl,
-                                    m.data.content.data.author.description,
-                                    m.data.content.data.author.name
-                                )
+                if (m.type == "followCard" && m.data.content.data.author!=null) {
+                    beanList.add(
+                        VideoBean(
+                            m.data.content.data.id,
+                            m.data.content.data.title,
+                            m.data.header.title,
+                            m.data.content.data.cover.feed,
+                            m.data.content.data.playUrl,
+                            m.data.content.data.description,
+                            PersonalModel(
+                                m.data.content.data.author.id,
+                                m.data.content.data.author.icon,
+                                DefaultUtil.defaultCoverUrl,
+                                m.data.content.data.author.description,
+                                m.data.content.data.author.name
                             )
                         )
-                    }
+                    )
                 }
             }
             nextUrl = it.nextPageUrl
@@ -106,17 +104,7 @@ class HomepageFragment:Fragment() {
                 position: Int,
                 videoBeanList: MutableList<VideoBean>
             ) {
-                val videoMessages = ArrayList<String>()
-                videoMessages.apply {
-                    add(videoBeanList[position].playUrl)
-                    add(videoBeanList[position].coverUrl)
-                    add(videoBeanList[position].bigTitle)
-                    add(videoBeanList[position].smallTitle)
-                    add(videoBeanList[position].description)
-                }
-                val id = videoBeanList[position].id
-                Log.d(TAG, "onVideoImageClickedListener: $videoMessages")
-                VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,videoMessages,id)
+                VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,videoBeanList[position])
             }
 
             override fun onAvatarImageClickedListener(
@@ -141,7 +129,7 @@ class HomepageFragment:Fragment() {
     }
 
     /**
-     * 设置滑动监听，以检查上滑状态更新数据
+     * 设置滑动监听，以检查上滑状态以更新数据
      */
     fun setRecyclerOnScrollListener(){
         var isUp:Boolean = false

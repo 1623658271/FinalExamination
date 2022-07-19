@@ -78,7 +78,8 @@ class MyViewModel: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-
+                    showNetworkError()
+                    Log.d(TAG, "onError: $e")
                 }
 
                 override fun onComplete() {
@@ -101,11 +102,11 @@ class MyViewModel: ViewModel() {
 
                 override fun onNext(t: CommentModel) {
                     commentsLiveData!!.value = t
-                    Log.d(TAG, "onNext: ${t.count}")
                 }
 
                 override fun onError(e: Throwable) {
                     showNetworkError()
+                    Log.d(TAG, "onError: $e")
                 }
 
                 override fun onComplete() {

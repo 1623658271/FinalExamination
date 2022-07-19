@@ -1,14 +1,22 @@
 package com.example.openeyes.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.openeyes.MyApplication
 import com.example.openeyes.R
+import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
+import com.example.openeyes.model.RelatedRecommendationModel
 import com.example.openeyes.model.VideoBean
+import com.example.openeyes.viewmodel.MyViewModel
 
 /**
  * description ： 视频详情Fragment
@@ -18,6 +26,10 @@ import com.example.openeyes.model.VideoBean
  */
 class DetailsFragment(val videoBean: VideoBean):Fragment() {
     private lateinit var binding:LayoutVideoDetailsFragmentBinding
+    private lateinit var adapter: RelatedRVAdapter
+    private lateinit var list:MutableList<RelatedRecommendationModel.Item>
+    private lateinit var viewModel: MyViewModel
+    private val TAG = "lfy"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +42,17 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.message = videoBean
+        list = ArrayList()
+        adapter = RelatedRVAdapter(videoBean,list)
+        binding.rvDetailsMore.adapter = adapter
+        binding.rvDetailsMore.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
+        viewModel = ViewModelProvider(this,
+            ViewModelProvider.AndroidViewModelFactory(MyApplication.application!!))[MyViewModel::class.java]
+        viewModel.getRelatedLiveData(videoBean.id).observe(viewLifecycleOwner){
+            list.clear()
+            list.addAll(it.itemList)
+            Log.d(TAG, "onViewCreated: ${list.size}")
+            adapter.notifyDataSetChanged()
+        }
     }
 }

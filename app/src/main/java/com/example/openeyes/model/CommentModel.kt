@@ -30,7 +30,7 @@ data class CommentModel(
             val id: Long?,
             val videoId: Int?,
             val videoTitle: String?,
-            val parentReplyId: Int?,
+            val parentReplyId: Long?,
             val rootReplyId: Long?,
             val sequence: Int?,
             val message: String?,

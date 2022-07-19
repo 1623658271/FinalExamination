@@ -76,7 +76,6 @@ class VideoPlayActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
         fun fragmentStartVideoPlayActivity(context: Context,activity: Activity,videoBean: VideoBean){
-            activity.finish()
             val mIntent = Intent(activity, VideoPlayActivity::class.java)
             mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             mIntent.putExtra("video",videoBean)

@@ -30,7 +30,7 @@
             android:name=".VideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:theme="@style/Theme.OpenEyes.NoActionBar" />
         <activity
             android:name=".MainActivity"

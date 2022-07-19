@@ -1,25 +1,19 @@
 package com.example.openeyes
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.openeyes.adapter.FragmentPagerAdapter
-import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
 import com.example.openeyes.fragment.DetailsFragment
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.RelatedRecommendationModel
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
@@ -80,6 +74,13 @@ class VideoPlayActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("video",videoBean)
             context.startActivity(intent)
+        }
+        fun fragmentStartVideoPlayActivity(context: Context,activity: Activity,videoBean: VideoBean){
+            activity.finish()
+            val mIntent = Intent(activity, VideoPlayActivity::class.java)
+            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mIntent.putExtra("video",videoBean)
+            context.startActivity(mIntent)
         }
     }
 

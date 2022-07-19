@@ -2,6 +2,7 @@ package com.example.openeyes.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -86,6 +87,10 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
                     m.data.playUrl?:"",m.data.description?:"", PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
                         m.data.author?.name?:"")
                 )
+                val videoBean = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",m.data.playUrl?:"",
+                m.data.description?:"",PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
+                    m.data.author?.name?:""))
+                holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(holder.binding.root,holder,position,videoBean) }
             }
         }
     }
@@ -100,5 +105,20 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
         }else{
             TYPE_VIDEO
         }
+    }
+
+    /**
+     * 点击监听的接口，头像点击和视频图片点击
+     */
+    interface OnSomethingClickedListener{
+        fun onVideoImageClickedListener(view: View, holder:RecyclerView.ViewHolder, position: Int, videoBean:VideoBean)
+    }
+
+    private var clickedListener:OnSomethingClickedListener?=null
+    /**
+     * 设置点击监听
+     */
+    fun setClickListener(clickListener:OnSomethingClickedListener){
+        this.clickedListener = clickListener
     }
 }

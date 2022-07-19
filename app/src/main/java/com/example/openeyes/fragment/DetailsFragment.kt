@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
+import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
 import com.example.openeyes.model.RelatedRecommendationModel
@@ -54,5 +55,15 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
             Log.d(TAG, "onViewCreated: ${list.size}")
             adapter.notifyDataSetChanged()
         }
+        adapter.setClickListener(object :RelatedRVAdapter.OnSomethingClickedListener{
+            override fun onVideoImageClickedListener(
+                view: View,
+                holder: RecyclerView.ViewHolder,
+                position: Int,
+                videoBean: VideoBean
+            ) {
+                VideoPlayActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,videoBean)
+            }
+        })
     }
 }

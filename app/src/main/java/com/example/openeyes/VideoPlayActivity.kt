@@ -8,6 +8,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavArgument
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
@@ -47,7 +51,7 @@ class VideoPlayActivity : AppCompatActivity() {
             binding.vp2Video.adapter = fragmentPagerAdapter
             binding.vp2Video.offscreenPageLimit = 2
             TabLayoutMediator(binding.tlVideo,binding.vp2Video){
-                tab,position->tab.text = data[position]
+                    tab,position->tab.text = data[position]
             }.attach()
         }else{
             Toast.makeText(this,"读取视频信息出错！",Toast.LENGTH_SHORT).show()

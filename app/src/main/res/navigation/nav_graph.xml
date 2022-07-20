@@ -11,7 +11,15 @@
         tools:layout="@layout/layout_homepage_fragment">
         <action
             android:id="@+id/action_homepageFragment_to_personMessageActivity"
-            app:destination="@id/personMessageActivity" />
+            app:destination="@id/personMessageActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homepageFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+
     </fragment>
     <fragment
         android:id="@+id/discoverFragment"
@@ -26,6 +34,17 @@
     <activity
         android:id="@+id/personMessageActivity"
         android:name="com.example.openeyes.PersonMessageActivity"
-        android:label="PersonMessageActivity" />
+        android:label="PersonMessageActivity"
+        tools:layout="@layout/layout_person_message">
+        <argument
+            android:name="person_msg"
+            app:argType="com.example.openeyes.model.PersonalModel"
+            app:nullable="true" />
+    </activity>
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.example.openeyes.SearchActivity"
+        android:label="SearchActivity"
+        tools:layout="@layout/layout_search_activity"/>
 
 </navigation>

@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.openeyes.MyApplication
 import com.example.openeyes.api.URL
-import com.example.openeyes.model.CommentModel
-import com.example.openeyes.model.DailyHandpickBean
-import com.example.openeyes.model.FindMoreClassBean
-import com.example.openeyes.model.RelatedRecommendationModel
+import com.example.openeyes.model.*
 import com.example.openeyes.respository.MyRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
@@ -28,6 +25,7 @@ class MyViewModel: ViewModel() {
     private var dailyHandpickBeanLiveData: MutableLiveData<DailyHandpickBean>? = null
     private var commentsLiveData:MutableLiveData<CommentModel>? = null
     private var relatedLiveData:MutableLiveData<RelatedRecommendationModel>? = null
+    private var findMoreLiveData:MutableLiveData<FindMoreBean> ?= null
     private val TAG = "lfy"
 
     fun getFindMoreLiveData(): MutableLiveData<FindMoreClassBean> {

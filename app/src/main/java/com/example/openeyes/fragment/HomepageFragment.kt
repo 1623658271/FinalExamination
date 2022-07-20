@@ -4,22 +4,21 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
-import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
-import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
-import com.example.openeyes.model.DailyHandpickBean
 import com.example.openeyes.model.HomepageMoreBean
 import com.example.openeyes.model.PersonalModel
 import com.example.openeyes.model.VideoBean
@@ -37,19 +36,20 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  * date : 2022/7/15 08:49
  */
 class HomepageFragment:Fragment() {
-    private lateinit var bing:LayoutHomepageFragmentBinding
+    private lateinit var binding:LayoutHomepageFragmentBinding
     private lateinit var adapter:HomePageRVAdapter
     private lateinit var beanList:MutableList<VideoBean>
     private lateinit var viewModel: MyViewModel
     private lateinit var nextUrl:String
+    private lateinit var imageUrlList:MutableList<VideoBean>
     private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bing = DataBindingUtil.inflate(inflater,R.layout.layout_homepage_fragment,container,false)
-        return bing.root
+        binding = DataBindingUtil.inflate(inflater,R.layout.layout_homepage_fragment,container,false)
+        return binding.root
     }
 
     /**
@@ -59,39 +59,63 @@ class HomepageFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         beanList = ArrayList()
+        imageUrlList = ArrayList()
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(MyApplication.application!!)
         )[MyViewModel::class.java]
-        adapter = HomePageRVAdapter(beanList)
-        bing.rvHomepage.adapter = adapter
-        bing.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
-        bing.srHomepage.setOnRefreshListener {
+        adapter = HomePageRVAdapter(beanList,imageUrlList)
+        binding.rvHomepage.adapter = adapter
+        binding.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
+        binding.srHomepage.setOnRefreshListener {
             viewModel.updateDailyHandpickViewModel()
-            bing.srHomepage.isRefreshing = false
+            binding.srHomepage.isRefreshing = false
         }
         viewModel.getDailyHandpickLiveData().observe(viewLifecycleOwner, Observer {
             val dataList = it.itemList
             beanList.clear()
+            imageUrlList.clear()
+            var i = 0
             for (m in dataList) {
-                if (m.type == "followCard" && m.data.content.data.author!=null) {
-                    beanList.add(
-                        VideoBean(
-                            m.data.content.data.id,
-                            m.data.content.data.title,
-                            m.data.header.title,
-                            m.data.content.data.cover.feed,
-                            m.data.content.data.playUrl,
-                            m.data.content.data.description,
-                            PersonalModel(
-                                m.data.content.data.author.id,
-                                m.data.content.data.author.icon,
-                                DefaultUtil.defaultCoverUrl,
-                                m.data.content.data.author.description,
-                                m.data.content.data.author.name
+                    if (m.type == "followCard") {
+                        if(i<7){
+                            i+=1
+                            imageUrlList.add(
+                                VideoBean(
+                                    m.data.content.data.id,
+                                    m.data.content.data.title,
+                                    m.data.header.title,
+                                    m.data.content.data.cover.feed,
+                                    m.data.content.data.playUrl,
+                                    m.data.content.data.description,
+                                    PersonalModel(
+                                        m.data.content.data.author.id ?: 0,
+                                        m.data.content.data.author.icon ?: "",
+                                        DefaultUtil.defaultCoverUrl,
+                                        m.data.content.data.author.description ?: "",
+                                        m.data.content.data.author.name ?: ""
+                                    )
+                                )
                             )
-                        )
-                    )
+                        }else {
+                            beanList.add(
+                                VideoBean(
+                                    m.data.content.data.id,
+                                    m.data.content.data.title,
+                                    m.data.header.title,
+                                    m.data.content.data.cover.feed,
+                                    m.data.content.data.playUrl,
+                                    m.data.content.data.description,
+                                    PersonalModel(
+                                        m.data.content.data.author.id ?: 0,
+                                        m.data.content.data.author.icon ?: "",
+                                        DefaultUtil.defaultCoverUrl,
+                                        m.data.content.data.author.description ?: "",
+                                        m.data.content.data.author.name ?: ""
+                                    )
+                                )
+                            )
+                        }
                 }
             }
             nextUrl = it.nextPageUrl
@@ -113,14 +137,12 @@ class HomepageFragment:Fragment() {
                 position: Int,
                 videoBeanList: MutableList<VideoBean>
             ) {
-                var messages = ArrayList<String>()
-                messages.apply {
-                    add(videoBeanList[position].personalModel!!.avatar)
-                    add(videoBeanList[position].personalModel!!.cover)
-                    add(videoBeanList[position].personalModel!!.description)
-                    add(videoBeanList[position].personalModel!!.nickname)
-                }
-                PersonMessageActivity.startPersonMessageActivity(MyApplication.context!!,messages)
+                val personMessage = videoBeanList[position].personalModel
+                val toPersonMessageActivity =
+                    HomepageFragmentDirections.actionHomepageFragmentToPersonMessageActivity(
+                        personMessage
+                    )
+                findNavController().navigate(toPersonMessageActivity)
             }
 
         })
@@ -133,7 +155,7 @@ class HomepageFragment:Fragment() {
      */
     fun setRecyclerOnScrollListener(){
         var isUp:Boolean = false
-        bing.rvHomepage.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+        binding.rvHomepage.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val manager = recyclerView.layoutManager as LinearLayoutManager?

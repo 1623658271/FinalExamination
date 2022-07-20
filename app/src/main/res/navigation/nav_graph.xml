@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homepageFragment">
+    <fragment
+        android:id="@+id/homepageFragment"
+        android:name="com.example.openeyes.fragment.HomepageFragment"
+        android:label="HomepageFragment"
+        tools:layout="@layout/layout_homepage_fragment">
+        <action
+            android:id="@+id/action_homepageFragment_to_personMessageActivity"
+            app:destination="@id/personMessageActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.example.openeyes.fragment.DiscoverFragment"
+        android:label="DiscoverFragment"
+        tools:layout="@layout/layout_discovery_fragment"/>
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.example.openeyes.fragment.MineFragment"
+        android:label="MineFragment"
+        tools:layout="@layout/layout_mine_fragment"/>
+    <activity
+        android:id="@+id/personMessageActivity"
+        android:name="com.example.openeyes.PersonMessageActivity"
+        android:label="PersonMessageActivity" />
+
+</navigation>

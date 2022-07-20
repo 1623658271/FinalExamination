@@ -46,6 +46,7 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated: ${videoBean.id}")
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
         viewModel.getCommentsLiveData(videoBean.id).observe(viewLifecycleOwner) {
             val commentModel = it
@@ -76,6 +77,12 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
                 }
                 commentList!!.addAll(list)
                 adapter.notifyDataSetChanged()
+                Log.d(TAG, "onViewCreated: ${list.size}")
+                if(commentList!!.size==0){
+                    binding.tvNoComment.visibility = View.VISIBLE
+                }else{
+                    binding.tvNoComment.visibility = View.GONE
+                }
             }
         }
         binding.refreshComment.setOnRefreshListener {

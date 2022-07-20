@@ -102,6 +102,7 @@ class MyViewModel: ViewModel() {
 
                 override fun onNext(t: CommentModel) {
                     commentsLiveData!!.value = t
+                    Log.d(TAG, "onNext: ${t.itemList.size}")
                 }
 
                 override fun onError(e: Throwable) {

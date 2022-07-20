@@ -10,4 +10,8 @@
     <color name="blue">#0000FF</color>
     <color name="title">#afffff</color>
     <color name="gray">#8F8F8F8F</color>
+    <color name="gray2">#AAAAAA</color>
+    <color name="deepGray">#1E1E1E</color>
+    <color name="deepBlue">#000033</color>
+    <color name="shallowBlue">#104E8B</color>
 </resources>

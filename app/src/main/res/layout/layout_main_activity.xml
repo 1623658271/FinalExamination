@@ -6,11 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <fragment
-        android:id="@+id/nav_main"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.openeyes.fragment.HostFragment"/>
-
+        app:title="openEyes"
+        app:titleTextColor="@color/white"
+        app:menu="@menu/toolbar_menu"
+        android:background="@color/black"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </androidx.appcompat.widget.Toolbar>
+    <fragment
+        android:id="@+id/nav_host_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        app:itemTextColor="@drawable/text_selected_color"
+        android:layout_height="wrap_content"
+        app:menu="@menu/nav_bottom_menu"/>
 </LinearLayout>

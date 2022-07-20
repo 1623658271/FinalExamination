@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,7 +9,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/deepGray">
 
         <TextView
             android:layout_width="match_parent"
@@ -17,12 +19,14 @@
             android:gravity="center"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_findmore"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/white"
+            android:background="@color/deepGray"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/discover_viewpager2"

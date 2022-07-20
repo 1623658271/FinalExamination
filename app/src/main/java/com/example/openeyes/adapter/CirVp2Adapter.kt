@@ -20,7 +20,7 @@ class CirVp2Adapter(var imageUrlList:MutableList<VideoBean>): PagerAdapter() {
         imageView.scaleType = ImageView.ScaleType.FIT_XY
         Glide.with(container.context).load(imageUrlList[position % imageUrlList.size].coverUrl).into(imageView)
         container.addView(imageView)
-        imageView.setOnClickListener{bannerClickListener!!.onBannerClick(imageUrlList,position)}
+        imageView.setOnClickListener{bannerClickListener!!.onBannerClick(imageUrlList,position % imageUrlList.size)}
         return imageView
     }
 

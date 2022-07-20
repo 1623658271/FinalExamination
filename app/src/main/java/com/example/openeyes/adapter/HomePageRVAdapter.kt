@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
+import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.LayoutCirBinding
 import com.example.openeyes.databinding.LayoutCirImageBinding
@@ -93,16 +94,21 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
         val position = p - 1
         when (holder) {
             is CirViewHolder -> {
-                val list:MutableList<String> = ArrayList()
                 if(imageUrlList.size>0) {
-                    for (m in imageUrlList) {
-                        list.add(m.coverUrl)
-                    }
-                    val adapter = CirVp2Adapter(list)
+                    val adapter = CirVp2Adapter(imageUrlList)
                     holder.binding.clBanner.setData(adapter,object : CirLayout.BindTitleListener {
                        override fun getTitle(position: Int): String {
                            return imageUrlList[position % imageUrlList.size].bigTitle
                        }
+                    })
+                    adapter.setBannerClickListener(object :CirVp2Adapter.OnBannerClickListener{
+                        override fun onBannerClick(
+                            imageUrlList: MutableList<VideoBean>,
+                            position: Int
+                        ) {
+                            VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,imageUrlList[position])
+                        }
+
                     })
                     adapter.notifyDataSetChanged()
                 }

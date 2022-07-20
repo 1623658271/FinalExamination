@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/circle_indicator.xml" value="0.1" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/circle_indicator2.xml" value="0.1" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_findmore.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_homepage.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_mine.xml" value="0.1005" />

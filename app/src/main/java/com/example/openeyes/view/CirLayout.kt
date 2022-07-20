@@ -61,12 +61,12 @@ class CirLayout:LinearLayout {
             for (i in 0 until count) {
                 val view = View(context)
                 if(viewPager.currentItem % count == i ){
-                    view.setBackgroundColor(Color.parseColor("#ff0000"))
+                    view.background = resources.getDrawable(R.drawable.circle_indicator2)
                 }else{
-                    view.setBackgroundColor(Color.WHITE)
+                    view.background = resources.getDrawable(R.drawable.circle_indicator)
                 }
-                val layoutParams = LinearLayout.LayoutParams(dip2x(context, 5f), dip2x(context, 5f))
-                layoutParams.setMargins(dip2x(context,10f),0,dip2x(context,10f),0)
+                        val layoutParams = LinearLayout.LayoutParams(dip2x(context, 5f), dip2x(context, 4f))
+                layoutParams.setMargins(dip2x(context,5f),0,dip2x(context,5f),0)
                 view.layoutParams = layoutParams
                 linearLayout.addView(view)
             }

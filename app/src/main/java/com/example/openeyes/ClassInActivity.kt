@@ -57,8 +57,5 @@ class ClassInActivity : AppCompatActivity() {
                 PersonMessageActivity.startPersonMessageActivity(this@ClassInActivity,videoBean.personalModel!!)
             }
         })
-        val m = nextPageUrl.split('?').last().split('&')
-        val start = m[0].filter { it.isDigit() }.toInt()
-        val num = m[1].filter { it.isDigit() }.toInt()
     }
 }

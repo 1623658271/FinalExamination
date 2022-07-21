@@ -12,7 +12,7 @@ import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 
 /**
- * description ： TODO:类的作用
+ * description ： 自定义ViewPager
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/20 21:21

@@ -8,6 +8,7 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemCommentBinding
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.model.CommentBean
+import com.example.openeyes.model.PersonalModel
 
 /**
  * description ： 评论RV的适配器，传入一个CommentBean以加载评论
@@ -33,9 +34,19 @@ class CommentsRVAdapter(val commentList:MutableList<CommentBean>): RecyclerView.
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is MyViewHolder){
             holder.binding.comment = commentList[position]
+            holder.binding.commentPerson.setOnClickListener { listener?.onClick(commentList[position].personalModel) }
         }
     }
 
     override fun getItemCount(): Int = commentList.size
 
+    private var listener:OnCommentClickListener?=null
+
+    interface OnCommentClickListener{
+        fun onClick(personalModel: PersonalModel)
+    }
+
+    fun setListener(listener:OnCommentClickListener){
+        this.listener = listener
+    }
 }

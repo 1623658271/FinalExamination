@@ -5,7 +5,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * description ： 工具类，获取retrofit
+ * description ： 工具类，获取retrofit等
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/15 08:57

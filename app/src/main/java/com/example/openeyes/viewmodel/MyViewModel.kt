@@ -35,8 +35,80 @@ class MyViewModel: ViewModel() {
     private var hotSearchLiveData:MutableLiveData<HotSearchModel>? = null
     //搜索详情
     private var searchLiveData:MutableLiveData<SearchModel>? = null
+    //分类页面数据
+    private var classInLiveData:MutableLiveData<ClassDeepMsgModel>? = null
+    //分类页面更多数据
+    private var classInMoreLiveData:MutableLiveData<ClassDeepMoreMsgModel>? = null
 
     private val TAG = "lfy"
+
+    fun getClassInLiveData(path:String,udid:String):MutableLiveData<ClassDeepMsgModel>{
+        if(classInLiveData==null){
+            classInLiveData = MutableLiveData()
+            updateClassInLiveData(path,udid)
+        }
+        return classInLiveData!!
+    }
+
+    fun getClassInMoreLiveData(start:Int,num:Int,udid:String):MutableLiveData<ClassDeepMoreMsgModel>{
+        if(classInMoreLiveData==null){
+            classInMoreLiveData = MutableLiveData()
+            updateClassInMoreLiveData(start,num,udid)
+        }
+        return classInMoreLiveData!!
+    }
+
+    fun updateClassInMoreLiveData(start: Int, num:Int, udid: String) {
+        MyRepository(URL.ClassDeepUrl)
+            .getService()
+            .getClassMoreMsg(start,num,udid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<ClassDeepMoreMsgModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: ClassDeepMoreMsgModel) {
+                    classInMoreLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    showNetworkError()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
+    }
+
+    fun updateClassInLiveData(path: String, udid: String) {
+        MyRepository(URL.ClassDeepUrl)
+            .getService()
+            .getClassDeepMsg(path,udid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<ClassDeepMsgModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: ClassDeepMsgModel) {
+                    classInLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    showNetworkError()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
+    }
 
     fun getFindMoreLiveData(): MutableLiveData<FindMoreClassBean> {
         if (findMoreClassBeanLiveData == null) {

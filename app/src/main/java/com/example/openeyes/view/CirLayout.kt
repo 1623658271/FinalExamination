@@ -15,7 +15,7 @@ import com.example.openeyes.adapter.CirVp2Adapter
 import org.w3c.dom.Text
 
 /**
- * description ： TODO:类的作用
+ * description ： 自定义view，用于实现轮播图
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/20 19:43
@@ -54,6 +54,7 @@ class CirLayout:LinearLayout {
         title = this.findViewById(R.id.looper_tv_title)
     }
 
+    //根据数据个数和当前页面生成不同的小圆点
     fun updateIndicator(){
         if(innoAdapter!=null){
             linearLayout.removeAllViews()
@@ -87,7 +88,6 @@ class CirLayout:LinearLayout {
                 positionOffsetPixels: Int
             ) {
                 //切换的回调
-
             }
 
             override fun onPageSelected(position: Int) {
@@ -100,7 +100,6 @@ class CirLayout:LinearLayout {
                 //切换状态改变的回调
                 updateIndicator()
             }
-
         })
     }
 
@@ -109,6 +108,7 @@ class CirLayout:LinearLayout {
     }
     private lateinit var bindTitleListener: BindTitleListener
 
+    //像素计算，网上嫖的
     fun dip2x(context: Context?,dpValue:Float):Int{
         val scale = context!!.resources.displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()

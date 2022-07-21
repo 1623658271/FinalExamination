@@ -1,5 +1,6 @@
 package com.example.openeyes
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
 import com.example.openeyes.model.PersonalModel
+import com.example.openeyes.model.VideoBean
 import kotlinx.android.synthetic.*
 
 /**
@@ -21,5 +23,19 @@ class PersonMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_person_message)
         binding.person = intent.getParcelableExtra("person_msg")
+    }
+    companion object {
+        fun startPersonMessageActivity(context: Context, personalModel: PersonalModel) {
+            val intent = Intent(context, PersonMessageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra("person_msg", personalModel)
+            context.startActivity(intent)
+        }
+        fun fragmentStartVideoPlayActivity(context: Context, activity: Activity, personalModel: PersonalModel){
+            val mIntent = Intent(activity, PersonMessageActivity::class.java)
+            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mIntent.putExtra("person_msg",personalModel)
+            context.startActivity(mIntent)
+        }
     }
 }

@@ -1,12 +1,12 @@
 package com.example.openeyes.model
 
 /**
- * description ： 搜索页额外数据的数据类
+ * description ： 分类页面进入后加载更多的数据类
  * author : lfy
  * email : 1623658271@qq.com
- * date : 2022/7/21 15:27
+ * date : 2022/7/21 19:52
  */
-data class SearchMoreModel(
+data class ClassDeepMoreMsgModel(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,
@@ -16,7 +16,7 @@ data class SearchMoreModel(
     data class Item(
         val type: String,
         val `data`: Data,
-        val trackingData: TrackingData,
+        val trackingData: Any?,
         val tag: Any?,
         val id: Int,
         val adIndex: Int
@@ -63,13 +63,13 @@ data class SearchMoreModel(
                     val tags: List<Tag>,
                     val consumption: Consumption,
                     val resourceType: String,
-                    val slogan: Any?,
+                    val slogan: String?,
                     val provider: Provider,
                     val category: String,
                     val author: Author,
                     val cover: Cover,
                     val playUrl: String,
-                    val thumbPlayUrl: Any?,
+                    val thumbPlayUrl: String?,
                     val duration: Int,
                     val webUrl: WebUrl,
                     val releaseTime: Long,
@@ -79,13 +79,13 @@ data class SearchMoreModel(
                     val ad: Boolean,
                     val adTrack: List<Any>,
                     val type: String,
-                    val titlePgc: String,
-                    val descriptionPgc: String,
+                    val titlePgc: String?,
+                    val descriptionPgc: String?,
                     val remark: Any?,
                     val ifLimitVideo: Boolean,
                     val searchWeight: Int,
                     val brandWebsiteInfo: Any?,
-                    val videoPosterBean: VideoPosterBean?,
+                    val videoPosterBean: VideoPosterBean,
                     val idx: Int,
                     val shareAdTrack: Any?,
                     val favoriteAdTrack: Any?,
@@ -110,7 +110,7 @@ data class SearchMoreModel(
                         val name: String,
                         val actionUrl: String,
                         val adTrack: Any?,
-                        val desc: String,
+                        val desc: String?,
                         val bgPicture: String,
                         val headerImage: String,
                         val tagRecType: String,
@@ -169,7 +169,7 @@ data class SearchMoreModel(
                         val detail: String,
                         val blurred: String,
                         val sharing: Any?,
-                        val homepage: Any?
+                        val homepage: String?
                     )
 
                     data class WebUrl(
@@ -196,56 +196,6 @@ data class SearchMoreModel(
                         val scale: Double,
                         val url: String,
                         val fileSizeStr: String
-                    )
-                }
-            }
-        }
-
-        data class TrackingData(
-            val dataType: String,
-            val `data`: Data
-        ) {
-            data class Data(
-                val show: List<Show>,
-                val click: List<Click>
-            ) {
-                data class Show(
-                    val `data`: Data,
-                    val sdk: String
-                ) {
-                    data class Data(
-                        val element_index: Int,
-                        val card_index: Int,
-                        val element_title: String,
-                        val card_title: String,
-                        val element_label: String,
-                        val page_type: String,
-                        val element_id: Int,
-                        val element_type: String,
-                        val card_type: String,
-                        val element_relative_index: Int,
-                        val card_id: Int
-                    )
-                }
-
-                data class Click(
-                    val `data`: Data,
-                    val sdk: String
-                ) {
-                    data class Data(
-                        val element_index: Int,
-                        val card_index: Int,
-                        val element_label: String,
-                        val page_type: String,
-                        val element_id: Int,
-                        val element_type: String,
-                        val card_type: String,
-                        val click_action: String,
-                        val card_id: Int,
-                        val element_title: String,
-                        val card_title: String,
-                        val click_action_url: String,
-                        val element_relative_index: Int
                     )
                 }
             }

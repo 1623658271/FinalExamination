@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.openeyes.model.VideoBean
 
 /**
- * description ： TODO:类的作用
+ * description ： 自定义的PagerAdapter，用于处理轮播图
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/20 16:33
@@ -36,6 +36,7 @@ class CirVp2Adapter(var imageUrlList:MutableList<VideoBean>): PagerAdapter() {
     fun setData(imageUrlList: MutableList<VideoBean>) {
         this.imageUrlList = imageUrlList
     }
+
     fun getDataResultSize(): Int = imageUrlList.size
 
     private var bannerClickListener:OnBannerClickListener? = null

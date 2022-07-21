@@ -13,6 +13,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
+import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
 import com.example.openeyes.adapter.CommentsRVAdapter
 import com.example.openeyes.databinding.LayoutVideoCommentFragmentBinding
@@ -59,8 +60,8 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
                             CommentBean(
                                 m.data.message?:"", m.data.likeCount?:0, PersonalModel(
                                     m.data.user.uid, m.data.user.avatar,
-                                    DefaultUtil.defaultCoverUrl,
-                                    "", m.data.user.nickname
+                                    m.data.user.cover?.toString()?:DefaultUtil.defaultCoverUrl,
+                                    m.data.user.description?.toString()?:"", m.data.user.nickname
                                 )
                             )
                         )
@@ -94,6 +95,12 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
         adapter = CommentsRVAdapter(commentList!!)
         binding.rvContent.adapter = adapter
         binding.rvContent.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
+        adapter.setListener(object :CommentsRVAdapter.OnCommentClickListener{
+            override fun onClick(personalModel: PersonalModel) {
+                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,personalModel)
+            }
+
+        })
     }
 
     override fun onDestroy() {

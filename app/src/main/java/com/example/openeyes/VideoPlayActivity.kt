@@ -8,21 +8,16 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavArgument
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
 import com.example.openeyes.fragment.DetailsFragment
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.utils.ActivityControl
+import com.example.openeyes.utils.ActivityController
 import com.google.android.material.tabs.TabLayoutMediator
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
-import kotlinx.android.synthetic.*
 
 /**
  * description ： 点击视频播放后进入的活动
@@ -38,7 +33,7 @@ class VideoPlayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
-        ActivityControl.addActivity(this)
+        ActivityController.addActivity(this)
         if(intent!=null) {
             videoBean = intent.getParcelableExtra("video")!!
             videoPlay()
@@ -62,13 +57,13 @@ class VideoPlayActivity : AppCompatActivity() {
         binding.videoToolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.video_go_home -> {
-                    ActivityControl.removeAllVideoActivity()
+                    ActivityController.removeAllVideoActivity()
                 }
             }
             true
         }
         binding.videoToolbar.setNavigationOnClickListener {
-            ActivityControl.removeActivity(this)
+            ActivityController.removeActivity(this)
         }
     }
 

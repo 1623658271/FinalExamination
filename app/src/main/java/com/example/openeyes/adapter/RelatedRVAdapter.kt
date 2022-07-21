@@ -16,7 +16,7 @@ import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 
 /**
- * description ： TODO:类的作用
+ * description ： 精选的更多数据的RV适配器
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/19 11:07

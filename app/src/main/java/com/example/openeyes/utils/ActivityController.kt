@@ -8,7 +8,7 @@ import android.app.Activity
  * email : 1623658271@qq.com
  * date : 2022/7/21 15:57
  */
-object ActivityControl {
+object ActivityController {
     var list:MutableList<Activity> = ArrayList()
 
     fun addActivity(activity:Activity) {

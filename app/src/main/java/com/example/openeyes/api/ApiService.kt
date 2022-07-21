@@ -50,4 +50,12 @@ interface ApiService {
     //热搜
     @GET("hot")
     fun getHotSearchMsg():Observable<HotSearchModel>
+
+    //分类点击深入获取数据
+    @GET("{id}")
+    fun getClassDeepMsg(@Path("id")id:String,@Query("udid")udid:String):Observable<ClassDeepMsgModel>
+
+    //分类点击深入后的额外数据
+    @GET(".")
+    fun getClassMoreMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("udid")udid: String):Observable<ClassDeepMoreMsgModel>
 }

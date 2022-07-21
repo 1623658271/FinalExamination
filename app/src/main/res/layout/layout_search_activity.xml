@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/search_do"
+                android:id="@+id/search_back"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:clickable="true"

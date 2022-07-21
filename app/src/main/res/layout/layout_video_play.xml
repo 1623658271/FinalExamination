@@ -9,9 +9,16 @@
         android:gravity="center"
         android:background="@color/black">
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/video_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"/>
+            app:title="openEyes"
+            app:navigationIcon="@drawable/ic_back"
+            app:titleTextColor="@color/white"
+            app:menu="@menu/video_toolbar_menu"
+            android:background="@color/black"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
             android:id="@+id/jc_video"
             android:layout_width="match_parent"

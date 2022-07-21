@@ -35,6 +35,10 @@ interface ApiService {
     @GET("search")
     fun getSearchMsg(@Query("query")query:String):Observable<SearchModel>
 
+    //搜索下滑更新下一个page
+    @GET(".")
+    fun getMoreSearchMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("query")query: String):Observable<SearchMoreModel>
+
     //相关视频推荐
     @GET("related")
     fun getRelatedVideoMsg(@Query("id")id:Int):Observable<RelatedRecommendationModel>

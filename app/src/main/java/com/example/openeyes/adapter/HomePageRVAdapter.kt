@@ -131,7 +131,7 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
                         }
 
                     })
-                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2 + 1
+                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2
                     adapter!!.notifyDataSetChanged()
                 }
             }

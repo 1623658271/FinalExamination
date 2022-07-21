@@ -45,12 +45,13 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_comment_fragment.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_detail.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_details_fragment.xml" value="0.14175724637681159" />
-        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_play.xml" value="0.1" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_play.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_play_fragment.xml" value="0.14719202898550723" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_video_watch.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/toolbar_search.xml" value="0.25" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/menu/nav_bottom_menu.xml" value="0.21666666666666667" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/menu/toolbar_menu.xml" value="0.215625" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/menu/video_toolbar_menu.xml" value="0.55" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.113" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/xml/network.xml" value="0.215625" />
       </map>

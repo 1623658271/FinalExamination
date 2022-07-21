@@ -18,6 +18,7 @@ import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
 import com.example.openeyes.fragment.DetailsFragment
 import com.example.openeyes.model.VideoBean
+import com.example.openeyes.utils.ActivityControl
 import com.google.android.material.tabs.TabLayoutMediator
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
@@ -37,6 +38,7 @@ class VideoPlayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
+        ActivityControl.addActivity(this)
         if(intent!=null) {
             videoBean = intent.getParcelableExtra("video")!!
             videoPlay()
@@ -56,6 +58,17 @@ class VideoPlayActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this,"读取视频信息出错！",Toast.LENGTH_SHORT).show()
             finish()
+        }
+        binding.videoToolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.video_go_home -> {
+                    ActivityControl.removeAllVideoActivity()
+                }
+            }
+            true
+        }
+        binding.videoToolbar.setNavigationOnClickListener {
+            ActivityControl.removeActivity(this)
         }
     }
 
@@ -108,5 +121,9 @@ class VideoPlayActivity : AppCompatActivity() {
         binding.jcVideo.release()
         super.onDestroy()
         Log.d(TAG, "onDestroy: video")
+    }
+
+    override fun finish() {
+        super.finish()
     }
 }

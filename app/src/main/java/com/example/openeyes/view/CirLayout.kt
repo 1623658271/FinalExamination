@@ -21,7 +21,7 @@ import org.w3c.dom.Text
  * date : 2022/7/20 19:43
  */
 class CirLayout:LinearLayout {
-    private lateinit var viewPager:LopViewpager
+    lateinit var viewPager:LopViewpager
     private lateinit var linearLayout:LinearLayout
     private lateinit var title:TextView
     private lateinit var innoAdapter:CirVp2Adapter

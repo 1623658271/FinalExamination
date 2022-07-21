@@ -114,9 +114,24 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
                         }
 
                     })
+                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2
                     adapter!!.notifyDataSetChanged()
-                }else if(adapter!=null){
-                    Log.d(TAG, "onBindViewHolder: adapter_notify")
+                }else if(imageUrlList.size>0 && adapter!=null){
+                    holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
+                        override fun getTitle(position: Int): String {
+                            return imageUrlList[position % imageUrlList.size].bigTitle
+                        }
+                    })
+                    adapter!!.setBannerClickListener(object :CirVp2Adapter.OnBannerClickListener{
+                        override fun onBannerClick(
+                            imageUrlList: MutableList<VideoBean>,
+                            position: Int
+                        ) {
+                            VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,imageUrlList[position])
+                        }
+
+                    })
+                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2 + 1
                     adapter!!.notifyDataSetChanged()
                 }
             }

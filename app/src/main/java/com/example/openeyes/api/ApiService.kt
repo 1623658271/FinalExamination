@@ -42,4 +42,8 @@ interface ApiService {
     //加载日报下一个page
     @GET(".")
     fun getMoreHomepageMsg(@Query("date")date:Long,@Query("num")num:Int):Observable<HomepageMoreBean>
+
+    //热搜
+    @GET("hot")
+    fun getHotSearchMsg():Observable<HotSearchModel>
 }

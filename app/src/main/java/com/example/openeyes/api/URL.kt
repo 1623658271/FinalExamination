@@ -20,4 +20,6 @@ object URL {
     val SearchUrl = "http://baobab.kaiyanapp.com/api/v3/"
     //相关视频推荐
     val RelatedUrl = "http://baobab.kaiyanapp.com/api/v4/video/"
+    //热搜
+    val HotSearchUrl = "http://baobab.kaiyanapp.com/api/v3/queries/"
 }

@@ -21,11 +21,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  */
 class MyViewModel: ViewModel() {
 
+    //发现更多的分类
     private var findMoreClassBeanLiveData: MutableLiveData<FindMoreClassBean>? = null
+    //每日精选
     private var dailyHandpickBeanLiveData: MutableLiveData<DailyHandpickBean>? = null
+    //视频的评论
     private var commentsLiveData:MutableLiveData<CommentModel>? = null
+    //每日精选加载更多
     private var relatedLiveData:MutableLiveData<RelatedRecommendationModel>? = null
-    private var findMoreLiveData:MutableLiveData<FindMoreBean> ?= null
+    //发现更多
+    private var findMoreLiveData:MutableLiveData<FindMoreBean>? = null
+    //热搜
+    private var hotSearchLiveData:MutableLiveData<HotSearchModel>? = null
+    //搜索详情
+    private var searchLiveData:MutableLiveData<SearchModel>? = null
+
     private val TAG = "lfy"
 
     fun getFindMoreLiveData(): MutableLiveData<FindMoreClassBean> {
@@ -58,6 +68,75 @@ class MyViewModel: ViewModel() {
             updateRelatedViewModel(id)
         }
         return relatedLiveData!!
+    }
+
+    fun getSearchLiveData(search:String):MutableLiveData<SearchModel>{
+        if(searchLiveData==null){
+            searchLiveData = MutableLiveData()
+            updateSearchLiveData(search)
+        }
+        return searchLiveData!!
+    }
+
+    fun getHotSearchLiveData():MutableLiveData<HotSearchModel>{
+        if(hotSearchLiveData==null){
+            hotSearchLiveData = MutableLiveData()
+            updateHotSearchViewModel()
+        }
+        return hotSearchLiveData!!
+    }
+
+    fun updateSearchLiveData(search: String) {
+        MyRepository(URL.SearchUrl)
+            .getService()
+            .getSearchMsg(search)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<SearchModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: SearchModel) {
+                    searchLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    showNetworkError()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
+
+    }
+
+    private fun updateHotSearchViewModel() {
+        MyRepository(URL.HotSearchUrl)
+            .getService()
+            .getHotSearchMsg()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<HotSearchModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: HotSearchModel) {
+                    hotSearchLiveData!!.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    showNetworkError()
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
     }
 
     fun updateRelatedViewModel(id:Int){

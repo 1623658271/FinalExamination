@@ -1,5 +1,6 @@
 package com.example.openeyes.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,9 @@ import kotlinx.coroutines.delay as Sleep
  */
 class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlList:MutableList<VideoBean>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),LifecycleObserver {
-    private lateinit var thread:Thread
+    private val TAG = "lfy"
+
+    private var adapter:CirVp2Adapter?=null
     //普通布局
     private val TYPE_ITEM = 1
     //脚布局
@@ -94,14 +97,15 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
         val position = p - 1
         when (holder) {
             is CirViewHolder -> {
-                if(imageUrlList.size>0) {
-                    val adapter = CirVp2Adapter(imageUrlList)
-                    holder.binding.clBanner.setData(adapter,object : CirLayout.BindTitleListener {
+                if(imageUrlList.size>0 && adapter==null) {
+                    Log.d(TAG, "onBindViewHolder: adapter_create")
+                    adapter  = CirVp2Adapter(imageUrlList)
+                    holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
                        override fun getTitle(position: Int): String {
                            return imageUrlList[position % imageUrlList.size].bigTitle
                        }
                     })
-                    adapter.setBannerClickListener(object :CirVp2Adapter.OnBannerClickListener{
+                    adapter!!.setBannerClickListener(object :CirVp2Adapter.OnBannerClickListener{
                         override fun onBannerClick(
                             imageUrlList: MutableList<VideoBean>,
                             position: Int
@@ -110,7 +114,10 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
                         }
 
                     })
-                    adapter.notifyDataSetChanged()
+                    adapter!!.notifyDataSetChanged()
+                }else if(adapter!=null){
+                    Log.d(TAG, "onBindViewHolder: adapter_notify")
+                    adapter!!.notifyDataSetChanged()
                 }
             }
             is MyViewHolder -> {
@@ -172,5 +179,15 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
      */
     fun setClickListener(clickListener:OnSomethingClickedListener){
         this.clickListener = clickListener
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        Log.d(TAG, "onViewDetachedFromWindow: ")
+    }
+
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        Log.d(TAG, "onViewAttachedToWindow: ")
     }
 }

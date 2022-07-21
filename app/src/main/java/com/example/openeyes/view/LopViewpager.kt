@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
@@ -18,6 +19,8 @@ import kotlinx.coroutines.delay
  */
 class LopViewpager:ViewPager {
     private lateinit var handler0:Handler
+    private val TAG = "lfy"
+    private var isStop = false
     constructor(context: Context) : super(context){
         init()
     }
@@ -30,9 +33,18 @@ class LopViewpager:ViewPager {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 val action = event?.action
                 when(action){
-                    MotionEvent.ACTION_DOWN->stopLooper()
-                    MotionEvent.ACTION_CANCEL->startLooper()
-                    MotionEvent.ACTION_UP ->startLooper()
+                    MotionEvent.ACTION_DOWN,MotionEvent.ACTION_MOVE->{
+                        if(isStop){
+
+                        }else {
+                            stopLooper()
+                            Log.d(TAG ,"onTouch: stop")
+                        }
+                    }
+                    MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP ->{
+                        startLooper()
+                        Log.d(TAG ,"onTouch: start")
+                    }
                 }
                 return false
             }
@@ -46,6 +58,7 @@ class LopViewpager:ViewPager {
     }
 
     private fun startLooper() {
+        isStop = false
         handler0.postDelayed(runnable,3000)
     }
 
@@ -62,6 +75,7 @@ class LopViewpager:ViewPager {
     }
 
     private fun stopLooper() {
+        isStop = true
         handler0.removeCallbacks(runnable)
         removeCallbacks(runnable)
     }

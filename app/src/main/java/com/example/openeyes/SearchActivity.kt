@@ -284,7 +284,11 @@ class SearchActivity : AppCompatActivity() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        loadingMore()
+                        if (nextPageUrl.isNotEmpty()) {
+                            adapterResult.setLoadState(adapterResult.LOADING_END)
+                        } else {
+                            loadingMore()
+                        }
                     }
                 }
             }
@@ -296,59 +300,59 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    fun loadingMore(){
+    fun loadingMore() {
         adapterResult.setLoadState(adapterResult.LOADING)
-        if(nextPageUrl.isNotEmpty()){
-            val url = nextPageUrl.split("?").last().split("&")
-            val start = url[0].filter { it.isDigit() }.toInt()
-            val num = url[1].filter { it.isDigit() }.toInt()
-            val query = url[2].split("=").last()
-            MyRepository("http://baobab.kaiyanapp.com/api/v3/search/")
-                .getService()
-                .getMoreSearchMsg(start,num,query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object :Observer<SearchMoreModel>{
-                    override fun onSubscribe(d: Disposable) {
+        val url = nextPageUrl.split("?").last().split("&")
+        val start = url[0].filter { it.isDigit() }.toInt()
+        val num = url[1].filter { it.isDigit() }.toInt()
+        val query = url[2].split("=").last()
+        MyRepository("http://baobab.kaiyanapp.com/api/v3/search/")
+            .getService()
+            .getMoreSearchMsg(start, num, query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<SearchMoreModel> {
+                override fun onSubscribe(d: Disposable) {
 
-                    }
+                }
 
-                    override fun onNext(t: SearchMoreModel) {
-                        nextPageUrl = DecodeUtil.urlDecode(t.nextPageUrl)
-                        for(m in t.itemList){
-                            if(m.type == "followCard"){
-                                listResult.add(
-                                    VideoBean(
-                                    m.data.content.data.id?:0,
+                override fun onNext(t: SearchMoreModel) {
+                    nextPageUrl = DecodeUtil.urlDecode(t.nextPageUrl?:"")
+                    for (m in t.itemList) {
+                        if (m.type == "followCard") {
+                            listResult.add(
+                                VideoBean(
+                                    m.data.content.data.id ?: 0,
                                     m.data.content.data.title,
-                                    m.data.content.data.author?.name?:"",
-                                    m.data.content.data.cover.feed?:"",
-                                    m.data.content.data.playUrl?:"",
-                                    m.data.content.data.description?:"",
-                                    PersonalModel(m.data.content.data.author?.id?:0,
-                                    m.data.content.data.author?.icon?:"",
-                                    DefaultUtil.defaultCoverUrl,m.data.content.data.author?.description?:"",
-                                    m.data.content.data.author?.name?:"")
-                                ))
-                            }
+                                    m.data.content.data.author?.name ?: "",
+                                    m.data.content.data.cover.feed ?: "",
+                                    m.data.content.data.playUrl ?: "",
+                                    m.data.content.data.description ?: "",
+                                    PersonalModel(
+                                        m.data.content.data.author?.id ?: 0,
+                                        m.data.content.data.author?.icon ?: "",
+                                        DefaultUtil.defaultCoverUrl,
+                                        m.data.content.data.author?.description ?: "",
+                                        m.data.content.data.author?.name ?: ""
+                                    )
+                                )
+                            )
                         }
-                        adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
-                        adapterResult.notifyDataSetChanged()
                     }
+                    adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
+                    adapterResult.notifyDataSetChanged()
+                }
 
-                    override fun onError(e: Throwable) {
-                        adapterResult.setLoadState(adapterResult.LOADING_END)
-                        adapterResult.notifyDataSetChanged()
-                    }
+                override fun onError(e: Throwable) {
+                    adapterResult.setLoadState(adapterResult.LOADING_END)
+                    adapterResult.notifyDataSetChanged()
+                }
 
-                    override fun onComplete() {
+                override fun onComplete() {
 
-                    }
+                }
 
-                })
+            })
 
-        }else{
-            adapterResult.setLoadState(adapterResult.LOADING_END)
-        }
     }
 }

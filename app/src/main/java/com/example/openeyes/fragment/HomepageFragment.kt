@@ -166,7 +166,11 @@ class HomepageFragment:Fragment() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        loadingMore()
+                        if(nextUrl.isEmpty()){
+                            adapter.setLoadState(adapter.LOADING_END)
+                            }else {
+                            loadingMore()
+                        }
                     }
                 }
             }
@@ -218,7 +222,7 @@ class HomepageFragment:Fragment() {
                             }
                         }
                     }
-                    nextUrl = t.nextPageUrl
+                    nextUrl = t.nextPageUrl?:""
                     adapter.setLoadState(adapter.LOADING_COMPLETE)
                     adapter.notifyDataSetChanged()
                 }

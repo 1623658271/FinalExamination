@@ -50,16 +50,16 @@ class MyViewModel: ViewModel() {
         return classInLiveData!!
     }
 
-    fun getClassInMoreLiveData(start:Int,num:Int,udid:String):MutableLiveData<ClassDeepMoreMsgModel>{
+    fun getClassInMoreLiveData(url: String,start:Int,num:Int,udid:String):MutableLiveData<ClassDeepMoreMsgModel>{
         if(classInMoreLiveData==null){
             classInMoreLiveData = MutableLiveData()
-            updateClassInMoreLiveData(start,num,udid)
+            updateClassInMoreLiveData(url,start,num,udid)
         }
         return classInMoreLiveData!!
     }
 
-    fun updateClassInMoreLiveData(start: Int, num:Int, udid: String) {
-        MyRepository(URL.ClassDeepUrl)
+    fun updateClassInMoreLiveData(url:String,start: Int, num:Int, udid: String) {
+        MyRepository(url)
             .getService()
             .getClassMoreMsg(start,num,udid)
             .subscribeOn(Schedulers.io())
@@ -71,6 +71,7 @@ class MyViewModel: ViewModel() {
 
                 override fun onNext(t: ClassDeepMoreMsgModel) {
                     classInMoreLiveData!!.value = t
+                    Log.e(TAG, "onNext: ${t.nextPageUrl}", )
                 }
 
                 override fun onError(e: Throwable) {

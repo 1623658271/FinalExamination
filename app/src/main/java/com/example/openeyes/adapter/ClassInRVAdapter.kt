@@ -9,7 +9,6 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.model.ClassDeepMsgModel
 import com.example.openeyes.model.PersonalModel
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
@@ -20,7 +19,7 @@ import com.example.openeyes.utils.DefaultUtil
  * email : 1623658271@qq.com
  * date : 2022/7/21 19:42
  */
-class ClassInRVAdapter(var classBeanList:MutableList<ClassDeepMsgModel.Item>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClassInRVAdapter(var videoBeanList:MutableList<VideoBean>, var typeList:MutableList<Map<String,String>>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val TYPE_ITEM = 0
     val TYPE_TEXT = 1
@@ -71,28 +70,13 @@ class ClassInRVAdapter(var classBeanList:MutableList<ClassDeepMsgModel.Item>):Re
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is itemViewHolder->{
-                val m = classBeanList[position]
-                val videoBean = VideoBean(
-                    m.data.content?.data?.id?:m.data.id?:0,
-                    m.data.content?.data?.title?:m.data.title?:"",
-                    m.data.header?.description?:m.data.author?.name?:"",
-                    m.data.content?.data?.cover?.feed?:m.data.cover?.feed?:"",
-                    m.data.content?.data?.playUrl?:m.data.playUrl?:"",
-                    m.data.content?.data?.description?:m.data.description?:"",
-                    PersonalModel(
-                        m.data.content?.data?.author?.id?:m.data.author?.id?:0,
-                        m.data.content?.data?.author?.icon?:m.data.author?.icon?:"",
-                        DefaultUtil.defaultCoverUrl,
-                        m.data.content?.data?.author?.description?:m.data.author?.description?:"",
-                        m.data.content?.data?.author?.name?:m.data.author?.name?:""
-                    )
-                )
+                val videoBean = videoBeanList[position]
                 holder.binding.message = videoBean
                 holder.binding.ivItemCoverVideo.setOnClickListener { clickListener.onVideoImageClickedListener(videoBean) }
                 holder.binding.itemPersonCoverCircleImage.setOnClickListener { clickListener.onAvatarImageClickedListener(videoBean) }
             }
             is textViewHolder->{
-                holder.binding.name = classBeanList[position].data.text
+                holder.binding.name = typeList[position]["text"]
             }
             is loadViewHolder->{
                 when(loadState) {
@@ -114,12 +98,12 @@ class ClassInRVAdapter(var classBeanList:MutableList<ClassDeepMsgModel.Item>):Re
         }
     }
 
-    override fun getItemCount(): Int = classBeanList.size + 1
+    override fun getItemCount(): Int = videoBeanList.size + 1
 
     override fun getItemViewType(position: Int): Int {
         return if(position+1==itemCount){
             TYPE_LOAD
-        }else if(classBeanList[position].type == "textCard"){
+        }else if(typeList[position]["type"] == "textCard"){
             TYPE_TEXT
         }else{
             TYPE_ITEM

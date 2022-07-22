@@ -46,7 +46,7 @@ class DiscoverClassRVAdapter(val classModelList:MutableList<ClassModel>):Recycle
         holder.itemRvDiscoverBinding.findClass = classModel
     }
 
-    override fun getItemCount(): Int = classModelList.size-1
+    override fun getItemCount(): Int = classModelList.size
 
     var mOnItemClickListener: OnItemClickListener? = null
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener?) {

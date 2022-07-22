@@ -8,6 +8,11 @@
             type="com.example.openeyes.model.VideoBean" />
     </data>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="10dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -16,7 +21,7 @@
         <FrameLayout
             android:id="@+id/frameLayout_result"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -30,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:ImageView="@{message.coverUrl}" />
 
@@ -52,6 +56,6 @@
                 android:text="@{message.bigTitle}"
                 android:background="@color/gray2" />
         </FrameLayout>
-
     </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

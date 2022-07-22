@@ -284,7 +284,7 @@ class SearchActivity : AppCompatActivity() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        if (nextPageUrl.isNotEmpty()) {
+                        if (nextPageUrl.isEmpty()) {
                             adapterResult.setLoadState(adapterResult.LOADING_END)
                         } else {
                             loadingMore()

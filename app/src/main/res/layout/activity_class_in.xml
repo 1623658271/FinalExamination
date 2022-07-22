@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ClassInActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/deepGray">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/class_deep_toolbar"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_class_in"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

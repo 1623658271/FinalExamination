@@ -20,7 +20,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/text_select_color.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/text_selected_color.xml" value="0.1385" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout-sw600dp/layout_person_message.xml" value="0.10689890710382513" />
-        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/activity_class_in.xml" value="0.1" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/activity_class_in.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/content_main.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_comment.xml" value="0.335" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_homepage_video.xml" value="0.14175724637681159" />
@@ -34,6 +34,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_cir_image.xml" value="0.14719202898550723" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_discovery_class_fragment.xml" value="0.21666666666666667" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_discovery_fragment.xml" value="0.215625" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_discovery_rec_fragment.xml" value="0.11684782608695653" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_homepage_fragment.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_host_fragment.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_load.xml" value="0.215625" />

@@ -17,5 +17,14 @@ data class VideoBean(
     var coverUrl: String,
     var playUrl: String,
     var description:String,
-    var personalModel: PersonalModel?
+    var personalModel: PersonalModel?,
+//    var consumption:Consumption
 ):Parcelable
+//{
+//    data class Consumption(
+//        val collectionCount: Int,
+//        val shareCount: Int,
+//        val replyCount: Int,
+//        val realCollectionCount: Int
+//    )
+//}

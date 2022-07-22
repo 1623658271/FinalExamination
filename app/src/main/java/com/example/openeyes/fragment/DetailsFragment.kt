@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
+import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RelatedRVAdapter
@@ -58,12 +59,13 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
         }
         adapter.setClickListener(object :RelatedRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(
-                view: View,
-                holder: RecyclerView.ViewHolder,
-                position: Int,
                 videoBean: VideoBean
             ) {
                 VideoPlayActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,videoBean)
+            }
+
+            override fun onCircleImageClick(videoBean: VideoBean) {
+                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,videoBean.personalModel!!)
             }
         })
     }

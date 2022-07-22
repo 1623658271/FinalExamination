@@ -16,4 +16,6 @@ data class PersonalModel(
     val cover: String,
     val description: String,
     val nickname: String,
+    val city:String,
+    val job:String
 ):Parcelable

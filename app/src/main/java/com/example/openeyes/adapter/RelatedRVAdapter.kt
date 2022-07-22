@@ -76,6 +76,7 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
         when (holder) {
             is NowMessageViewHolder -> {
                 holder.binding.message = nowMessage
+                holder.binding.detailsPersonCircleImage.setOnClickListener { clickedListener?.onCircleImageClick(nowMessage) }
             }
             is TextCardViewHolder -> {
                 holder.binding.name = itemList[position].data.text
@@ -85,12 +86,12 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
                 Log.d(TAG, "onBindViewHolder: ${m.data}")
                 holder.binding.message = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",
                     m.data.playUrl?:"",m.data.description?:"", PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
-                        m.data.author?.name?:"")
+                        m.data.author?.name?:"","","")
                 )
                 val videoBean = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",m.data.playUrl?:"",
                 m.data.description?:"",PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
-                    m.data.author?.name?:""))
-                holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(holder.binding.root,holder,position,videoBean) }
+                    m.data.author?.name?:"","",""))
+                holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(videoBean) }
             }
         }
     }
@@ -111,7 +112,8 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
      * 点击监听的接口，头像点击和视频图片点击
      */
     interface OnSomethingClickedListener{
-        fun onVideoImageClickedListener(view: View, holder:RecyclerView.ViewHolder, position: Int, videoBean:VideoBean)
+        fun onVideoImageClickedListener(videoBean:VideoBean)
+        fun onCircleImageClick(videoBean:VideoBean)
     }
 
     private var clickedListener:OnSomethingClickedListener?=null

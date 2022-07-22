@@ -93,7 +93,7 @@ class HomepageFragment:Fragment() {
                                         m.data.content.data.author.icon ?: "",
                                         DefaultUtil.defaultCoverUrl,
                                         m.data.content.data.author.description ?: "",
-                                        m.data.content.data.author.name ?: ""
+                                        m.data.content.data.author.name ?: "","",""
                                     )
                                 )
                             )
@@ -111,7 +111,7 @@ class HomepageFragment:Fragment() {
                                         m.data.content.data.author.icon ?: "",
                                         DefaultUtil.defaultCoverUrl,
                                         m.data.content.data.author.description ?: "",
-                                        m.data.content.data.author.name ?: ""
+                                        m.data.content.data.author.name ?: "","",""
                                     )
                                 )
                             )
@@ -215,7 +215,7 @@ class HomepageFragment:Fragment() {
                                             m.data.content.data.cover.feed,
                                             m.data.content.data.playUrl,
                                             m.data.content.data.description,
-                                            PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name)
+                                            PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name,"","")
                                         )
                                     )
                                 }

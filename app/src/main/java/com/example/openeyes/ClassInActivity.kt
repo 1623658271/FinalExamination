@@ -48,6 +48,7 @@ class ClassInActivity : AppCompatActivity() {
         binding.rvClassIn.adapter = adapter
         binding.rvClassIn.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         classModel = intent.getParcelableExtra("classModel")!!
+        binding.classDeepToolbar.title = "openEyes   分类:《${classModel.title.split('#').last()}》"
         viewModel.getClassInLiveData(classModel.id.toString(), URL.udid).observe(this){
             for(m in it.itemList){
                 val map = HashMap<String,String>()
@@ -66,7 +67,8 @@ class ClassInActivity : AppCompatActivity() {
                         m.data.content?.data?.author?.icon?:m.data.author?.icon?:"",
                         DefaultUtil.defaultCoverUrl,
                         m.data.content?.data?.author?.description?:m.data.author?.description?:"",
-                        m.data.content?.data?.author?.name?:m.data.author?.name?:""
+                        m.data.content?.data?.author?.name?:m.data.author?.name?:"",
+                        "",""
                     )
                 ))
             }
@@ -120,7 +122,8 @@ class ClassInActivity : AppCompatActivity() {
                                 m.data.content.data.author.icon ?: "",
                                 DefaultUtil.defaultCoverUrl,
                                 m.data.content.data.author.description ?: "",
-                                m.data.content.data.author.name ?: ""
+                                m.data.content.data.author.name ?: "",
+                            "",""
                             )
                         )
                     )

@@ -61,7 +61,8 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
                                 m.data.message?:"", m.data.likeCount?:0, PersonalModel(
                                     m.data.user.uid, m.data.user.avatar,
                                     m.data.user.cover?.toString()?:DefaultUtil.defaultCoverUrl,
-                                    m.data.user.description?.toString()?:"", m.data.user.nickname
+                                    m.data.user.description?.toString()?:"", m.data.user.nickname,
+                                    m.data.user.city?.toString()?:"",m.data.user.job?.toString()?:""
                                 )
                             )
                         )

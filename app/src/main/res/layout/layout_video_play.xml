@@ -19,8 +19,8 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-            android:id="@+id/jc_video"
+        <cn.jzvd.JzvdStd
+            android:id="@+id/jz_video"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"

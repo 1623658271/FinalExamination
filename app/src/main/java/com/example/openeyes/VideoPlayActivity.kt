@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import cn.jzvd.Jzvd
 import com.bumptech.glide.Glide
 import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
@@ -71,10 +72,14 @@ class VideoPlayActivity : AppCompatActivity() {
      * 播放视频
      */
     private fun videoPlay() {
-        binding.jcVideo.setUp(videoBean.playUrl,SCREEN_LAYOUT_NORMAL)
-        binding.jcVideo.backButton.setOnClickListener { finish() }
-        binding.jcVideo.startVideo()
-        Glide.with(this).load(videoBean.coverUrl).into(binding.jcVideo.thumbImageView)
+        binding.jzVideo.setUp(videoBean.playUrl,videoBean.bigTitle)
+        Glide.with(this).load(videoBean.coverUrl).into(binding.jzVideo.posterImageView)
+        binding.jzVideo.startVideo()
+
+//        binding.jcVideo.setUp(videoBean.playUrl,SCREEN_LAYOUT_NORMAL)
+//        binding.jcVideo.backButton.setOnClickListener { finish() }
+//        binding.jcVideo.startVideo()
+//        Glide.with(this).load(videoBean.coverUrl).into(binding.jcVideo.thumbImageView)
     }
 
     /**
@@ -96,29 +101,36 @@ class VideoPlayActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        Jzvd.goOnPlayOnResume()
         super.onResume()
-        binding.jcVideo.startVideo()
+//        binding.jcVideo.startVideo()
     }
     override fun onPause() {
+        Jzvd.goOnPlayOnPause()
         super.onPause()
-        binding.jcVideo.release()
+//        binding.jcVideo.release()
     }
 
     override fun onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            return;
+        if (Jzvd.backPress()) {
+            return
         }
+//        if (JCVideoPlayer.backPress()) {
+//            return;
+//        }
         super.onBackPressed()
     }
 
     override fun onDestroy() {
-        JCVideoPlayer.releaseAllVideos()
-        binding.jcVideo.release()
+        Jzvd.releaseAllVideos()
+//        JCVideoPlayer.releaseAllVideos()
+//        binding.jcVideo.release()
         super.onDestroy()
-        Log.d(TAG, "onDestroy: video")
+//        Log.d(TAG, "onDestroy: video")
     }
 
     override fun finish() {
+        Jzvd.releaseAllVideos()
         super.finish()
     }
 }

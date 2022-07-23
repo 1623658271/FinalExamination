@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="message"
+            type="com.example.openeyes.model.VideoBean" />
+        <import type="com.example.openeyes.utils.ToStringUtil"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="3dp"
+        android:background="@color/gray">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_rec_cover_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|top"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_video_start_image" />
+        </FrameLayout>
+        <TextView
+
+            android:textStyle="bold"
+            android:text="@{message.description}"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/gray"
+            android:layout_marginTop="20dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/vide_item_person_cover_circleImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:CircleImageView="@{message.personalModel.avatar}" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start|center"
+                android:layout_gravity="center"
+                android:text="@{message.personalModel.nickname}"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:src="@drawable/ic_like"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textStyle="bold"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{ToStringUtil.IntToString(message.consumption.collectionCount)}"/>
+        </LinearLayout>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

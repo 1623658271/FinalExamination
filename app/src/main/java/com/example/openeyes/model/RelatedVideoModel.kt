@@ -6,7 +6,7 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/7/18 15:03
  */
-data class RelatedRecommendationModel(
+data class RelatedVideoModel(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,
@@ -91,13 +91,6 @@ data class RelatedRecommendationModel(
                 val ifNewest: Boolean,
                 val newestEndTime: Any?,
                 val communityIndex: Int
-            )
-
-            data class Consumption(
-                val collectionCount: Int,
-                val shareCount: Int,
-                val replyCount: Int,
-                val realCollectionCount: Int
             )
 
             data class Provider(

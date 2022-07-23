@@ -11,7 +11,7 @@ import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.ItemVideoCardBinding
 import com.example.openeyes.databinding.LayoutVideoDetailBinding
 import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.RelatedRecommendationModel
+import com.example.openeyes.model.RelatedVideoModel
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 
@@ -21,14 +21,13 @@ import com.example.openeyes.utils.DefaultUtil
  * email : 1623658271@qq.com
  * date : 2022/7/19 11:07
  */
-class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<RelatedRecommendationModel.Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<RelatedVideoModel.Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val TYPE_TEXT = 0
     val TYPE_VIDEO = 1
     val TYPE_NOW = 3
     val TAG = "lfy"
 
-    inner class NowMessageViewHolder(binding:LayoutVideoDetailBinding):RecyclerView.ViewHolder(binding.root){
-        val binding = binding
+    inner class NowMessageViewHolder(val binding: LayoutVideoDetailBinding):RecyclerView.ViewHolder(binding.root){
     }
 
     inner class TextCardViewHolder(itemTextCardBinding: ItemTextCardBinding):RecyclerView.ViewHolder(itemTextCardBinding.root){
@@ -87,10 +86,10 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
                 holder.binding.message = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",
                     m.data.playUrl?:"",m.data.description?:"", PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
                         m.data.author?.name?:"","","")
-                )
+                ,m.data.consumption)
                 val videoBean = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",m.data.playUrl?:"",
                 m.data.description?:"",PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
-                    m.data.author?.name?:"","",""))
+                    m.data.author?.name?:"","",""),m.data.consumption)
                 holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(videoBean) }
             }
         }

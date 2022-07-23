@@ -95,7 +95,7 @@ class HomepageFragment:Fragment() {
                                         m.data.content.data.author.description ?: "",
                                         m.data.content.data.author.name ?: "","",""
                                     )
-                                )
+                                ,m.data.content.data.consumption)
                             )
                         }else {
                             beanList.add(
@@ -113,7 +113,7 @@ class HomepageFragment:Fragment() {
                                         m.data.content.data.author.description ?: "",
                                         m.data.content.data.author.name ?: "","",""
                                     )
-                                )
+                                ,m.data.content.data.consumption)
                             )
                         }
                 }
@@ -216,7 +216,7 @@ class HomepageFragment:Fragment() {
                                             m.data.content.data.playUrl,
                                             m.data.content.data.description,
                                             PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name,"","")
-                                        )
+                                        ,m.data.content.data.consumption)
                                     )
                                 }
                             }

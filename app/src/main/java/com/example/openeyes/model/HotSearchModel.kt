@@ -1,5 +1,7 @@
 package com.example.openeyes.model
 
+import kotlinx.android.parcel.Parcelize
+
 /**
  * description ： 热搜关键词
  * author : lfy

@@ -28,7 +28,7 @@ class MyViewModel: ViewModel() {
     //视频的评论
     private var commentsLiveData:MutableLiveData<CommentModel>? = null
     //每日精选加载更多
-    private var relatedLiveData:MutableLiveData<RelatedRecommendationModel>? = null
+    private var relatedLiveData:MutableLiveData<RelatedVideoModel>? = null
     //发现更多
     private var findMoreLiveData:MutableLiveData<FindMoreBean>? = null
     //热搜
@@ -39,8 +39,18 @@ class MyViewModel: ViewModel() {
     private var classInLiveData:MutableLiveData<ClassDeepMsgModel>? = null
     //分类页面更多数据
     private var classInMoreLiveData:MutableLiveData<ClassDeepMoreMsgModel>? = null
+    //社区推荐
+    private var recLiveData:MutableLiveData<SocialRecommendModel>? = null
 
     private val TAG = "lfy"
+
+    fun getRecLiveData():MutableLiveData<SocialRecommendModel>{
+        if(recLiveData==null){
+            recLiveData = MutableLiveData()
+            updateRecLiveData()
+        }
+        return recLiveData!!
+    }
 
     fun getClassInLiveData(path:String,udid:String):MutableLiveData<ClassDeepMsgModel>{
         if(classInLiveData==null){
@@ -135,7 +145,7 @@ class MyViewModel: ViewModel() {
         return commentsLiveData!!
     }
 
-    fun getRelatedLiveData(id:Int): MutableLiveData<RelatedRecommendationModel> {
+    fun getRelatedLiveData(id:Int): MutableLiveData<RelatedVideoModel> {
         if(relatedLiveData == null){
             relatedLiveData = MutableLiveData()
             updateRelatedViewModel(id)
@@ -157,6 +167,34 @@ class MyViewModel: ViewModel() {
             updateHotSearchViewModel()
         }
         return hotSearchLiveData!!
+    }
+
+    fun updateRecLiveData(){
+        MyRepository(URL.RecUrl)
+            .getService()
+            .getSocialRecMsg()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<SocialRecommendModel>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: SocialRecommendModel) {
+                    recLiveData!!.value = t
+                    Log.e(TAG, "onNext: ${t.itemList.size}", )
+                }
+
+                override fun onError(e: Throwable) {
+                    showNetworkError()
+                    Log.e(TAG, "onError: $e", )
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
     }
 
     fun updateSearchLiveData(search: String) {
@@ -218,12 +256,12 @@ class MyViewModel: ViewModel() {
             .getRelatedVideoMsg(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<RelatedRecommendationModel>{
+            .subscribe(object :Observer<RelatedVideoModel>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: RelatedRecommendationModel) {
+                override fun onNext(t: RelatedVideoModel) {
                     relatedLiveData!!.value = t
                 }
 

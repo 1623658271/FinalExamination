@@ -122,13 +122,6 @@ data class ClassDeepMoreMsgModel(
                         val communityIndex: Int
                     )
 
-                    data class Consumption(
-                        val collectionCount: Int,
-                        val shareCount: Int,
-                        val replyCount: Int,
-                        val realCollectionCount: Int
-                    )
-
                     data class Provider(
                         val name: String,
                         val alias: String,

@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DiscoverFragment:Fragment() {
     private lateinit var binding:LayoutDiscoveryFragmentBinding
     private lateinit var discoverClassFragment: DiscoverClassFragment
+    private lateinit var discoverRecFragment: DiscoverRecFragment
     private lateinit var data:MutableList<String>
     private lateinit var adapter: FragmentPagerAdapter
     private val TAG = "lfy"
@@ -36,9 +37,12 @@ class DiscoverFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         data = ArrayList()
+        data.add("推荐")
         data.add("分类")
         adapter = FragmentPagerAdapter(this)
+        discoverRecFragment = DiscoverRecFragment()
         discoverClassFragment = DiscoverClassFragment()
+        adapter.addFragment(discoverRecFragment)
         adapter.addFragment(discoverClassFragment)
         binding.discoverViewpager2.adapter = adapter
         TabLayoutMediator(

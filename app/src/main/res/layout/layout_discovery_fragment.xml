@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="发现"
             android:gravity="center"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/white" />
 
@@ -25,7 +25,13 @@
             android:id="@+id/tl_findmore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="left"
             app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="false"
+            android:scrollbarSize="10dp"
             android:background="@color/deepGray"/>
 
         <androidx.viewpager2.widget.ViewPager2

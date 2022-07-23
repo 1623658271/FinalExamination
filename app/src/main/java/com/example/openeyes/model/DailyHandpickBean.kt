@@ -163,13 +163,6 @@ data class DailyHandpickBean(
         val videoNum: Int
     )
 
-    data class Consumption(
-        val collectionCount: Int,
-        val realCollectionCount: Int,
-        val replyCount: Int,
-        val shareCount: Int
-    )
-
     data class Cover(
         val blurred: String,
         val detail: String,

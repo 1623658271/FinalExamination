@@ -69,7 +69,7 @@ class ClassInActivity : AppCompatActivity() {
                         m.data.content?.data?.author?.description?:m.data.author?.description?:"",
                         m.data.content?.data?.author?.name?:m.data.author?.name?:"",
                         "",""
-                    )
+                    ),m.data.consumption
                 ))
             }
             adapter.notifyDataSetChanged()
@@ -124,7 +124,7 @@ class ClassInActivity : AppCompatActivity() {
                                 m.data.content.data.author.description ?: "",
                                 m.data.content.data.author.name ?: "",
                             "",""
-                            )
+                            ),m.data.content.data.consumption
                         )
                     )
                 }

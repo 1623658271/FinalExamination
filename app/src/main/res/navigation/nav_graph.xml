@@ -33,6 +33,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_discoverFragment_to_videoPlayActivity"
+            app:destination="@id/videoPlayActivity" />
+        <action
+            android:id="@+id/action_discoverFragment_to_personMessageActivity"
+            app:destination="@id/personMessageActivity" />
+        <action
+            android:id="@+id/action_discoverFragment_to_picWatchActivity"
+            app:destination="@id/picWatchActivity" />
     </fragment>
     <fragment
         android:id="@+id/mineFragment"
@@ -61,6 +70,24 @@
         <argument
             android:name="classModel"
             app:argType="com.example.openeyes.model.ClassModel"
+            app:nullable="true" />
+    </activity>
+    <activity
+        android:id="@+id/videoPlayActivity"
+        android:name="com.example.openeyes.VideoPlayActivity"
+        android:label="VideoPlayActivity" >
+        <argument
+            android:name="video"
+            app:argType="com.example.openeyes.model.VideoBean"
+            app:nullable="true" />
+    </activity>
+    <activity
+        android:id="@+id/picWatchActivity"
+        android:name="com.example.openeyes.PicWatchActivity"
+        android:label="PicWatchActivity" >
+        <argument
+            android:name="pics"
+            app:argType="string[]"
             app:nullable="true" />
     </activity>
 

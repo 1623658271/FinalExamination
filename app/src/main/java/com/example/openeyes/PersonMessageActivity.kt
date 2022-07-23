@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
 import com.example.openeyes.model.PersonalModel
+import com.example.openeyes.model.PicsModel
 import com.example.openeyes.model.VideoBean
 import kotlinx.android.synthetic.*
 
@@ -22,7 +24,24 @@ class PersonMessageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_person_message)
-        binding.person = intent.getParcelableExtra("person_msg")
+        val h = intent.getParcelableExtra<PersonalModel>("person_msg")
+        binding.person = h
+        if(binding.tvCity.text.isEmpty()){
+            binding.llCity.visibility = View.GONE
+        }
+        if(binding.tvJob.text.isEmpty()){
+            binding.llJob.visibility = View.GONE
+        }
+        binding.civAvatar.setOnClickListener {
+            val list = ArrayList<String>()
+            list.add(h!!.avatar)
+            PicWatchActivity.startPicWatchActivity(this, PicsModel("",h.avatar,list,null,null))
+        }
+        binding.ivBackground.setOnClickListener {
+            val list = ArrayList<String>()
+            list.add(h!!.cover)
+            PicWatchActivity.startPicWatchActivity(this, PicsModel("",h.avatar,list,null,null))
+        }
     }
     companion object {
         fun startPersonMessageActivity(context: Context, personalModel: PersonalModel) {

@@ -67,10 +67,15 @@
             android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>

@@ -17,7 +17,7 @@ import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
-import com.example.openeyes.model.RelatedRecommendationModel
+import com.example.openeyes.model.RelatedVideoModel
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.viewmodel.MyViewModel
 
@@ -30,7 +30,7 @@ import com.example.openeyes.viewmodel.MyViewModel
 class DetailsFragment(val videoBean: VideoBean):Fragment() {
     private lateinit var binding:LayoutVideoDetailsFragmentBinding
     private lateinit var adapter: RelatedRVAdapter
-    private lateinit var list:MutableList<RelatedRecommendationModel.Item>
+    private lateinit var list:MutableList<RelatedVideoModel.Item>
     private lateinit var viewModel: MyViewModel
     private val TAG = "lfy"
 

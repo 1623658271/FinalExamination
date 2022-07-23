@@ -79,4 +79,7 @@ dependencies {
 
     implementation 'com.google.android.material:material'
 
+    // 图片加载
+    implementation "io.coil-kt:coil:1.4.0"
+
 }

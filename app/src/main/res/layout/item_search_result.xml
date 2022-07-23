@@ -39,8 +39,8 @@
                 app:ImageView="@{message.coverUrl}" />
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_video_start_image" />
 

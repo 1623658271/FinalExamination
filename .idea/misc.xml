@@ -14,6 +14,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_findmore2.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_homepage1.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_homepage2.xml" value="0.1005" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_images.xml" value="0.1015" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_mine2.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_pay.xml" value="0.1015" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_search.xml" value="0.1385" />
@@ -22,13 +23,16 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/text_selected_color.xml" value="0.1385" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout-sw600dp/layout_person_message.xml" value="0.10689890710382513" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/activity_class_in.xml" value="0.165" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/activity_pic_watch.xml" value="0.11865942028985507" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/content_main.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_comment.xml" value="0.335" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_homepage_video.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_hot_search.xml" value="0.25" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_pics_card.xml" value="0.25" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_rv_discover.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_search_result.xml" value="0.14719202898550723" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_text_card.xml" value="0.25" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_vide_card.xml" value="0.375" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_video_card.xml" value="0.25" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/item_video_play.xml" value="0.21666666666666667" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_cir.xml" value="0.1" />

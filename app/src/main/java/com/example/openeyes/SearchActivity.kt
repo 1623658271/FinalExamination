@@ -42,6 +42,7 @@ class SearchActivity : AppCompatActivity() {
     private var firstSearch = true
     private var nextPageUrl:String = ""
     private val TAG = "lfy"
+    private var nowText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
@@ -77,6 +78,7 @@ class SearchActivity : AppCompatActivity() {
         adapterHot.setListener(object :HotRVAdapter.OnItemClickListener{
             override fun onClick(text: String) {
                 binding.searchView.setQuery(text,false)
+                nowText = text
                 doSearch(text)
             }
         })
@@ -89,6 +91,7 @@ class SearchActivity : AppCompatActivity() {
 
                     }else {
                         doSearch(query!!)
+                        nowText = query
                     }
                     return false
                 }
@@ -106,6 +109,10 @@ class SearchActivity : AppCompatActivity() {
             })
         }
         setRecyclerOnScrollListener()
+        binding.refreshSearch.setOnRefreshListener {
+            viewModel.updateSearchLiveData(nowText)
+            binding.refreshSearch.isRefreshing = false
+        }
     }
 
     fun doSearch(query:String){
@@ -121,7 +128,7 @@ class SearchActivity : AppCompatActivity() {
                             PersonalModel(m.data.content.data.author?.id?:0,m.data.content.data.author?.icon?:"",
                                 DefaultUtil.defaultCoverUrl,m.data.content.data.author?.description?:"",
                                 m.data.content.data.author?.name?:"","","")
-                        )
+                        ,m.data.content.data.consumption)
                         )
                     }
                 }
@@ -335,7 +342,7 @@ class SearchActivity : AppCompatActivity() {
                                         m.data.content.data.author?.description ?: "",
                                         m.data.content.data.author?.name ?: "","",""
                                     )
-                                )
+                                ,m.data.content.data.consumption)
                             )
                         }
                     }

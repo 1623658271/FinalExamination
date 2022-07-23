@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/deepGray">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginTop="40dp"
-        android:id="@+id/mine_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_default_head"/>
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="name"
-        android:textSize="30sp"
-        android:layout_gravity="center"
-        android:gravity="center"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/deepGray">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="40dp"
+            android:id="@+id/mine_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/xiugou" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="一只小修勾"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="观看记录"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_my_load"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="我的下载"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+    </LinearLayout>
+</layout>

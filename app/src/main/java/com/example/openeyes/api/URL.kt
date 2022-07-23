@@ -24,7 +24,8 @@ object URL {
     val HotSearchUrl = "http://baobab.kaiyanapp.com/api/v3/queries/"
     //分类深入
     val ClassDeepUrl = "http://baobab.kaiyanapp.com/api/v5/index/tab/category/"
-
     //udid
     val udid = "435865baacfc49499632ea13c5a78f944c2f28aa"
+    //推荐
+    val RecUrl = "http://baobab.kaiyanapp.com/api/v7/community/tab/"
 }

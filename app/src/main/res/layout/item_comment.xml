@@ -5,7 +5,7 @@
         <variable
             name="comment"
             type="com.example.openeyes.model.CommentBean" />
-        <import type="com.example.openeyes.utils.IntToStringUtil"/>
+        <import type="com.example.openeyes.utils.ToStringUtil"/>
     </data>
 
     <LinearLayout
@@ -66,7 +66,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@{IntToStringUtil.IntToString(comment.likeCount)}"/>
+                android:text="@{ToStringUtil.IntToString(comment.likeCount)}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -11,7 +11,7 @@
 
 ###功能页介绍  
 1.首页  
-<img src=https://user-images.githubusercontent.com/89245928/180635825-890137f0-9955-4f45-8340-160f1e9d5074.jpg width="30px">  
+<img src=https://user-images.githubusercontent.com/89245928/180635825-890137f0-9955-4f45-8340-160f1e9d5074.jpg width="100px">  
 通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
 为一个RecyclerView，上拉加载更多是用了脚布局，同时判断上拉状态和数据源状态，动态进行更新数据    
 2.发现  

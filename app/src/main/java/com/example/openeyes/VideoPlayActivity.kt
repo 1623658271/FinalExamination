@@ -17,8 +17,6 @@ import com.example.openeyes.fragment.DetailsFragment
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.ActivityController
 import com.google.android.material.tabs.TabLayoutMediator
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer.SCREEN_LAYOUT_NORMAL
 
 /**
  * description ： 点击视频播放后进入的活动

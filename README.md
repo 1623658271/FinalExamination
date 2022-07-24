@@ -15,22 +15,25 @@
 通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
 为一个RecyclerView，上拉加载更多是用了脚布局，同时判断上拉状态和数据源状态，动态进行更新数据    
 2.发现  
-<img src=https://user-images.githubusercontent.com/89245928/180635980-63039ce6-d8f0-44c7-8bb1-0c619e1648e8.jpg width="200px">
-<img src=https://user-images.githubusercontent.com/89245928/180635996-369ec4e8-252c-432e-baa3-422832480964.jpg width="30px> <img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="30px">
+<img src=https://user-images.githubusercontent.com/89245928/180635980-63039ce6-d8f0-44c7-8bb1-0c619e1648e8.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180635996-369ec4e8-252c-432e-baa3-422832480964.jpg width="200px">  <img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="200px">  
 
 包含推荐和分类页面  
 推荐页面使用了RV的瀑布流布局  
 分类页面使用了帧布局实现文字和图片共存，CardView美化视觉    
 3.我的  
-![我的界面](https://user-images.githubusercontent.com/89245928/180636062-b3b0cb7e-a0b5-4471-9f95-dd3fa56fcaae.jpg)  
+<img src=https://user-images.githubusercontent.com/89245928/180636062-b3b0cb7e-a0b5-4471-9f95-dd3fa56fcaae.jpg width="200px">   
 暂时还啥都没实现    
 4.视频播放  
-![视频播放界面](https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="30px")![视频相关推荐](https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg)![Uploading 评论.jpg…]()  
+<img src=https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636457-fe9e8465-500e-477e-9b38-2bba0f97f0c3.jpg width="200px">  
+
 
 5.搜索  
-![热搜关键词](https://user-images.githubusercontent.com/89245928/180636142-7ced769f-8059-43ce-8f53-32cb42df38e4.jpg)
-![搜索界面](https://user-images.githubusercontent.com/89245928/180636137-1f7a3b0f-0b2d-4f98-abf9-37f7f066d7b0.jpg)  
+<img src=https://user-images.githubusercontent.com/89245928/180636142-7ced769f-8059-43ce-8f53-32cb42df38e4.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636137-1f7a3b0f-0b2d-4f98-abf9-37f7f066d7b0.jpg width="200px">  
 6.用户信息  
-![用户信息界面](https://user-images.githubusercontent.com/89245928/180636160-b9466835-bdba-45ca-af16-c3563aa01d7d.jpg)  
+<img src=https://user-images.githubusercontent.com/89245928/180636160-b9466835-bdba-45ca-af16-c3563aa01d7d.jpg width="200px">  
 7.查看大图  
-![查看图片界面](https://user-images.githubusercontent.com/89245928/180636188-722c0742-c038-4398-94ad-fab92b889c95.jpg)    
+<img src=https://user-images.githubusercontent.com/89245928/180636188-722c0742-c038-4398-94ad-fab92b889c95.jpg width="200px">  

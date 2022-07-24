@@ -1,7 +1,7 @@
 # FinalExamination  
 ## OpenEyes App介绍  
 ### 页面布局  
-由六个Activity和八个Fragment组成  
+由六个Activity和七个Fragment组成  
 1.MainActivity：设置了toorbar、FragmentContainerView和BottomNavigationView用于切换首页、发现和我的三个fragment以及使用搜索功能  
 2.VideoPlayActivity：点击视频后进入的页面、其中包含CommentFragment(评论页面)和DetailsFragment(视频兮姐)两个小界面，用的TabLayout进行切换  
 3.SearchActivity：搜索界面，包含两个RecyclerView(用于热搜关键词和搜索结果)和SearchView(用于搜索)  

@@ -1,6 +1,9 @@
 package com.example.openeyes.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -9,6 +12,7 @@ import kotlinx.android.parcel.Parcelize
  * email : 1623658271@qq.com
  * date : 2022/7/16 15:59
  */
+
 @Parcelize
 data class VideoBean(
     var id:Int,

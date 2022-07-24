@@ -15,6 +15,7 @@ import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
 import com.example.openeyes.fragment.DetailsFragment
 import com.example.openeyes.model.VideoBean
+//import com.example.openeyes.room.MyDatabase
 import com.example.openeyes.utils.ActivityController
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -28,6 +29,7 @@ class VideoPlayActivity : AppCompatActivity() {
     private lateinit var binding:LayoutVideoPlayBinding
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private lateinit var videoBean: VideoBean
+//    private lateinit var database: MyDatabase
     private val TAG = "lfy"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +66,13 @@ class VideoPlayActivity : AppCompatActivity() {
         binding.videoToolbar.setNavigationOnClickListener {
             ActivityController.removeActivity(this)
         }
+//        saveToHistory(videoBean)
     }
+
+//    private fun saveToHistory(videoBean: VideoBean) {
+//        database = MyDatabase.getDatabase(this).getDataBase()!!
+//        database.getVideoDao().insertVideoBean(videoBean)
+//    }
 
     /**
      * 播放视频

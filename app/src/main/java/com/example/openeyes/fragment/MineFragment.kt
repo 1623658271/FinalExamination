@@ -90,6 +90,7 @@ class MineFragment:Fragment() {
         binding.mineImage.setOnClickListener {
             openAlum()
         }
+
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)

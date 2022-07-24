@@ -1,5 +1,8 @@
 package com.example.openeyes
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -92,6 +95,15 @@ class ClassInActivity : AppCompatActivity() {
             }
         })
         setRecyclerOnScrollListener()
+    }
+
+    companion object{
+        fun fragmentStartClassInActivity(context: Context, activity: Activity, classModel: ClassModel){
+            val mIntent = Intent(activity, ClassInActivity::class.java)
+            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mIntent.putExtra("classModel",classModel)
+            context.startActivity(mIntent)
+        }
     }
 
     fun loadMore() {

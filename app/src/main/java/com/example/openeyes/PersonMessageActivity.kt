@@ -24,7 +24,7 @@ class PersonMessageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_person_message)
-        val h = intent.getParcelableExtra<PersonalModel>("person_msg")
+        val h = intent.getParcelableExtra<PersonalModel>("person")
         binding.person = h
         if(binding.tvCity.text.isEmpty()){
             binding.llCity.visibility = View.GONE
@@ -47,13 +47,13 @@ class PersonMessageActivity : AppCompatActivity() {
         fun startPersonMessageActivity(context: Context, personalModel: PersonalModel) {
             val intent = Intent(context, PersonMessageActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra("person_msg", personalModel)
+            intent.putExtra("person", personalModel)
             context.startActivity(intent)
         }
         fun fragmentStartVideoPlayActivity(context: Context, activity: Activity, personalModel: PersonalModel){
             val mIntent = Intent(activity, PersonMessageActivity::class.java)
             mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            mIntent.putExtra("person_msg",personalModel)
+            mIntent.putExtra("person",personalModel)
             context.startActivity(mIntent)
         }
     }

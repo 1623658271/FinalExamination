@@ -54,7 +54,7 @@
         android:label="PersonMessageActivity"
         tools:layout="@layout/layout_person_message">
         <argument
-            android:name="person_msg"
+            android:name="person"
             app:argType="com.example.openeyes.model.PersonalModel"
             app:nullable="true" />
     </activity>
@@ -66,7 +66,8 @@
     <activity
         android:id="@+id/classInActivity"
         android:name="com.example.openeyes.ClassInActivity"
-        android:label="ClassInActivity" >
+        android:label="ClassInActivity"
+        tools:layout="@layout/activity_class_in">
         <argument
             android:name="classModel"
             app:argType="com.example.openeyes.model.ClassModel"
@@ -75,7 +76,8 @@
     <activity
         android:id="@+id/videoPlayActivity"
         android:name="com.example.openeyes.VideoPlayActivity"
-        android:label="VideoPlayActivity" >
+        android:label="VideoPlayActivity"
+        tools:layout="@layout/layout_video_play">
         <argument
             android:name="video"
             app:argType="com.example.openeyes.model.VideoBean"
@@ -84,7 +86,8 @@
     <activity
         android:id="@+id/picWatchActivity"
         android:name="com.example.openeyes.PicWatchActivity"
-        android:label="PicWatchActivity" >
+        android:label="PicWatchActivity"
+        tools:layout="@layout/activity_pic_watch">
         <argument
             android:name="pics"
             app:argType="string[]"

@@ -33,7 +33,6 @@ import java.net.URL
 
 class PicWatchActivity : AppCompatActivity() {
     private lateinit var file: File
-    private lateinit var mSavePath:String
     private lateinit var pics:PicsModel
     private lateinit var adapter:PicWatchPagerAdapter
     private lateinit var binding:ActivityPicWatchBinding
@@ -161,21 +160,6 @@ class PicWatchActivity : AppCompatActivity() {
             }
         }.start()
     }
-
-    fun createBitmapThumbnail(bitmap: Bitmap, needRecycler: Boolean): Bitmap? {
-        val width = bitmap.width
-        val height = bitmap.height
-        val newWidth = 80
-        val newHeight = 80
-        val scaleWidth = newWidth.toFloat() / width
-        val scaleHeight = newHeight.toFloat() / height
-        val matrix = Matrix()
-        matrix.postScale(scaleWidth, scaleHeight)
-        val newBitMap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
-        if (needRecycler) bitmap.recycle()
-        return newBitMap
-    }
-
     companion object{
         fun startPicWatchActivity(context: Context,picModel:PicsModel){
             val intent = Intent(context,PicWatchActivity::class.java)

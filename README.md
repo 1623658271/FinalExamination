@@ -11,7 +11,7 @@
 
 ###功能页介绍  
 1.首页  
-![首页界面](https://user-images.githubusercontent.com/89245928/180635825-890137f0-9955-4f45-8340-160f1e9d5074.jpg)  
+![首页界面](https://user-images.githubusercontent.com/89245928/180635825-890137f0-9955-4f45-8340-160f1e9d5074.jpg width="30px")  
 通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
 为一个RecyclerView，上拉加载更多是用了脚布局，同时判断上拉状态和数据源状态，动态进行更新数据    
 2.发现  
@@ -24,7 +24,7 @@
 ![我的界面](https://user-images.githubusercontent.com/89245928/180636062-b3b0cb7e-a0b5-4471-9f95-dd3fa56fcaae.jpg)  
 暂时还啥都没实现    
 4.视频播放  
-![视频播放界面](https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg)![视频相关推荐](https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg)![Uploading 评论.jpg…]()  
+![视频播放界面](https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="30px")![视频相关推荐](https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg)![Uploading 评论.jpg…]()  
 
 5.搜索  
 ![热搜关键词](https://user-images.githubusercontent.com/89245928/180636142-7ced769f-8059-43ce-8f53-32cb42df38e4.jpg)

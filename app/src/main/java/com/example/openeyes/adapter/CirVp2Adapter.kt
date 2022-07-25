@@ -15,6 +15,7 @@ import com.example.openeyes.model.VideoBean
  */
 class CirVp2Adapter(var imageUrlList:MutableList<VideoBean>): PagerAdapter() {
 
+    //为给定的position位置创建view
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(container.context)
         imageView.scaleType = ImageView.ScaleType.FIT_XY
@@ -31,10 +32,6 @@ class CirVp2Adapter(var imageUrlList:MutableList<VideoBean>): PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
-    }
-
-    fun setData(imageUrlList: MutableList<VideoBean>) {
-        this.imageUrlList = imageUrlList
     }
 
     fun getDataResultSize(): Int = imageUrlList.size

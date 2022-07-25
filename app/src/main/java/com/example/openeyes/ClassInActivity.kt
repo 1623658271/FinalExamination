@@ -33,7 +33,7 @@ class ClassInActivity : AppCompatActivity() {
     private lateinit var listMore:MutableList<ClassDeepMoreMsgModel.Item>
     private lateinit var classModel:ClassModel
     private var fistGet = true
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     private var nextPageUrl:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +77,8 @@ class ClassInActivity : AppCompatActivity() {
             }
             adapter.notifyDataSetChanged()
             nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl)
-            Log.e(TAG, "initData: ${it.nextPageUrl}", )
-            Log.e(TAG, "first next $nextPageUrl")
+//            Log.e(TAG, "initData: ${it.nextPageUrl}", )
+//            Log.e(TAG, "first next $nextPageUrl")
         }
         binding.refreshClassIn.setOnRefreshListener {
             viewModel.updateClassInLiveData(classModel.id.toString(), URL.udid)
@@ -109,7 +109,7 @@ class ClassInActivity : AppCompatActivity() {
     fun loadMore() {
         adapter.setClassInLoadState(adapter.LOADING)
         val url = nextPageUrl.split('?').first() + '/'
-        Log.e(TAG, "loadMore:url: $nextPageUrl")
+//        Log.e(TAG, "loadMore:url: $nextPageUrl")
         val m = nextPageUrl.split('?').last().split('&')
         val start = m[0].filter { it.isDigit() }.toInt()
         val num = m[1].filter { it.isDigit() }.toInt()
@@ -140,9 +140,9 @@ class ClassInActivity : AppCompatActivity() {
                         )
                     )
                 }
-                Log.e(TAG, "loadMore: ${it.nextPageUrl}")
+//                Log.e(TAG, "loadMore: ${it.nextPageUrl}")
                 nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl ?: "")
-                Log.e(TAG, "loadMore: $nextPageUrl")
+//                Log.e(TAG, "loadMore: $nextPageUrl")
                 adapter.setClassInLoadState(adapter.COMPLETE)
                 adapter.notifyDataSetChanged()
             }

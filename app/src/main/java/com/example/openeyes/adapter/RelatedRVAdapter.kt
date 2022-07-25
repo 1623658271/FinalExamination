@@ -25,7 +25,7 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
     val TYPE_TEXT = 0
     val TYPE_VIDEO = 1
     val TYPE_NOW = 3
-    val TAG = "lfy"
+//    val TAG = "lfy"
 
     inner class NowMessageViewHolder(val binding: LayoutVideoDetailBinding):RecyclerView.ViewHolder(binding.root){
     }
@@ -82,7 +82,7 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
             }
             is VideoCardViewHolder -> {
                 val m = itemList[position]
-                Log.d(TAG, "onBindViewHolder: ${m.data}")
+//                Log.d(TAG, "onBindViewHolder: ${m.data}")
                 holder.binding.message = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",
                     m.data.playUrl?:"",m.data.description?:"", PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
                         m.data.author?.name?:"","","")

@@ -35,7 +35,7 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
     private lateinit var viewModel: MyViewModel
     private lateinit var adapter:CommentsRVAdapter
     private var commentList:MutableList<CommentBean>? = null
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,13 +47,13 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ${videoBean.id}")
+//        Log.d(TAG, "onViewCreated: ${videoBean.id}")
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
         viewModel.getCommentsLiveData(videoBean.id).observe(viewLifecycleOwner) {
             val commentModel = it
             var list:MutableList<CommentBean> = ArrayList()
             if (commentModel?.itemList != null) {
-                Log.d(TAG, "onViewCreated: " + commentModel.itemList)
+//                Log.d(TAG, "onViewCreated: " + commentModel.itemList)
                 for (m in commentModel.itemList) {
                     if (m.type == "reply" && m.data.user != null) {
                         list.add(
@@ -79,7 +79,7 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
                 }
                 commentList!!.addAll(list)
                 adapter.notifyDataSetChanged()
-                Log.d(TAG, "onViewCreated: ${list.size}")
+//                Log.d(TAG, "onViewCreated: ${list.size}")
                 if(commentList!!.size==0){
                     binding.tvNoComment.visibility = View.VISIBLE
                 }else{
@@ -104,8 +104,10 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
         })
     }
 
+    //释放资源
     override fun onDestroy() {
         commentList?.clear()
+        commentList = null
         clearFindViewByIdCache()
         super.onDestroy()
     }

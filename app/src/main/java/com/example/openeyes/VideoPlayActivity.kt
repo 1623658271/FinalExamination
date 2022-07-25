@@ -30,7 +30,7 @@ class VideoPlayActivity : AppCompatActivity() {
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private lateinit var videoBean: VideoBean
 //    private lateinit var database: MyDatabase
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)

@@ -44,14 +44,14 @@ class DiscoverRecFragment:Fragment() {
     private lateinit var viewModel: MyViewModel
     private lateinit var adapter0:RecRVAdapter
     private lateinit var mapList: MutableList<Map<String,Any>>
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     private var nextPageUrl = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e(TAG, "onCreateView: f", )
+//        Log.e(TAG, "onCreateView: f", )
         binding = DataBindingUtil.inflate(inflater, R.layout.layout_discovery_rec_fragment,container,false)
         return binding.root
     }
@@ -73,7 +73,7 @@ class DiscoverRecFragment:Fragment() {
         viewModel.getRecLiveData().observe(viewLifecycleOwner){
             mapList.clear()
             nextPageUrl = it.nextPageUrl?:""
-            Log.e(TAG, "initViewAndData: ${it.itemList.size}", )
+//            Log.e(TAG, "initViewAndData: ${it.itemList.size}", )
             var mapListX:MutableList<Map<String,Any>> = ArrayList()
             for(m in it.itemList){
                 if(m.data.content!=null) {
@@ -165,14 +165,14 @@ class DiscoverRecFragment:Fragment() {
                     //获取最后一个完全显示的itemPosition
                     var intArray = IntArray(2)
                     manager!!.findLastCompletelyVisibleItemPositions(intArray)
-                    Log.e(TAG, "onScrollStateChanged: ${intArray[0]} +${intArray[1]} ${manager.itemCount-1}", )
+//                    Log.e(TAG, "onScrollStateChanged: ${intArray[0]} +${intArray[1]} ${manager.itemCount-1}", )
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if ((intArray[0] == itemCount - 1) ||(intArray[1] == itemCount - 1)&& isUp) {
                         if(nextPageUrl.isEmpty()){
                             adapter0.setLoadState(adapter0.LOADING_END)
                         }else {
-                            Log.e(TAG, "onScrollStateChanged: $nextPageUrl", )
+//                            Log.e(TAG, "onScrollStateChanged: $nextPageUrl", )
                             loadingMore()
                         }
                     }
@@ -191,7 +191,7 @@ class DiscoverRecFragment:Fragment() {
         val m = nextPageUrl.split("?").last().split("&")
         val start = m[0].filter { it.isDigit() }.toLong()
         val page = m[1].filter { it.isDigit() }.toInt()
-        Log.e(TAG, "loadingMore: $start + $page", )
+//        Log.e(TAG, "loadingMore: $start + $page", )
         MyRepository(URL.RecUrl)
             .getService()
             .getSocialMore(start,page)
@@ -203,7 +203,7 @@ class DiscoverRecFragment:Fragment() {
                 }
 
                 override fun onNext(t: SocialRecommendModel) {
-                    Log.e(TAG, "onNext: ${t.itemList.size}", )
+//                    Log.e(TAG, "onNext: ${t.itemList.size}", )
                     nextPageUrl = t.nextPageUrl
                     var mapListX:MutableList<Map<String,Any>> = ArrayList()
                     for(m in t.itemList){
@@ -259,7 +259,7 @@ class DiscoverRecFragment:Fragment() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.e(TAG, "onError: $e", )
+//                    Log.e(TAG, "onError: $e", )
                     Toast.makeText(MyApplication.context,"请检查你的网络！", Toast.LENGTH_SHORT).show()
                 }
 

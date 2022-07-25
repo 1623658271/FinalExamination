@@ -30,7 +30,7 @@ import kotlinx.coroutines.delay as Sleep
  */
 class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlList:MutableList<VideoBean>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),LifecycleObserver {
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
 
     private var adapter:CirVp2Adapter?=null
     //普通布局
@@ -98,7 +98,7 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
         when (holder) {
             is CirViewHolder -> {
                 if(imageUrlList.size>0 && adapter==null) {
-                    Log.d(TAG, "onBindViewHolder: adapter_create")
+//                    Log.d(TAG, "onBindViewHolder: adapter_create")
                     adapter  = CirVp2Adapter(imageUrlList)
                     holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
                        override fun getTitle(position: Int): String {
@@ -194,15 +194,5 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
      */
     fun setClickListener(clickListener:OnSomethingClickedListener){
         this.clickListener = clickListener
-    }
-
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        Log.d(TAG, "onViewDetachedFromWindow: ")
-    }
-
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        Log.d(TAG, "onViewAttachedToWindow: ")
     }
 }

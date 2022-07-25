@@ -19,6 +19,7 @@ import java.net.URL
  * date : 2022/7/23 15:17
  */
 class PicWatchPagerAdapter(var picList:MutableList<String>): PagerAdapter() {
+    //根据传入的数据创建图片视图
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(container.context)
         imageView.scaleType = ImageView.ScaleType.FIT_CENTER

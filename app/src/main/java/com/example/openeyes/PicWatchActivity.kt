@@ -36,7 +36,7 @@ class PicWatchActivity : AppCompatActivity() {
     private lateinit var pics:PicsModel
     private lateinit var adapter:PicWatchPagerAdapter
     private lateinit var binding:ActivityPicWatchBinding
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_pic_watch)
@@ -123,7 +123,7 @@ class PicWatchActivity : AppCompatActivity() {
             }
 
             override fun onError(e: Exception?) {
-                Log.e(TAG, "onError: $e")
+//                Log.e(TAG, "onError: $e")
             }
         })
 

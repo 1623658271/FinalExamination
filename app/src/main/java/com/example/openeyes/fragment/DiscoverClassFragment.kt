@@ -34,7 +34,7 @@ import java.net.URLDecoder
  * date : 2022/7/15 21:52
  */
 class DiscoverClassFragment:Fragment() {
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     private lateinit var binding:LayoutDiscoveryClassFragmentBinding
     private lateinit var list:MutableList<ClassModel>
     private lateinit var adapter:DiscoverClassRVAdapter
@@ -104,30 +104,30 @@ class DiscoverClassFragment:Fragment() {
         })
     }
 
-        //额,好像没什么用，必须要安装了应用才行
-    fun openDeeplink(context: Context, deepLink:String) {
-        val url:String = deepLink
-        val deep = url.replace(regex = "%(?![0-9a-fA-F]{2})".toRegex(), "%25")
-        Log.d(TAG, "openDeeplink: $deep")
-        val urlStr: String = URLDecoder.decode(deep, "UTF-8")
-        Log.d(TAG, "openDeeplink:url $urlStr")
-        var intent: Intent? = null
-        if (null == context || TextUtils.isEmpty(urlStr))
-            return
-        try {
-            intent = Intent.parseUri(urlStr, Intent.URI_INTENT_SCHEME)
-        } catch (e:Exception) {
-            e.printStackTrace()
-        }
-        if (intent != null) {
-            intent.setComponent(null)
-            try {
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            } catch (e: ActivityNotFoundException) {
-                e.printStackTrace()
-            }
-        }
-
-    }
+//        //额,好像没什么用，必须要安装了应用才行
+//    fun openDeeplink(context: Context, deepLink:String) {
+//        val url:String = deepLink
+//        val deep = url.replace(regex = "%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+////        Log.d(TAG, "openDeeplink: $deep")
+//        val urlStr: String = URLDecoder.decode(deep, "UTF-8")
+////        Log.d(TAG, "openDeeplink:url $urlStr")
+//        var intent: Intent? = null
+//        if (null == context || TextUtils.isEmpty(urlStr))
+//            return
+//        try {
+//            intent = Intent.parseUri(urlStr, Intent.URI_INTENT_SCHEME)
+//        } catch (e:Exception) {
+//            e.printStackTrace()
+//        }
+//        if (intent != null) {
+//            intent.setComponent(null)
+//            try {
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
+//            } catch (e: ActivityNotFoundException) {
+//                e.printStackTrace()
+//            }
+//        }
+//
+//    }
 }

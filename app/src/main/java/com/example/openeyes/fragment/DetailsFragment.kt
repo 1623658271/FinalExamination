@@ -32,7 +32,7 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
     private lateinit var adapter: RelatedRVAdapter
     private lateinit var list:MutableList<RelatedVideoModel.Item>
     private lateinit var viewModel: MyViewModel
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +54,7 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
         viewModel.getRelatedLiveData(videoBean.id).observe(viewLifecycleOwner){
             list.clear()
             list.addAll(it.itemList)
-            Log.d(TAG, "onViewCreated: ${list.size}")
+//            Log.d(TAG, "onViewCreated: ${list.size}")
             adapter.notifyDataSetChanged()
         }
         adapter.setClickListener(object :RelatedRVAdapter.OnSomethingClickedListener{

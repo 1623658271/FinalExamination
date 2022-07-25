@@ -24,7 +24,7 @@ import kotlin.math.max
  */
 class LopViewpager:ViewPager {
     private lateinit var handler0:Handler
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     private var isStop = false
     private lateinit var scroller:Scroller
 
@@ -46,12 +46,12 @@ class LopViewpager:ViewPager {
 
                         }else {
                             stopLooper()
-                            Log.d(TAG ,"onTouch: stop")
+//                            Log.d(TAG ,"onTouch: stop")
                         }
                     }
                     MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP ->{
                         startLooper()
-                        Log.d(TAG ,"onTouch: start")
+//                        Log.d(TAG ,"onTouch: start")
                     }
                 }
                 return false

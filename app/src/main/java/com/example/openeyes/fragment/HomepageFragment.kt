@@ -42,7 +42,7 @@ class HomepageFragment:Fragment() {
     private lateinit var viewModel: MyViewModel
     private lateinit var nextUrl:String
     private lateinit var imageUrlList:MutableList<VideoBean>
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -190,7 +190,7 @@ class HomepageFragment:Fragment() {
         val url = nextUrl.split('?').last().split('&')
         val date = url[0].filter { it.isDigit() }
         val num = url[1].filter { it.isDigit() }
-        Log.d(TAG, "loadingMore: $url")
+//        Log.d(TAG, "loadingMore: $url")
         MyRepository("http://baobab.kaiyanapp.com/api/v5/index/tab/feed/")
             .getService()
             .getMoreHomepageMsg(date.toLong(),num.toInt())
@@ -230,7 +230,7 @@ class HomepageFragment:Fragment() {
                 override fun onError(e: Throwable) {
                     adapter.setLoadState(adapter.LOADING_END)
                     adapter.notifyDataSetChanged()
-                    Log.d(TAG, "onError: $e")
+//                    Log.d(TAG, "onError: $e")
                 }
 
                 override fun onComplete() {

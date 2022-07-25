@@ -39,18 +39,12 @@ import java.io.FileNotFoundException
  */
 class MineFragment:Fragment() {
     private lateinit var binding:LayoutMineFragmentBinding
-    private val TAKE_PHOTO = 1
-    private val OPEN_ALBUM = 2
-    private val PHOTO_CROP = 3
-    private val PHOTO_CROP_CHOOSE = 4
     private lateinit var file:File
     private lateinit var context0:Context
     private var imageUrl: Uri? = null
-    private val fFile: File? = null
     private lateinit var mSharedPreferences: SharedPreferences
     private lateinit var mEditor: SharedPreferences.Editor
     private val mOpenAlum = 1
-    private var flag = false
     private lateinit var mBitMap:Bitmap
     private var mImagePath: String? = null
     override fun onCreateView(

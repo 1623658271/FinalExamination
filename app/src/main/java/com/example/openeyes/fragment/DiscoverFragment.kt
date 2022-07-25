@@ -24,7 +24,7 @@ class DiscoverFragment:Fragment() {
     private lateinit var discoverRecFragment: DiscoverRecFragment
     private lateinit var data:MutableList<String>
     private lateinit var adapter: FragmentPagerAdapter
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

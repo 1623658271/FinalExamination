@@ -20,9 +20,6 @@ import com.example.openeyes.model.ClassModel
  * date : 2022/7/15 13:03
  */
 class DiscoverClassRVAdapter(val classModelList:MutableList<ClassModel>):RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
-    private var maxHeight = 0
-    private var maxWidth = 0
-
     inner class MyViewHolder(itemView:ItemRvDiscoverBinding) : RecyclerView.ViewHolder(itemView.root) {
         var itemRvDiscoverBinding:ItemRvDiscoverBinding = itemView
     }

@@ -41,7 +41,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var listResult:MutableList<VideoBean>
     private var firstSearch = true
     private var nextPageUrl:String = ""
-    private val TAG = "lfy"
+//    private val TAG = "lfy"
     private var nowText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +73,7 @@ class SearchActivity : AppCompatActivity() {
         viewModel.getHotSearchLiveData().observe(this){
             listHot.addAll(it.toMutableList())
             adapterHot.notifyDataSetChanged()
-            Log.d(TAG, "initData: $it")
+//            Log.d(TAG, "initData: $it")
         }
         adapterHot.setListener(object :HotRVAdapter.OnItemClickListener{
             override fun onClick(text: String) {

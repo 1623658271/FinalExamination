@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
-import com.squareup.picasso.Picasso
+
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -23,7 +23,7 @@ object ImageBindingAdapter {
     @JvmStatic
     fun setImage(imageView: ImageView,imageUrl:String){
         if(!TextUtils.isEmpty(imageUrl)){
-            Picasso.get()
+            Glide.with(MyApplication.context!!)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_resource_default)
                 .error(R.drawable.ic_resource_error)
@@ -37,7 +37,7 @@ object ImageBindingAdapter {
     @JvmStatic
     fun setCircleImage(circleImageView: CircleImageView,imageUrl: String){
         if(!TextUtils.isEmpty(imageUrl)){
-            Picasso.get()
+            Glide.with(MyApplication.context!!)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_resource_default)
                 .error(R.drawable.ic_resource_error)

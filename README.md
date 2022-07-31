@@ -38,6 +38,7 @@
 7.查看大图  
 <img src=https://user-images.githubusercontent.com/89245928/180636188-722c0742-c038-4398-94ad-fab92b889c95.jpg width="200px">  
 一个activity+viewpagerAdapter实现  
+
 ### 知识点  
 retrofit、rxjava3、mvvm、databinding、viewmodel、navigation、LiveData  
 ### 心得体会  

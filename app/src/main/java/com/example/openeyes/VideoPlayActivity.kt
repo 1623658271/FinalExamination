@@ -44,8 +44,8 @@ class VideoPlayActivity : AppCompatActivity() {
                 add("评论")
             }
             fragmentPagerAdapter = FragmentPagerAdapter(this)
-            fragmentPagerAdapter.addFragment(DetailsFragment(videoBean))
-            fragmentPagerAdapter.addFragment(CommentFragment(videoBean,application))
+            fragmentPagerAdapter.add{DetailsFragment(videoBean)}
+            fragmentPagerAdapter.add{CommentFragment(videoBean,application)}
             binding.vp2Video.adapter = fragmentPagerAdapter
             binding.vp2Video.offscreenPageLimit = 2
             TabLayoutMediator(binding.tlVideo,binding.vp2Video){

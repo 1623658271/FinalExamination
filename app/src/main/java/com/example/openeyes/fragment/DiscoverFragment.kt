@@ -42,8 +42,8 @@ class DiscoverFragment:Fragment() {
         adapter = FragmentPagerAdapter(this)
         discoverRecFragment = DiscoverRecFragment()
         discoverClassFragment = DiscoverClassFragment()
-        adapter.addFragment(discoverRecFragment)
-        adapter.addFragment(discoverClassFragment)
+        adapter.add { discoverRecFragment }
+        adapter.add{ discoverClassFragment }
         binding.discoverViewpager2.adapter = adapter
         TabLayoutMediator(
             binding.tlFindmore, binding.discoverViewpager2

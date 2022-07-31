@@ -42,6 +42,10 @@ class MyViewModel: ViewModel() {
     //社区推荐
     private var recLiveData:MutableLiveData<SocialRecommendModel>? = null
 
+    private val a by lazy {
+        getRecLiveData()
+    }
+
     private val TAG = "lfy"
 
     fun getRecLiveData():MutableLiveData<SocialRecommendModel>{

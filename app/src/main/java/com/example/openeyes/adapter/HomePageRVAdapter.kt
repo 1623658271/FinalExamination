@@ -29,16 +29,20 @@ import kotlinx.coroutines.delay as Sleep
  * date : 2022/7/16 19:43
  */
 class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlList:MutableList<VideoBean>):
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(),LifecycleObserver {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 //    private val TAG = "lfy"
 
     private var adapter:CirVp2Adapter?=null
-    //普通布局
-    private val TYPE_ITEM = 1
-    //脚布局
-    private val TYPE_FOOTER = 2
-    //轮播布局
-    private val TYPE_CIR = 4
+
+    companion object {
+        //普通布局
+        private const val TYPE_ITEM = 1
+        //脚布局
+        private const val TYPE_FOOTER = 2
+        //轮播布局
+        private const val TYPE_CIR = 4
+    }
+
 
     //当前加载状态，默认为加载完成
     private var loadState = 0

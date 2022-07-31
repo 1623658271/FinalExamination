@@ -146,7 +146,6 @@ class HomepageFragment:Fragment() {
             }
 
         })
-        lifecycle.addObserver(adapter)
         setRecyclerOnScrollListener()
     }
 
@@ -192,12 +191,12 @@ class HomepageFragment:Fragment() {
         val num = url[1].filter { it.isDigit() }
 //        Log.d(TAG, "loadingMore: $url")
         MyRepository("http://baobab.kaiyanapp.com/api/v5/index/tab/feed/")
-            .getService()
-            .getMoreHomepageMsg(date.toLong(),num.toInt())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.rxjava3.core.Observer<HomepageMoreBean> {
-                override fun onSubscribe(d: Disposable) {
+                .getService()
+                .getMoreHomepageMsg(date.toLong(),num.toInt())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : io.reactivex.rxjava3.core.Observer<HomepageMoreBean> {
+                    override fun onSubscribe(d: Disposable) {
 
                 }
 

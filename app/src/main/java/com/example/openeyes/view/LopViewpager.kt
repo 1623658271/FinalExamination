@@ -23,10 +23,9 @@ import kotlin.math.max
  * date : 2022/7/20 21:21
  */
 class LopViewpager:ViewPager {
-    private lateinit var handler0:Handler
+    private val view = this
 //    private val TAG = "lfy"
     private var isStop = false
-    private lateinit var scroller:Scroller
 
     constructor(context: Context) : super(context){
         init()
@@ -34,9 +33,11 @@ class LopViewpager:ViewPager {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
         init()
     }
+
+    init {
+
+    }
     fun init(){
-        scroller = Scroller(context)
-        handler0 = Handler(Looper.getMainLooper())
         setOnTouchListener(object :View.OnTouchListener{
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 val action = event?.action
@@ -61,6 +62,11 @@ class LopViewpager:ViewPager {
         setPageTransformer(false,MyPagerTransformer())
     }
 
+    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        return super.onTouchEvent(ev)
+
+    }
+
     override fun setCurrentItem(item: Int) {
         super.setCurrentItem(item,true)
     }
@@ -72,13 +78,13 @@ class LopViewpager:ViewPager {
 
     private fun startLooper() {
         isStop = false
-        handler0.postDelayed(runnable,3000)
+        view.postDelayed(runnable,3000)
     }
 
     private val runnable = object : Runnable {
         override fun run() {
             currentItem += 1
-            handler0.postDelayed(this, 3000)
+            view.postDelayed(this,3000)
         }
     }
 
@@ -89,7 +95,7 @@ class LopViewpager:ViewPager {
 
     private fun stopLooper() {
         isStop = true
-        handler0.removeCallbacks(runnable)
+        view.postDelayed(runnable,3000)
         removeCallbacks(runnable)
     }
     class MyPagerTransformer : ViewPager.PageTransformer {

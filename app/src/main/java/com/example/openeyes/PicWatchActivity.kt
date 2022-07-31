@@ -24,6 +24,11 @@ import com.example.openeyes.MyApplication.Companion.context
 import com.example.openeyes.adapter.PicWatchPagerAdapter
 import com.example.openeyes.databinding.ActivityPicWatchBinding
 import com.example.openeyes.model.PicsModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import permissions.dispatcher.NeedsPermission
 import java.io.*
 import java.net.HttpURLConnection
@@ -122,8 +127,8 @@ class PicWatchActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onError(e: Exception?) {
-//                Log.e(TAG, "onError: $e")
+            override fun onError(e: Throwable) {
+
             }
         })
 
@@ -132,33 +137,48 @@ class PicWatchActivity : AppCompatActivity() {
     //自定义一个接口
     interface HttpCallBackListener {
         fun onFinish(bitmap: Bitmap?)
-        fun onError(e: java.lang.Exception?)
+        fun onError(e: Throwable)
     }
 
     fun getImage(path: String?, listener: HttpCallBackListener?) {
         var bitmap:Bitmap
-        Thread {
+        Observable.create<String> {
+            it.onNext(path!!)
+        }.map {
             var imageurl: URL? = null
             try {
-                imageurl = URL(path)
+                imageurl = URL(it)
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
             }
-            try {
                 val conn = imageurl!!.openConnection() as HttpURLConnection
                 conn.doInput = true
                 conn.connect()
                 val `is` = conn.inputStream
                 bitmap = BitmapFactory.decodeStream(`is`)
-                //这是一个一步请求，不能直接返回获取，要不然永远为null
-                //在这里得到BitMap之后记得使用Hanlder或者EventBus传回主线程，不过现在加载图片都是用框架了，很少有转化为Bitmap的需求
-                listener?.onFinish(bitmap)
                 `is`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                listener?.onError(e)
-            }
-        }.start()
+            bitmap
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :Observer<Bitmap>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: Bitmap) {
+                    listener?.onFinish(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    listener?.onError(e)
+                }
+
+                override fun onComplete() {
+
+                }
+
+            })
+
     }
     companion object{
         fun startPicWatchActivity(context: Context,picModel:PicsModel){

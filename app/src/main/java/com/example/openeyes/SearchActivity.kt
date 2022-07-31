@@ -41,6 +41,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var listResult:MutableList<VideoBean>
     private var firstSearch = true
     private var nextPageUrl:String = ""
+    private var hasSearch = false
 //    private val TAG = "lfy"
     private var nowText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,12 +111,15 @@ class SearchActivity : AppCompatActivity() {
         }
         setRecyclerOnScrollListener()
         binding.refreshSearch.setOnRefreshListener {
-            viewModel.updateSearchLiveData(nowText)
+            if(hasSearch) {
+                viewModel.updateSearchLiveData(nowText)
+            }
             binding.refreshSearch.isRefreshing = false
         }
     }
 
     fun doSearch(query:String){
+        hasSearch = true
         binding.llHotEarch.visibility = View.GONE
         if(firstSearch){
             firstSearch=false

@@ -6,6 +6,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -78,6 +80,13 @@ class DiscoverClassFragment:Fragment() {
             }
 
         })
+        binding.rvDiscover.layoutAnimation = // 入场动画
+            LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.recycler_fade_in
+                )
+            )
         viewModel.getFindMoreLiveData().observe(viewLifecycleOwner, Observer {
             val dataList = it.itemList
             list.clear()

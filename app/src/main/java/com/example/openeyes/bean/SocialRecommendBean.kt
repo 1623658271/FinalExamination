@@ -62,7 +62,7 @@ data class SocialRecommendBean(
                     val description: String, // 一直珍藏着高中时期和朋友往来的书信，最原始的沟通方式却最饱含着感情，珍藏着我酸甜苦辣的青春岁月。
                     val library: String, // DEFAULT
                     val tags: List<Tag>?,
-                    val consumptionBean: ConsumptionBean,
+                    val consumption: ConsumptionBean,
                     val resourceType: String, // ugc_picture
                     val uid: Int, // 301331120
                     val createTime: Long, // 1656487755000

@@ -80,7 +80,7 @@ data class DailyHandpickBean(
         val checkStatus: String,
         val city: String,
         val collected: Boolean,
-        val consumptionBean: ConsumptionBean,
+        val consumption: ConsumptionBean,
         val cover: Cover,
         val createTime: Long,
         val dataType: String,

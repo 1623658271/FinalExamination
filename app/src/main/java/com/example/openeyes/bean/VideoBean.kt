@@ -20,5 +20,5 @@ data class VideoBean(
     var playUrl: String,
     var description:String,
     var personalBean: PersonalBean?,
-    var consumptionBean:ConsumptionBean?
+    var consumption:ConsumptionBean?
 ):Parcelable

@@ -124,7 +124,7 @@ data class SearchBean(
                     val description: String,
                     val library: String,
                     val tags: List<Tag>,
-                    val consumptionBean: ConsumptionBean,
+                    val consumption: ConsumptionBean,
                     val resourceType: String,
                     val slogan: Any?,
                     val provider: Provider,

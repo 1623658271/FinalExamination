@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -121,6 +123,13 @@ class DiscoverRecFragment:Fragment() {
             adapter0.notifyDataSetChanged()
         }
         setRecyclerOnScrollListener()
+        binding.rvRec.layoutAnimation = // 入场动画
+            LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.recycler_fade_in
+                )
+            )
         binding.refreshRec.setOnRefreshListener {
             viewModel.updateRecLiveData()
             binding.refreshRec.isRefreshing = false

@@ -11,12 +11,11 @@ import com.example.openeyes.api.URL
  * date : 2022/7/15 14:43
  */
 class MyRepository(val url:String) {
-    private var apiService:ApiService ?= null
+    private val apiService:ApiService by lazy {
+        RetrofitClient.getInstance(url).getSevers(ApiService::class.java)
+    }
 
     fun getService():ApiService{
-        if(apiService==null){
-            apiService = RetrofitClient.getInstance(url).getSevers(ApiService::class.java)
-        }
-        return apiService!!
+        return apiService
     }
 }

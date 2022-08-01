@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.openeyes.R
 import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutDiscoveryFragmentBinding
@@ -48,6 +49,45 @@ class DiscoverFragment:Fragment() {
         TabLayoutMediator(
             binding.tlFindmore, binding.discoverViewpager2
         ) { tab, position -> tab.text = data[position] }.attach()
+        binding.discoverViewpager2.setPageTransformer(SquareBoxTransformer())
         binding.discoverViewpager2.offscreenPageLimit = 2
+    }
+
+    class SquareBoxTransformer : ViewPager2.PageTransformer {
+        private val MAX_ROTATION = 90f
+        private val MIN_SCALE = 0.9f
+        override fun transformPage(page: View, position: Float) {
+            page.apply {
+                pivotY = height / 2f
+                when {
+                    position < -1 -> {
+                        // This page is way off-screen to the left.
+                        rotationY = -MAX_ROTATION
+                        pivotX = width.toFloat()
+                    }
+                    position <= 1 -> {
+                        rotationY = position * MAX_ROTATION
+                        if (position < 0) {
+                            pivotX = width.toFloat()
+                            val scale =
+                                MIN_SCALE + 4f * (1f - MIN_SCALE) * (position + 0.5f) * (position + 0.5f)
+                            scaleX = scale
+                            scaleY = scale
+                        } else {
+                            pivotX = 0f
+                            val scale =
+                                MIN_SCALE + 4f * (1f - MIN_SCALE) * (position - 0.5f) * (position - 0.5f)
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                    }
+                    else -> {
+                        // This page is way off-screen to the right.
+                        rotationY = MAX_ROTATION
+                        pivotX = 0f
+                    }
+                }
+            }
+        }
     }
 }

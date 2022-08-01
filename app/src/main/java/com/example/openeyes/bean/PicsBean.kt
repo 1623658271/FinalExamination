@@ -14,6 +14,6 @@ data class PicsBean(
     val description:String,
     val coverUrl:String,
     val picUrls:MutableList<String>,
-    val consumptionBean: ConsumptionBean?,
+    val consumption: ConsumptionBean?,
     val personalBean: PersonalBean?
 ):Parcelable

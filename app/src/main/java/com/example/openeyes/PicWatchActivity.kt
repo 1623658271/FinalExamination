@@ -117,13 +117,12 @@ class PicWatchActivity : BaseActivity() {
                     sendBroadcast(intent)
                     //通知图库更新
                     sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, saveUri))
-                    Looper.prepare()
-                    Toast.makeText(MyApplication.context!!,"已保存",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"已保存",Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onError(e: Throwable) {
-
+                Toast.makeText(context,"保存失败",Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -153,7 +152,7 @@ class PicWatchActivity : BaseActivity() {
                 bitmap = BitmapFactory.decodeStream(stream)
                 stream.close()
             bitmap
-        }.subscribeOn(Schedulers.io())
+        }.subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object :Observer<Bitmap>{
                 override fun onSubscribe(d: Disposable) {

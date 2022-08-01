@@ -183,7 +183,11 @@ class MyViewModel: ViewModel() {
                 }
 
                 override fun onNext(t: SocialRecommendBean) {
-                    recLiveData!!.value = t
+                    if(recLiveData!!.value == t){
+
+                    }else{
+                        recLiveData!!.value = t
+                    }
                     Log.e(TAG, "onNext: ${t.itemList.size}", )
                 }
 

@@ -36,7 +36,7 @@ data class ClassDeepMsgBean(
             val description: String? = null,
             val library: String? = null,
             val tags: List<Tag>? = null,
-            val consumptionBean: ConsumptionBean? = null,
+            val consumption: ConsumptionBean? = null,
             val resourceType: String? = null,
             val slogan: Any? = null,
             val provider: Provider? = null,
@@ -112,7 +112,7 @@ data class ClassDeepMsgBean(
                     val description: String,
                     val library: String,
                     val tags: List<Tag>,
-                    val consumption: Consumption,
+                    val consumption: ConsumptionBean,
                     val resourceType: String,
                     val slogan: String?,
                     val provider: Provider,
@@ -171,13 +171,6 @@ data class ClassDeepMsgBean(
                         val ifNewest: Boolean,
                         val newestEndTime: Any?,
                         val communityIndex: Int
-                    )
-
-                    data class Consumption(
-                        val collectionCount: Int,
-                        val shareCount: Int,
-                        val replyCount: Int,
-                        val realCollectionCount: Int
                     )
 
                     data class Provider(

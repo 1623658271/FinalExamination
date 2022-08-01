@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ： 评论真正接收的json格式的数据类
@@ -6,7 +6,7 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/7/17 15:19
  */
-data class CommentModel(
+data class CommentBean(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,

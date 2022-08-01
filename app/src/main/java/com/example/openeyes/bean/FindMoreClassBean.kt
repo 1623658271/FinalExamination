@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ： 根据分类接口返回的json生成的数据类

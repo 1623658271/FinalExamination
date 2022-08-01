@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -10,10 +10,10 @@ import kotlinx.android.parcel.Parcelize
  * date : 2022/7/22 18:42
  */
 @Parcelize
-data class PicsModel(
+data class PicsBean(
     val description:String,
     val coverUrl:String,
     val picUrls:MutableList<String>,
-    val consumption: Consumption?,
-    val personalModel: PersonalModel?
+    val consumptionBean: ConsumptionBean?,
+    val personalBean: PersonalBean?
 ):Parcelable

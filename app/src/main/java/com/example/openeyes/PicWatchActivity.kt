@@ -4,26 +4,22 @@ import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.example.openeyes.MyApplication.Companion.context
 import com.example.openeyes.adapter.PicWatchPagerAdapter
 import com.example.openeyes.databinding.ActivityPicWatchBinding
-import com.example.openeyes.model.PicsModel
+import com.example.openeyes.bean.PicsBean
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -36,12 +32,11 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
-class PicWatchActivity : AppCompatActivity() {
+class PicWatchActivity : BaseActivity() {
     private lateinit var file: File
-    private lateinit var pics:PicsModel
+    private lateinit var pics:PicsBean
     private lateinit var adapter:PicWatchPagerAdapter
     private lateinit var binding:ActivityPicWatchBinding
-//    private val TAG = "lfy"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_pic_watch)
@@ -120,7 +115,7 @@ class PicWatchActivity : AppCompatActivity() {
                     val intent = Intent()
                     intent.data = saveUri
                     sendBroadcast(intent)
-                    // 最后通知图库更新
+                    //通知图库更新
                     sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, saveUri))
                     Looper.prepare()
                     Toast.makeText(MyApplication.context!!,"已保存",Toast.LENGTH_SHORT).show()
@@ -134,7 +129,7 @@ class PicWatchActivity : AppCompatActivity() {
 
     }
 
-    //自定义一个接口
+    //自定义一个回调接口
     interface HttpCallBackListener {
         fun onFinish(bitmap: Bitmap?)
         fun onError(e: Throwable)
@@ -154,9 +149,9 @@ class PicWatchActivity : AppCompatActivity() {
                 val conn = imageurl!!.openConnection() as HttpURLConnection
                 conn.doInput = true
                 conn.connect()
-                val `is` = conn.inputStream
-                bitmap = BitmapFactory.decodeStream(`is`)
-                `is`.close()
+                val stream = conn.inputStream
+                bitmap = BitmapFactory.decodeStream(stream)
+                stream.close()
             bitmap
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -181,13 +176,13 @@ class PicWatchActivity : AppCompatActivity() {
 
     }
     companion object{
-        fun startPicWatchActivity(context: Context,picModel:PicsModel){
+        fun startPicWatchActivity(context: Context,picModel:PicsBean){
             val intent = Intent(context,PicWatchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("pics",picModel)
             context.startActivity(intent)
         }
-        fun fragmentStartPicWatchActivity(context: Context, activity: Activity, picModel:PicsModel){
+        fun fragmentStartPicWatchActivity(context: Context, activity: Activity, picModel:PicsBean){
             val intent = Intent(activity, PicWatchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("pics",picModel)

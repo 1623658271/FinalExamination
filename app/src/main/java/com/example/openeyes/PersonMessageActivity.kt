@@ -3,15 +3,12 @@ package com.example.openeyes
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.PicsModel
-import com.example.openeyes.model.VideoBean
-import kotlinx.android.synthetic.*
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.PicsBean
 
 /**
  * description ： 展示个人信息的fragment
@@ -19,12 +16,12 @@ import kotlinx.android.synthetic.*
  * email : 1623658271@qq.com
  * date : 2022/7/14 15:27
  */
-class PersonMessageActivity : AppCompatActivity() {
+class PersonMessageActivity : BaseActivity() {
     private lateinit var binding:LayoutPersonMessageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_person_message)
-        val h = intent.getParcelableExtra<PersonalModel>("person")
+        val h = intent.getParcelableExtra<PersonalBean>("person")
         binding.person = h
         if(binding.tvCity.text.isEmpty()){
             binding.llCity.visibility = View.GONE
@@ -35,25 +32,25 @@ class PersonMessageActivity : AppCompatActivity() {
         binding.civAvatar.setOnClickListener {
             val list = ArrayList<String>()
             list.add(h!!.avatar)
-            PicWatchActivity.startPicWatchActivity(this, PicsModel("",h.avatar,list,null,null))
+            PicWatchActivity.startPicWatchActivity(this, PicsBean("",h.avatar,list,null,null))
         }
         binding.ivBackground.setOnClickListener {
             val list = ArrayList<String>()
             list.add(h!!.cover)
-            PicWatchActivity.startPicWatchActivity(this, PicsModel("",h.avatar,list,null,null))
+            PicWatchActivity.startPicWatchActivity(this, PicsBean("",h.avatar,list,null,null))
         }
     }
     companion object {
-        fun startPersonMessageActivity(context: Context, personalModel: PersonalModel) {
+        fun startPersonMessageActivity(context: Context, personalBean: PersonalBean) {
             val intent = Intent(context, PersonMessageActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra("person", personalModel)
+            intent.putExtra("person", personalBean)
             context.startActivity(intent)
         }
-        fun fragmentStartVideoPlayActivity(context: Context, activity: Activity, personalModel: PersonalModel){
+        fun fragmentStartVideoPlayActivity(context: Context, activity: Activity, personalBean: PersonalBean){
             val mIntent = Intent(activity, PersonMessageActivity::class.java)
             mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            mIntent.putExtra("person",personalModel)
+            mIntent.putExtra("person",personalBean)
             context.startActivity(mIntent)
         }
     }

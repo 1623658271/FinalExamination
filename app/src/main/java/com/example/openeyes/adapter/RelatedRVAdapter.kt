@@ -1,8 +1,6 @@
 package com.example.openeyes.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +8,9 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.ItemVideoCardBinding
 import com.example.openeyes.databinding.LayoutVideoDetailBinding
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.RelatedVideoModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.RelatedVideoBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 
 /**
@@ -21,7 +19,7 @@ import com.example.openeyes.utils.DefaultUtil
  * email : 1623658271@qq.com
  * date : 2022/7/19 11:07
  */
-class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<RelatedVideoModel.Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<RelatedVideoBean.Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val TYPE_TEXT = 0
     val TYPE_VIDEO = 1
     val TYPE_NOW = 3
@@ -84,12 +82,12 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
                 val m = itemList[position]
 //                Log.d(TAG, "onBindViewHolder: ${m.data}")
                 holder.binding.message = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",
-                    m.data.playUrl?:"",m.data.description?:"", PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
+                    m.data.playUrl?:"",m.data.description?:"", PersonalBean(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
                         m.data.author?.name?:"","","")
-                ,m.data.consumption)
+                ,m.data.consumptionBean)
                 val videoBean = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",m.data.playUrl?:"",
-                m.data.description?:"",PersonalModel(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
-                    m.data.author?.name?:"","",""),m.data.consumption)
+                m.data.description?:"",PersonalBean(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
+                    m.data.author?.name?:"","",""),m.data.consumptionBean)
                 holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(videoBean) }
             }
         }

@@ -1,26 +1,20 @@
 package com.example.openeyes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide.init
 import com.example.openeyes.databinding.*
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.SearchModel
-import com.example.openeyes.model.SearchMoreModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.SearchMoreBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
@@ -29,10 +23,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.layout_homepage_fragment.view.*
-import kotlinx.android.synthetic.main.layout_search_activity.view.*
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : BaseActivity() {
     private lateinit var binding:LayoutSearchActivityBinding
     private lateinit var viewModel: MyViewModel
     private lateinit var listHot:MutableList<String>
@@ -42,7 +34,6 @@ class SearchActivity : AppCompatActivity() {
     private var firstSearch = true
     private var nextPageUrl:String = ""
     private var hasSearch = false
-//    private val TAG = "lfy"
     private var nowText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +65,6 @@ class SearchActivity : AppCompatActivity() {
         viewModel.getHotSearchLiveData().observe(this){
             listHot.addAll(it.toMutableList())
             adapterHot.notifyDataSetChanged()
-//            Log.d(TAG, "initData: $it")
         }
         adapterHot.setListener(object :HotRVAdapter.OnItemClickListener{
             override fun onClick(text: String) {
@@ -129,10 +119,10 @@ class SearchActivity : AppCompatActivity() {
                     if(m.type=="followCard"){
                         listResult.add(VideoBean(m.data.content!!.data.id?:0,m.data.content.data.title,m.data.content.data.author?.name?:"",
                             m.data.content.data.cover.feed,m.data.content.data.playUrl,m.data.content.data.description,
-                            PersonalModel(m.data.content.data.author?.id?:0,m.data.content.data.author?.icon?:"",
+                            PersonalBean(m.data.content.data.author?.id?:0,m.data.content.data.author?.icon?:"",
                                 DefaultUtil.defaultCoverUrl,m.data.content.data.author?.description?:"",
                                 m.data.content.data.author?.name?:"","","")
-                        ,m.data.content.data.consumption)
+                        ,m.data.content.data.consumptionBean)
                         )
                     }
                 }
@@ -322,12 +312,12 @@ class SearchActivity : AppCompatActivity() {
             .getMoreSearchMsg(start, num, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<SearchMoreModel> {
+            .subscribe(object : Observer<SearchMoreBean> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: SearchMoreModel) {
+                override fun onNext(t: SearchMoreBean) {
                     nextPageUrl = DecodeUtil.urlDecode(t.nextPageUrl?:"")
                     for (m in t.itemList) {
                         if (m.type == "followCard") {
@@ -339,14 +329,14 @@ class SearchActivity : AppCompatActivity() {
                                     m.data.content.data.cover.feed ?: "",
                                     m.data.content.data.playUrl ?: "",
                                     m.data.content.data.description ?: "",
-                                    PersonalModel(
+                                    PersonalBean(
                                         m.data.content.data.author?.id ?: 0,
                                         m.data.content.data.author?.icon ?: "",
                                         DefaultUtil.defaultCoverUrl,
                                         m.data.content.data.author?.description ?: "",
                                         m.data.content.data.author?.name ?: "","",""
                                     )
-                                ,m.data.content.data.consumption)
+                                ,m.data.content.data.consumptionBean)
                             )
                         }
                     }

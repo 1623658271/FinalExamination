@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ： 推荐
@@ -6,7 +6,7 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/7/22 17:16
  */
-data class SocialRecommendModel(
+data class SocialRecommendBean(
     val itemList: List<Item>,
     val count: Int, // 10
     val total: Int, // 0
@@ -62,7 +62,7 @@ data class SocialRecommendModel(
                     val description: String, // 一直珍藏着高中时期和朋友往来的书信，最原始的沟通方式却最饱含着感情，珍藏着我酸甜苦辣的青春岁月。
                     val library: String, // DEFAULT
                     val tags: List<Tag>?,
-                    val consumption: Consumption,
+                    val consumptionBean: ConsumptionBean,
                     val resourceType: String, // ugc_picture
                     val uid: Int, // 301331120
                     val createTime: Long, // 1656487755000

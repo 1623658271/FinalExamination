@@ -1,12 +1,6 @@
 package com.example.openeyes
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.webkit.URLUtil
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,26 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.adapter.ClassInRVAdapter
 import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.ActivityClassInBinding
-import com.example.openeyes.model.*
-import com.example.openeyes.respository.MyRepository
+import com.example.openeyes.bean.*
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
-class ClassInActivity : AppCompatActivity() {
+class ClassInActivity : BaseActivity() {
     private lateinit var binding:ActivityClassInBinding
     private lateinit var viewModel: MyViewModel
     private lateinit var adapter:ClassInRVAdapter
     private lateinit var list: MutableList<VideoBean>
     private lateinit var mapList:MutableList<Map<String,String>>
-    private lateinit var listMore:MutableList<ClassDeepMoreMsgModel.Item>
-    private lateinit var classModel:ClassModel
+    private lateinit var listMore:MutableList<ClassDeepMoreMsgBean.Item>
+    private lateinit var classModel:ClassBean
     private var fistGet = true
-//    private val TAG = "lfy"
     private var nextPageUrl:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,20 +53,18 @@ class ClassInActivity : AppCompatActivity() {
                     m.data.content?.data?.cover?.feed?:m.data.cover?.feed?:"",
                     m.data.content?.data?.playUrl?:m.data.playUrl?:"",
                     m.data.content?.data?.description?:m.data.description?:"",
-                    PersonalModel(
+                    PersonalBean(
                         m.data.content?.data?.author?.id?:m.data.author?.id?:0,
                         m.data.content?.data?.author?.icon?:m.data.author?.icon?:"",
                         DefaultUtil.defaultCoverUrl,
                         m.data.content?.data?.author?.description?:m.data.author?.description?:"",
                         m.data.content?.data?.author?.name?:m.data.author?.name?:"",
                         "",""
-                    ),m.data.consumption
+                    ),m.data.consumptionBean
                 ))
             }
             adapter.notifyDataSetChanged()
             nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl)
-//            Log.e(TAG, "initData: ${it.nextPageUrl}", )
-//            Log.e(TAG, "first next $nextPageUrl")
         }
         binding.refreshClassIn.setOnRefreshListener {
             viewModel.updateClassInLiveData(classModel.id.toString(), URL.udid)
@@ -91,25 +77,24 @@ class ClassInActivity : AppCompatActivity() {
             }
 
             override fun onAvatarImageClickedListener(videoBean: VideoBean) {
-                PersonMessageActivity.startPersonMessageActivity(this@ClassInActivity,videoBean.personalModel!!)
+                PersonMessageActivity.startPersonMessageActivity(this@ClassInActivity,videoBean.personalBean!!)
             }
         })
         setRecyclerOnScrollListener()
     }
 
-    companion object{
-        fun fragmentStartClassInActivity(context: Context, activity: Activity, classModel: ClassModel){
-            val mIntent = Intent(activity, ClassInActivity::class.java)
-            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            mIntent.putExtra("classModel",classModel)
-            context.startActivity(mIntent)
-        }
-    }
+//    companion object{
+//        fun fragmentStartClassInActivity(context: Context, activity: Activity, classModel: ClassBean){
+//            val mIntent = Intent(activity, ClassInActivity::class.java)
+//            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            mIntent.putExtra("classModel",classModel)
+//            context.startActivity(mIntent)
+//        }
+//    }
 
     fun loadMore() {
         adapter.setClassInLoadState(adapter.LOADING)
         val url = nextPageUrl.split('?').first() + '/'
-//        Log.e(TAG, "loadMore:url: $nextPageUrl")
         val m = nextPageUrl.split('?').last().split('&')
         val start = m[0].filter { it.isDigit() }.toInt()
         val num = m[1].filter { it.isDigit() }.toInt()
@@ -129,20 +114,18 @@ class ClassInActivity : AppCompatActivity() {
                             m.data.content.data.cover.feed ?: "",
                             m.data.content.data.playUrl ?: "",
                             m.data.content.data.description ?: "",
-                            PersonalModel(
+                            PersonalBean(
                                 m.data.content.data.author.id ?: 0,
                                 m.data.content.data.author.icon ?: "",
                                 DefaultUtil.defaultCoverUrl,
                                 m.data.content.data.author.description ?: "",
                                 m.data.content.data.author.name ?: "",
                             "",""
-                            ),m.data.content.data.consumption
+                            ),m.data.content.data.consumptionBean
                         )
                     )
                 }
-//                Log.e(TAG, "loadMore: ${it.nextPageUrl}")
                 nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl ?: "")
-//                Log.e(TAG, "loadMore: $nextPageUrl")
                 adapter.setClassInLoadState(adapter.COMPLETE)
                 adapter.notifyDataSetChanged()
             }

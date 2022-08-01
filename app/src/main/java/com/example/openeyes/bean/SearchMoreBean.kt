@@ -1,12 +1,12 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
- * description ： 分类页面进入的数据类
+ * description ： 搜索页额外数据的数据类
  * author : lfy
  * email : 1623658271@qq.com
- * date : 2022/7/21 18:57
+ * date : 2022/7/21 15:27
  */
-data class ClassDeepMsgModel(
+data class SearchMoreBean(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,
@@ -16,67 +16,16 @@ data class ClassDeepMsgModel(
     data class Item(
         val type: String,
         val `data`: Data,
-        val trackingData: Any?,
+        val trackingData: TrackingData,
         val tag: Any?,
         val id: Int,
         val adIndex: Int
     ) {
         data class Data(
             val dataType: String,
-            val id: Int?,
-            val type: String? = null,
-            val text: String? = null,
-            val subTitle: Any? = null,
-            val actionUrl: String? = null,
-            val adTrack: List<Any>? = null,
-            val follow: Any? = null,
-            val header: Header? = null,
-            val content: Content? = null,
-            val title: String? = null,
-            val description: String? = null,
-            val library: String? = null,
-            val tags: List<Tag>? = null,
-            val consumption: Consumption? = null,
-            val resourceType: String? = null,
-            val slogan: Any? = null,
-            val provider: Provider? = null,
-            val category: String? = null,
-            val author: Author? = null,
-            val cover: Cover? = null,
-            val playUrl: String? = null,
-            val thumbPlayUrl: Any? = null,
-            val duration: Int? = null,
-            val webUrl: WebUrl? = null,
-            val releaseTime: Long? = null,
-            val playInfo: List<PlayInfo>? = null,
-            val campaign: Any? = null,
-            val waterMarks: Any? = null,
-            val ad: Boolean? = null,
-            val titlePgc: Any? = null,
-            val descriptionPgc: Any? = null,
-            val remark: Any? = null,
-            val ifLimitVideo: Boolean? = null,
-            val searchWeight: Int? = null,
-            val brandWebsiteInfo: Any? = null,
-            val videoPosterBean: VideoPosterBean? = null,
-            val idx: Int? = null,
-            val shareAdTrack: Any? = null,
-            val favoriteAdTrack: Any? = null,
-            val webAdTrack: Any? = null,
-            val date: Long? = null,
-            val promotion: Any? = null,
-            val label: Any? = null,
-            val labelList: List<Any>? = null,
-            val descriptionEditor: String?= null,
-            val collected: Boolean?= null,
-            val reallyCollected: Boolean?= null,
-            val played: Boolean?= null,
-            val subtitles: List<Any>?= null,
-            val lastViewTime: Any?= null,
-            val playlists: Any?= null,
-            val src: Int?= null,
-            val recallSource: String?= null,
-            val recall_source: String?= null
+            val header: Header,
+            val content: Content,
+            val adTrack: List<Any>
         ) {
             data class Header(
                 val id: Int,
@@ -112,15 +61,15 @@ data class ClassDeepMsgModel(
                     val description: String,
                     val library: String,
                     val tags: List<Tag>,
-                    val consumption: Consumption,
+                    val consumptionBean: ConsumptionBean,
                     val resourceType: String,
-                    val slogan: String?,
+                    val slogan: Any?,
                     val provider: Provider,
                     val category: String,
                     val author: Author,
                     val cover: Cover,
                     val playUrl: String,
-                    val thumbPlayUrl: String?,
+                    val thumbPlayUrl: Any?,
                     val duration: Int,
                     val webUrl: WebUrl,
                     val releaseTime: Long,
@@ -130,9 +79,9 @@ data class ClassDeepMsgModel(
                     val ad: Boolean,
                     val adTrack: List<Any>,
                     val type: String,
-                    val titlePgc: String?,
+                    val titlePgc: String,
                     val descriptionPgc: String,
-                    val remark: String?,
+                    val remark: Any?,
                     val ifLimitVideo: Boolean,
                     val searchWeight: Int,
                     val brandWebsiteInfo: Any?,
@@ -152,16 +101,16 @@ data class ClassDeepMsgModel(
                     val subtitles: List<Any>,
                     val lastViewTime: Any?,
                     val playlists: Any?,
-                    val src: Int?,
-                    val recallSource: String?,
-                    val recall_source: String?
+                    val src: Any?,
+                    val recallSource: Any?,
+                    val recall_source: Any?
                 ) {
                     data class Tag(
                         val id: Int,
                         val name: String,
                         val actionUrl: String,
                         val adTrack: Any?,
-                        val desc: String?,
+                        val desc: String,
                         val bgPicture: String,
                         val headerImage: String,
                         val tagRecType: String,
@@ -171,13 +120,6 @@ data class ClassDeepMsgModel(
                         val ifNewest: Boolean,
                         val newestEndTime: Any?,
                         val communityIndex: Int
-                    )
-
-                    data class Consumption(
-                        val collectionCount: Int,
-                        val shareCount: Int,
-                        val replyCount: Int,
-                        val realCollectionCount: Int
                     )
 
                     data class Provider(
@@ -220,7 +162,7 @@ data class ClassDeepMsgModel(
                         val detail: String,
                         val blurred: String,
                         val sharing: Any?,
-                        val homepage: String?
+                        val homepage: Any?
                     )
 
                     data class WebUrl(
@@ -250,92 +192,56 @@ data class ClassDeepMsgModel(
                     )
                 }
             }
+        }
 
-            data class Tag(
-                val id: Int,
-                val name: String,
-                val actionUrl: String,
-                val adTrack: Any?,
-                val desc: String?,
-                val bgPicture: String,
-                val headerImage: String,
-                val tagRecType: String,
-                val childTagList: Any?,
-                val childTagIdList: Any?,
-                val haveReward: Boolean,
-                val ifNewest: Boolean,
-                val newestEndTime: Any?,
-                val communityIndex: Int
-            )
-
-            data class Provider(
-                val name: String,
-                val alias: String,
-                val icon: String
-            )
-
-            data class Author(
-                val id: Int,
-                val icon: String,
-                val name: String,
-                val description: String,
-                val link: String,
-                val latestReleaseTime: Long,
-                val videoNum: Int,
-                val adTrack: Any?,
-                val follow: Follow,
-                val shield: Shield,
-                val approvedNotReadyVideoCount: Int,
-                val ifPgc: Boolean,
-                val recSort: Int,
-                val expert: Boolean
+        data class TrackingData(
+            val dataType: String,
+            val `data`: Data
+        ) {
+            data class Data(
+                val show: List<Show>,
+                val click: List<Click>
             ) {
-                data class Follow(
-                    val itemType: String,
-                    val itemId: Int,
-                    val followed: Boolean
-                )
+                data class Show(
+                    val `data`: Data,
+                    val sdk: String
+                ) {
+                    data class Data(
+                        val element_index: Int,
+                        val card_index: Int,
+                        val element_title: String,
+                        val card_title: String,
+                        val element_label: String,
+                        val page_type: String,
+                        val element_id: Int,
+                        val element_type: String,
+                        val card_type: String,
+                        val element_relative_index: Int,
+                        val card_id: Int
+                    )
+                }
 
-                data class Shield(
-                    val itemType: String,
-                    val itemId: Int,
-                    val shielded: Boolean
-                )
+                data class Click(
+                    val `data`: Data,
+                    val sdk: String
+                ) {
+                    data class Data(
+                        val element_index: Int,
+                        val card_index: Int,
+                        val element_label: String,
+                        val page_type: String,
+                        val element_id: Int,
+                        val element_type: String,
+                        val card_type: String,
+                        val click_action: String,
+                        val card_id: Int,
+                        val element_title: String,
+                        val card_title: String,
+                        val click_action_url: String,
+                        val element_relative_index: Int
+                    )
+                }
             }
-
-            data class Cover(
-                val feed: String,
-                val detail: String,
-                val blurred: String,
-                val sharing: Any?,
-                val homepage: Any?
-            )
-
-            data class WebUrl(
-                val raw: String,
-                val forWeibo: String
-            )
-
-            data class PlayInfo(
-                val height: Int,
-                val width: Int,
-                val urlList: List<Url>,
-                val name: String,
-                val type: String,
-                val url: String
-            ) {
-                data class Url(
-                    val name: String,
-                    val url: String,
-                    val size: Int
-                )
-            }
-
-            data class VideoPosterBean(
-                val scale: Double,
-                val url: String,
-                val fileSizeStr: String
-            )
         }
     }
 }

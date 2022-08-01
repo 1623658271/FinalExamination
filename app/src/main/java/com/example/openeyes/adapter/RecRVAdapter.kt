@@ -1,21 +1,19 @@
 package com.example.openeyes.adapter
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemPicsCardBinding
 import com.example.openeyes.databinding.ItemVideCardBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.PicsModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.PicsBean
+import com.example.openeyes.bean.VideoBean
 
 
 /**
@@ -77,16 +75,16 @@ class RecRVAdapter(var mapList:MutableList<Map<String,Any>>):RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is PicCardHolder){
-            val picsModel = mapList[position]["message"] as PicsModel
-            holder.binding.message = picsModel
+            val picsBean = mapList[position]["message"] as PicsBean
+            holder.binding.message = picsBean
 
             val layoutParams: ViewGroup.LayoutParams = holder.binding.ivPic.layoutParams
-            Glide.with(MyApplication.application!!).load(picsModel.coverUrl)
+            Glide.with(MyApplication.application!!).load(picsBean.coverUrl)
                 .override(layoutParams.width, Int.MAX_VALUE)
                 .into(holder.binding.ivPic)
 
-            holder.binding.ivPic.setOnClickListener { listener?.onPicClick(picsModel) }
-            holder.binding.picItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(picsModel.personalModel!!) }
+            holder.binding.ivPic.setOnClickListener { listener?.onPicClick(picsBean) }
+            holder.binding.picItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(picsBean.personalBean!!) }
         }else if(holder is VideoCardHolder){
             val videoBean = mapList[position]["message"] as VideoBean
             holder.binding.message = videoBean
@@ -97,7 +95,7 @@ class RecRVAdapter(var mapList:MutableList<Map<String,Any>>):RecyclerView.Adapte
                 .into(holder.binding.ivRecCoverVideo)
 
             holder.binding.ivRecCoverVideo.setOnClickListener { listener?.onVideoClick(videoBean) }
-            holder.binding.videItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(videoBean.personalModel!!) }
+            holder.binding.videItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(videoBean.personalBean!!) }
         }else if(holder is FootViewHolder){
             when(loadState) {
                 LOADING -> {
@@ -134,8 +132,8 @@ class RecRVAdapter(var mapList:MutableList<Map<String,Any>>):RecyclerView.Adapte
 
     interface OnClickListener{
         fun onVideoClick(videoBean: VideoBean)
-        fun onPicClick(picsModel: PicsModel)
-        fun onPersonImageClick(personalModel: PersonalModel)
+        fun onPicClick(picsBean: PicsBean)
+        fun onPersonImageClick(personalBean: PersonalBean)
     }
 
     fun setClickListener(listener: OnClickListener){

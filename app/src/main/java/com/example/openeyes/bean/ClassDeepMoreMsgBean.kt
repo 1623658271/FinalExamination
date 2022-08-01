@@ -1,12 +1,12 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
- * description ： 根据首页加载更多接口时返回的json的数据类
+ * description ： 分类页面进入后加载更多的数据类
  * author : lfy
  * email : 1623658271@qq.com
- * date : 2022/7/18 17:40
+ * date : 2022/7/21 19:52
  */
-data class HomepageMoreBean(
+data class ClassDeepMoreMsgBean(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,
@@ -23,15 +23,9 @@ data class HomepageMoreBean(
     ) {
         data class Data(
             val dataType: String,
-            val id: Int?,
-            val type: String?,
-            val text: String?,
-            val subTitle: Any?,
-            val actionUrl: Any?,
-            val adTrack: List<Any>?,
-            val follow: Any?,
-            val header: Header?,
-            val content: Content?
+            val header: Header,
+            val content: Content,
+            val adTrack: List<Any>
         ) {
             data class Header(
                 val id: Int,
@@ -67,7 +61,7 @@ data class HomepageMoreBean(
                     val description: String,
                     val library: String,
                     val tags: List<Tag>,
-                    val consumption: Consumption,
+                    val consumptionBean: ConsumptionBean,
                     val resourceType: String,
                     val slogan: String?,
                     val provider: Provider,
@@ -87,11 +81,11 @@ data class HomepageMoreBean(
                     val type: String,
                     val titlePgc: String?,
                     val descriptionPgc: String?,
-                    val remark: String?,
+                    val remark: Any?,
                     val ifLimitVideo: Boolean,
                     val searchWeight: Int,
                     val brandWebsiteInfo: Any?,
-                    val videoPosterBean: VideoPosterBean?,
+                    val videoPosterBean: VideoPosterBean,
                     val idx: Int,
                     val shareAdTrack: Any?,
                     val favoriteAdTrack: Any?,

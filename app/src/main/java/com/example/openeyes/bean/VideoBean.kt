@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 import android.os.Parcelable
 
@@ -19,6 +19,6 @@ data class VideoBean(
     var coverUrl: String,
     var playUrl: String,
     var description:String,
-    var personalModel: PersonalModel?,
-    var consumption:Consumption?
+    var personalBean: PersonalBean?,
+    var consumptionBean:ConsumptionBean?
 ):Parcelable

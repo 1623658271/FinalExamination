@@ -10,21 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.openeyes.MyApplication
 import com.example.openeyes.PicWatchActivity
 import com.example.openeyes.R
-import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RecRVAdapter
 import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.LayoutDiscoveryRecFragmentBinding
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.PicsModel
-import com.example.openeyes.model.SocialRecommendModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.PicsBean
+import com.example.openeyes.bean.SocialRecommendBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
@@ -51,7 +48,6 @@ class DiscoverRecFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        Log.e(TAG, "onCreateView: f", )
         binding = DataBindingUtil.inflate(inflater, R.layout.layout_discovery_rec_fragment,container,false)
         return binding.root
     }
@@ -80,12 +76,12 @@ class DiscoverRecFragment:Fragment() {
                     if (m.data.content.type == "ugcPicture"){
                         val map = HashMap<String,Any>()
                         map["type"] = "ugcPicture"
-                        map["message"] = PicsModel(
+                        map["message"] = PicsBean(
                             m.data.content.data.description,
                             m.data.content.data.cover.feed,
                             m.data.content.data.urls!!.toMutableList(),
-                            m.data.content.data.consumption,
-                            PersonalModel(
+                            m.data.content.data.consumptionBean,
+                            PersonalBean(
                                 m.data.content.data.owner.uid,
                                 m.data.content.data.owner.avatar,
                                 m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
@@ -106,7 +102,7 @@ class DiscoverRecFragment:Fragment() {
                             m.data.content.data.cover.feed,
                             m.data.content.data.playUrl?:"",
                             m.data.content.data.description,
-                            PersonalModel(
+                            PersonalBean(
                                 m.data.content.data.owner.uid,
                                 m.data.content.data.owner.avatar,
                                 m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
@@ -115,7 +111,7 @@ class DiscoverRecFragment:Fragment() {
                                 m.data.content.data.owner.city?:"",
                                 m.data.content.data.owner.job?:""
                             ),
-                            m.data.content.data.consumption
+                            m.data.content.data.consumptionBean
                         )
                         mapListX.add(map)
                     }
@@ -136,14 +132,14 @@ class DiscoverRecFragment:Fragment() {
                 findNavController().navigate(toVideoPlayActivity)
             }
 
-            override fun onPicClick(picsModel: PicsModel) {
-                PicWatchActivity.fragmentStartPicWatchActivity(context!!,activity!!,picsModel)
+            override fun onPicClick(picsBean: PicsBean) {
+                PicWatchActivity.fragmentStartPicWatchActivity(context!!,activity!!,picsBean)
             }
 
-            override fun onPersonImageClick(personalModel: PersonalModel) {
+            override fun onPersonImageClick(personalBean: PersonalBean) {
                 val toPersonMessageActivity =
                     DiscoverFragmentDirections.actionDiscoverFragmentToPersonMessageActivity(
-                        personalModel
+                        personalBean
                     )
                 findNavController().navigate(toPersonMessageActivity)
             }
@@ -197,12 +193,12 @@ class DiscoverRecFragment:Fragment() {
             .getSocialMore(start,page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<SocialRecommendModel>{
+            .subscribe(object : Observer<SocialRecommendBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: SocialRecommendModel) {
+                override fun onNext(t: SocialRecommendBean) {
 //                    Log.e(TAG, "onNext: ${t.itemList.size}", )
                     nextPageUrl = t.nextPageUrl
                     var mapListX:MutableList<Map<String,Any>> = ArrayList()
@@ -211,12 +207,12 @@ class DiscoverRecFragment:Fragment() {
                             if (m.data.content.type == "ugcPicture"){
                                 val map = HashMap<String,Any>()
                                 map["type"] = "ugcPicture"
-                                map["message"] = PicsModel(
+                                map["message"] = PicsBean(
                                     m.data.content.data.description,
                                     m.data.content.data.cover.feed,
                                     m.data.content.data.urls!!.toMutableList(),
-                                    m.data.content.data.consumption,
-                                    PersonalModel(
+                                    m.data.content.data.consumptionBean,
+                                    PersonalBean(
                                         m.data.content.data.owner.uid,
                                         m.data.content.data.owner.avatar,
                                         m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
@@ -237,7 +233,7 @@ class DiscoverRecFragment:Fragment() {
                                     m.data.content.data.cover.feed,
                                     m.data.content.data.playUrl?:"",
                                     m.data.content.data.description,
-                                    PersonalModel(
+                                    PersonalBean(
                                         m.data.content.data.owner.uid,
                                         m.data.content.data.owner.avatar,
                                         m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
@@ -246,7 +242,7 @@ class DiscoverRecFragment:Fragment() {
                                         m.data.content.data.owner.city?:"",
                                         m.data.content.data.owner.job?:""
                                     ),
-                                    m.data.content.data.consumption
+                                    m.data.content.data.consumptionBean
                                 )
                                 mapListX.add(map)
                             }

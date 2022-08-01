@@ -1,6 +1,6 @@
 package com.example.openeyes.api
 
-import com.example.openeyes.model.*
+import com.example.openeyes.bean.*
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,10 +13,6 @@ import retrofit2.http.Query
  * date : 2022/7/15 08:46
  */
 interface ApiService {
-    //获取所有发现更多的信息
-    @GET("discovery")
-    fun getFindMoreMsg():Observable<FindMoreBean>
-
     //获取发现更多的分类部分
     @GET("list")
     fun getFindMoreClassMsg():Observable<FindMoreClassBean>
@@ -27,19 +23,19 @@ interface ApiService {
 
     //获取视频的评论信息
     @GET("video")
-    fun getVideoComments(@Query("videoId")id:Int):Observable<CommentModel>
+    fun getVideoComments(@Query("videoId")id:Int):Observable<CommentBean>
 
     //搜索相关
     @GET("search")
-    fun getSearchMsg(@Query("query")query:String):Observable<SearchModel>
+    fun getSearchMsg(@Query("query")query:String):Observable<SearchBean>
 
     //搜索下滑更新下一个page
     @GET(".")
-    fun getMoreSearchMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("query")query: String):Observable<SearchMoreModel>
+    fun getMoreSearchMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("query")query: String):Observable<SearchMoreBean>
 
     //相关视频推荐
     @GET("related")
-    fun getRelatedVideoMsg(@Query("id")id:Int):Observable<RelatedVideoModel>
+    fun getRelatedVideoMsg(@Query("id")id:Int):Observable<RelatedVideoBean>
 
     //加载日报下一个page
     @GET(".")
@@ -47,21 +43,21 @@ interface ApiService {
 
     //热搜
     @GET("hot")
-    fun getHotSearchMsg():Observable<HotSearchModel>
+    fun getHotSearchMsg():Observable<HotSearchBean>
 
     //分类点击深入获取数据
     @GET("{id}")
-    fun getClassDeepMsg(@Path("id")id:String,@Query("udid")udid:String):Observable<ClassDeepMsgModel>
+    fun getClassDeepMsg(@Path("id")id:String,@Query("udid")udid:String):Observable<ClassDeepMsgBean>
 
     //分类点击深入后的额外数据
     @GET(".")
-    fun getClassMoreMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("udid")udid: String):Observable<ClassDeepMoreMsgModel>
+    fun getClassMoreMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("udid")udid: String):Observable<ClassDeepMoreMsgBean>
 
     //推荐
     @GET("rec")
-    fun getSocialRecMsg():Observable<SocialRecommendModel>
+    fun getSocialRecMsg():Observable<SocialRecommendBean>
 
     //推荐下一页
     @GET("rec")
-    fun getSocialMore(@Query("startScore")start: Long,@Query("pageCount")page:Int):Observable<SocialRecommendModel>
+    fun getSocialMore(@Query("startScore")start: Long,@Query("pageCount")page:Int):Observable<SocialRecommendBean>
 }

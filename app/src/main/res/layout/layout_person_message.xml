@@ -5,7 +5,7 @@
     <data>
         <variable
             name="person"
-            type="com.example.openeyes.model.PersonalModel" />
+            type="com.example.openeyes.bean.PersonalBean" />
         <import type="com.example.openeyes.utils.ToStringUtil"/>
     </data>
 

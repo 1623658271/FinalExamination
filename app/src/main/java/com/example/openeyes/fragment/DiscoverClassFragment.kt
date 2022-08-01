@@ -1,12 +1,8 @@
 package com.example.openeyes.fragment
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +18,8 @@ import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.adapter.DiscoverClassRVAdapter
 import com.example.openeyes.databinding.LayoutDiscoveryClassFragmentBinding
-import com.example.openeyes.model.ClassModel
+import com.example.openeyes.bean.ClassBean
 import com.example.openeyes.viewmodel.MyViewModel
-import java.net.URLDecoder
 
 
 /**
@@ -36,7 +31,7 @@ import java.net.URLDecoder
 class DiscoverClassFragment:Fragment() {
 //    private val TAG = "lfy"
     private lateinit var binding:LayoutDiscoveryClassFragmentBinding
-    private lateinit var list:MutableList<ClassModel>
+    private lateinit var list:MutableList<ClassBean>
     private lateinit var adapter:DiscoverClassRVAdapter
     private lateinit var viewModel:MyViewModel
     override fun onCreateView(
@@ -68,7 +63,7 @@ class DiscoverClassFragment:Fragment() {
                 view: View?,
                 holder: RecyclerView.ViewHolder?,
                 position: Int,
-                classlist: MutableList<ClassModel>
+                classlist: MutableList<ClassBean>
             ) {
                 val toClassInActivity = DiscoverFragmentDirections.actionDiscoverFragmentToClassInActivity(classlist[position])
                 findNavController().navigate(toClassInActivity)
@@ -89,7 +84,7 @@ class DiscoverClassFragment:Fragment() {
             for (m in dataList) {
                 if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
                     list.add(
-                        ClassModel(
+                        ClassBean(
                             m.data.id,
                             m.data.icon,
                             m.data.title,

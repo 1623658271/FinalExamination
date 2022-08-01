@@ -2,9 +2,7 @@ package com.example.openeyes.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -19,9 +17,9 @@ import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
-import com.example.openeyes.model.HomepageMoreBean
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.HomepageMoreBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
@@ -88,14 +86,14 @@ class HomepageFragment:Fragment() {
                                     m.data.content.data.cover.feed,
                                     m.data.content.data.playUrl,
                                     m.data.content.data.description,
-                                    PersonalModel(
+                                    PersonalBean(
                                         m.data.content.data.author.id ?: 0,
                                         m.data.content.data.author.icon ?: "",
                                         DefaultUtil.defaultCoverUrl,
                                         m.data.content.data.author.description ?: "",
                                         m.data.content.data.author.name ?: "","",""
                                     )
-                                ,m.data.content.data.consumption)
+                                ,m.data.content.data.consumptionBean)
                             )
                         }else {
                             beanList.add(
@@ -106,14 +104,14 @@ class HomepageFragment:Fragment() {
                                     m.data.content.data.cover.feed,
                                     m.data.content.data.playUrl,
                                     m.data.content.data.description,
-                                    PersonalModel(
+                                    PersonalBean(
                                         m.data.content.data.author.id ?: 0,
                                         m.data.content.data.author.icon ?: "",
                                         DefaultUtil.defaultCoverUrl,
                                         m.data.content.data.author.description ?: "",
                                         m.data.content.data.author.name ?: "","",""
                                     )
-                                ,m.data.content.data.consumption)
+                                ,m.data.content.data.consumptionBean)
                             )
                         }
                 }
@@ -137,7 +135,7 @@ class HomepageFragment:Fragment() {
                 position: Int,
                 videoBeanList: MutableList<VideoBean>
             ) {
-                val personMessage = videoBeanList[position].personalModel
+                val personMessage = videoBeanList[position].personalBean
                 val toPersonMessageActivity =
                     HomepageFragmentDirections.actionHomepageFragmentToPersonMessageActivity(
                         personMessage
@@ -214,8 +212,8 @@ class HomepageFragment:Fragment() {
                                             m.data.content.data.cover.feed,
                                             m.data.content.data.playUrl,
                                             m.data.content.data.description,
-                                            PersonalModel(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name,"","")
-                                        ,m.data.content.data.consumption)
+                                            PersonalBean(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name,"","")
+                                        ,m.data.content.data.consumptionBean)
                                     )
                                 }
                             }

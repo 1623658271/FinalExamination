@@ -14,7 +14,7 @@ import android.net.ConnectivityManager
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        //获取context
+        //全局获取context和application
         mContext = applicationContext
         mApplication = this
     }

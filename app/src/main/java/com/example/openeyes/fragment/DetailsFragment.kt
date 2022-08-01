@@ -1,14 +1,12 @@
 package com.example.openeyes.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
@@ -17,8 +15,8 @@ import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
-import com.example.openeyes.model.RelatedVideoModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.RelatedVideoBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.viewmodel.MyViewModel
 
 /**
@@ -30,7 +28,7 @@ import com.example.openeyes.viewmodel.MyViewModel
 class DetailsFragment(val videoBean: VideoBean):Fragment() {
     private lateinit var binding:LayoutVideoDetailsFragmentBinding
     private lateinit var adapter: RelatedRVAdapter
-    private lateinit var list:MutableList<RelatedVideoModel.Item>
+    private lateinit var list:MutableList<RelatedVideoBean.Item>
     private lateinit var viewModel: MyViewModel
 //    private val TAG = "lfy"
 
@@ -65,7 +63,7 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
             }
 
             override fun onCircleImageClick(videoBean: VideoBean) {
-                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,videoBean.personalModel!!)
+                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,videoBean.personalBean!!)
             }
         })
     }

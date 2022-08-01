@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ： 根据每日精选接收的json生成的数据类
@@ -80,7 +80,7 @@ data class DailyHandpickBean(
         val checkStatus: String,
         val city: String,
         val collected: Boolean,
-        val consumption: Consumption,
+        val consumptionBean: ConsumptionBean,
         val cover: Cover,
         val createTime: Long,
         val dataType: String,

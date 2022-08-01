@@ -55,7 +55,7 @@
         tools:layout="@layout/layout_person_message">
         <argument
             android:name="person"
-            app:argType="com.example.openeyes.model.PersonalModel"
+            app:argType="com.example.openeyes.bean.PersonalBean"
             app:nullable="true" />
     </activity>
     <activity
@@ -70,7 +70,7 @@
         tools:layout="@layout/activity_class_in">
         <argument
             android:name="classModel"
-            app:argType="com.example.openeyes.model.ClassModel"
+            app:argType="com.example.openeyes.bean.ClassBean"
             app:nullable="true" />
     </activity>
     <activity
@@ -80,7 +80,7 @@
         tools:layout="@layout/layout_video_play">
         <argument
             android:name="video"
-            app:argType="com.example.openeyes.model.VideoBean"
+            app:argType="com.example.openeyes.bean.VideoBean"
             app:nullable="true" />
     </activity>
     <activity

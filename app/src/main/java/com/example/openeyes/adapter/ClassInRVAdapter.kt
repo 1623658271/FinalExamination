@@ -9,9 +9,7 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.VideoBean
-import com.example.openeyes.utils.DefaultUtil
+import com.example.openeyes.bean.VideoBean
 
 /**
  * description ： 分类进入后的页面

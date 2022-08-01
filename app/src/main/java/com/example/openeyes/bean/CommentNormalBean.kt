@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ： 评论格式的Bean数据类
@@ -6,8 +6,8 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/7/18 09:36
  */
-data class CommentBean(
+data class CommentNormalBean(
     val content:String,
     val likeCount:Int,
-    val personalModel: PersonalModel
+    val personalBean: PersonalBean
 )

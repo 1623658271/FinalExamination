@@ -5,7 +5,7 @@
     <data>
         <variable
             name="message"
-            type="com.example.openeyes.model.VideoBean" />
+            type="com.example.openeyes.bean.VideoBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +60,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="top"
                 android:layout_marginTop="5dp"
-                app:CircleImageView="@{message.personalModel.avatar}" />
+                app:CircleImageView="@{message.personalBean.avatar}" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

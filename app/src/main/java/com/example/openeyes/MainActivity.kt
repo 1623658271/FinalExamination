@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * email : 1623658271@qq.com
  * date : 2022/7/14 22:03
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var controller: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         //2、再拿NavController
         controller = navHostFragment.navController
-//        controller = findNavController(R.id.nav_host_fragment_container)
         val navigationView:BottomNavigationView = findViewById(R.id.nav_view)
         NavigationUI.setupWithNavController(navigationView, controller)
         val toolbar:androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)

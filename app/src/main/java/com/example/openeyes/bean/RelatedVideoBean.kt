@@ -1,4 +1,4 @@
-package com.example.openeyes.model
+package com.example.openeyes.bean
 
 /**
  * description ：根据相关视频推荐返回的json的数据类
@@ -6,7 +6,7 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/7/18 15:03
  */
-data class RelatedVideoModel(
+data class RelatedVideoBean(
     val itemList: List<Item>,
     val count: Int,
     val total: Int,
@@ -34,7 +34,7 @@ data class RelatedVideoModel(
             val description: String?,
             val library: String?,
             val tags: List<Tag>?,
-            val consumption: Consumption?,
+            val consumptionBean: ConsumptionBean?,
             val resourceType: String?,
             val slogan: String?,
             val provider: Provider?,

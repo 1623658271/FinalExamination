@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.openeyes.MyApplication
 import com.example.openeyes.api.URL
-import com.example.openeyes.model.*
+import com.example.openeyes.bean.*
 import com.example.openeyes.respository.MyRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
@@ -26,21 +26,19 @@ class MyViewModel: ViewModel() {
     //每日精选
     private var dailyHandpickBeanLiveData: MutableLiveData<DailyHandpickBean>? = null
     //视频的评论
-    private var commentsLiveData:MutableLiveData<CommentModel>? = null
+    private var commentsLiveData:MutableLiveData<CommentBean>? = null
     //每日精选加载更多
-    private var relatedLiveData:MutableLiveData<RelatedVideoModel>? = null
-    //发现更多
-    private var findMoreLiveData:MutableLiveData<FindMoreBean>? = null
+    private var relatedLiveData:MutableLiveData<RelatedVideoBean>? = null
     //热搜
-    private var hotSearchLiveData:MutableLiveData<HotSearchModel>? = null
+    private var hotSearchLiveData:MutableLiveData<HotSearchBean>? = null
     //搜索详情
-    private var searchLiveData:MutableLiveData<SearchModel>? = null
+    private var searchLiveData:MutableLiveData<SearchBean>? = null
     //分类页面数据
-    private var classInLiveData:MutableLiveData<ClassDeepMsgModel>? = null
+    private var classInLiveData:MutableLiveData<ClassDeepMsgBean>? = null
     //分类页面更多数据
-    private var classInMoreLiveData:MutableLiveData<ClassDeepMoreMsgModel>? = null
+    private var classInMoreLiveData:MutableLiveData<ClassDeepMoreMsgBean>? = null
     //社区推荐
-    private var recLiveData:MutableLiveData<SocialRecommendModel>? = null
+    private var recLiveData:MutableLiveData<SocialRecommendBean>? = null
 
     private val a by lazy {
         getRecLiveData()
@@ -48,7 +46,7 @@ class MyViewModel: ViewModel() {
 
     private val TAG = "lfy"
 
-    fun getRecLiveData():MutableLiveData<SocialRecommendModel>{
+    fun getRecLiveData():MutableLiveData<SocialRecommendBean>{
         if(recLiveData==null){
             recLiveData = MutableLiveData()
             updateRecLiveData()
@@ -56,7 +54,7 @@ class MyViewModel: ViewModel() {
         return recLiveData!!
     }
 
-    fun getClassInLiveData(path:String,udid:String):MutableLiveData<ClassDeepMsgModel>{
+    fun getClassInLiveData(path:String,udid:String):MutableLiveData<ClassDeepMsgBean>{
         if(classInLiveData==null){
             classInLiveData = MutableLiveData()
             updateClassInLiveData(path,udid)
@@ -64,7 +62,7 @@ class MyViewModel: ViewModel() {
         return classInLiveData!!
     }
 
-    fun getClassInMoreLiveData(url: String,start:Int,num:Int,udid:String):MutableLiveData<ClassDeepMoreMsgModel>{
+    fun getClassInMoreLiveData(url: String,start:Int,num:Int,udid:String):MutableLiveData<ClassDeepMoreMsgBean>{
         if(classInMoreLiveData==null){
             classInMoreLiveData = MutableLiveData()
             updateClassInMoreLiveData(url,start,num,udid)
@@ -78,12 +76,12 @@ class MyViewModel: ViewModel() {
             .getClassMoreMsg(start,num,udid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<ClassDeepMoreMsgModel>{
+            .subscribe(object :Observer<ClassDeepMoreMsgBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: ClassDeepMoreMsgModel) {
+                override fun onNext(t: ClassDeepMoreMsgBean) {
                     classInMoreLiveData!!.value = t
                     Log.e(TAG, "onNext: ${t.nextPageUrl}", )
                 }
@@ -105,12 +103,12 @@ class MyViewModel: ViewModel() {
             .getClassDeepMsg(path,udid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<ClassDeepMsgModel>{
+            .subscribe(object :Observer<ClassDeepMsgBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: ClassDeepMsgModel) {
+                override fun onNext(t: ClassDeepMsgBean) {
                     classInLiveData!!.value = t
                 }
 
@@ -141,7 +139,7 @@ class MyViewModel: ViewModel() {
         return dailyHandpickBeanLiveData!!
     }
 
-    fun getCommentsLiveData(id:Int):MutableLiveData<CommentModel>{
+    fun getCommentsLiveData(id:Int):MutableLiveData<CommentBean>{
         if(commentsLiveData == null){
             commentsLiveData = MutableLiveData()
             updateCommentsViewModel(id)
@@ -149,7 +147,7 @@ class MyViewModel: ViewModel() {
         return commentsLiveData!!
     }
 
-    fun getRelatedLiveData(id:Int): MutableLiveData<RelatedVideoModel> {
+    fun getRelatedLiveData(id:Int): MutableLiveData<RelatedVideoBean> {
         if(relatedLiveData == null){
             relatedLiveData = MutableLiveData()
             updateRelatedViewModel(id)
@@ -157,7 +155,7 @@ class MyViewModel: ViewModel() {
         return relatedLiveData!!
     }
 
-    fun getSearchLiveData(search:String):MutableLiveData<SearchModel>{
+    fun getSearchLiveData(search:String):MutableLiveData<SearchBean>{
         if(searchLiveData==null){
             searchLiveData = MutableLiveData()
             updateSearchLiveData(search)
@@ -165,7 +163,7 @@ class MyViewModel: ViewModel() {
         return searchLiveData!!
     }
 
-    fun getHotSearchLiveData():MutableLiveData<HotSearchModel>{
+    fun getHotSearchLiveData():MutableLiveData<HotSearchBean>{
         if(hotSearchLiveData==null){
             hotSearchLiveData = MutableLiveData()
             updateHotSearchViewModel()
@@ -179,12 +177,12 @@ class MyViewModel: ViewModel() {
             .getSocialRecMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<SocialRecommendModel>{
+            .subscribe(object :Observer<SocialRecommendBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: SocialRecommendModel) {
+                override fun onNext(t: SocialRecommendBean) {
                     recLiveData!!.value = t
                     Log.e(TAG, "onNext: ${t.itemList.size}", )
                 }
@@ -207,12 +205,12 @@ class MyViewModel: ViewModel() {
             .getSearchMsg(search)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<SearchModel>{
+            .subscribe(object :Observer<SearchBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: SearchModel) {
+                override fun onNext(t: SearchBean) {
                     searchLiveData!!.value = t
                 }
 
@@ -234,12 +232,12 @@ class MyViewModel: ViewModel() {
             .getHotSearchMsg()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<HotSearchModel>{
+            .subscribe(object :Observer<HotSearchBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: HotSearchModel) {
+                override fun onNext(t: HotSearchBean) {
                     hotSearchLiveData!!.value = t
                 }
 
@@ -260,12 +258,12 @@ class MyViewModel: ViewModel() {
             .getRelatedVideoMsg(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<RelatedVideoModel>{
+            .subscribe(object :Observer<RelatedVideoBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: RelatedVideoModel) {
+                override fun onNext(t: RelatedVideoBean) {
                     relatedLiveData!!.value = t
                 }
 
@@ -287,12 +285,12 @@ class MyViewModel: ViewModel() {
             .getVideoComments(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<CommentModel>{
+            .subscribe(object :Observer<CommentBean>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(t: CommentModel) {
+                override fun onNext(t: CommentBean) {
                     commentsLiveData!!.value = t
                     Log.d(TAG, "onNext: ${t.itemList.size}")
                 }

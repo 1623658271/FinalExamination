@@ -1,25 +1,18 @@
 package com.example.openeyes.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
-import com.example.openeyes.databinding.LayoutCirBinding
 import com.example.openeyes.databinding.LayoutCirImageBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.view.CirLayout
-import java.util.logging.Handler
-import java.util.logging.LogRecord
-import kotlinx.coroutines.delay as Sleep
 
 
 /**

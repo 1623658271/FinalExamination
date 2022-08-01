@@ -6,9 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemCommentBinding
-import com.example.openeyes.databinding.ItemHomepageVideoBinding
-import com.example.openeyes.model.CommentBean
-import com.example.openeyes.model.PersonalModel
+import com.example.openeyes.bean.CommentNormalBean
+import com.example.openeyes.bean.PersonalBean
 
 /**
  * description ： 评论RV的适配器，传入一个CommentBean以加载评论
@@ -16,7 +15,7 @@ import com.example.openeyes.model.PersonalModel
  * email : 1623658271@qq.com
  * date : 2022/7/18 09:18
  */
-class CommentsRVAdapter(val commentList:MutableList<CommentBean>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentsRVAdapter(val commentList:MutableList<CommentNormalBean>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class MyViewHolder(itemView:ItemCommentBinding):RecyclerView.ViewHolder(itemView.root){
         var binding: ItemCommentBinding = itemView
     }
@@ -34,7 +33,7 @@ class CommentsRVAdapter(val commentList:MutableList<CommentBean>): RecyclerView.
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is MyViewHolder){
             holder.binding.comment = commentList[position]
-            holder.binding.commentPerson.setOnClickListener { listener?.onClick(commentList[position].personalModel) }
+            holder.binding.commentPerson.setOnClickListener { listener?.onClick(commentList[position].personalBean) }
         }
     }
 
@@ -43,7 +42,7 @@ class CommentsRVAdapter(val commentList:MutableList<CommentBean>): RecyclerView.
     private var listener:OnCommentClickListener?=null
 
     interface OnCommentClickListener{
-        fun onClick(personalModel: PersonalModel)
+        fun onClick(personalBean: PersonalBean)
     }
 
     fun setListener(listener:OnCommentClickListener){

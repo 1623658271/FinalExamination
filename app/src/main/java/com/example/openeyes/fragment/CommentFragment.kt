@@ -2,7 +2,6 @@ package com.example.openeyes.fragment
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,9 @@ import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
 import com.example.openeyes.adapter.CommentsRVAdapter
 import com.example.openeyes.databinding.LayoutVideoCommentFragmentBinding
-import com.example.openeyes.model.CommentBean
-import com.example.openeyes.model.PersonalModel
-import com.example.openeyes.model.VideoBean
+import com.example.openeyes.bean.CommentNormalBean
+import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.bean.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.viewmodel.MyViewModel
 import kotlinx.android.synthetic.*
@@ -34,7 +33,7 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
     private lateinit var binding:LayoutVideoCommentFragmentBinding
     private lateinit var viewModel: MyViewModel
     private lateinit var adapter:CommentsRVAdapter
-    private var commentList:MutableList<CommentBean>? = null
+    private var commentList:MutableList<CommentNormalBean>? = null
 //    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,14 +50,14 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
         viewModel.getCommentsLiveData(videoBean.id).observe(viewLifecycleOwner) {
             val commentModel = it
-            var list:MutableList<CommentBean> = ArrayList()
+            var list:MutableList<CommentNormalBean> = ArrayList()
             if (commentModel?.itemList != null) {
 //                Log.d(TAG, "onViewCreated: " + commentModel.itemList)
                 for (m in commentModel.itemList) {
                     if (m.type == "reply" && m.data.user != null) {
                         list.add(
-                            CommentBean(
-                                m.data.message?:"", m.data.likeCount?:0, PersonalModel(
+                            CommentNormalBean(
+                                m.data.message?:"", m.data.likeCount?:0, PersonalBean(
                                     m.data.user.uid, m.data.user.avatar,
                                     m.data.user.cover?.toString()?:DefaultUtil.defaultCoverUrl,
                                     m.data.user.description?.toString()?:"", m.data.user.nickname,
@@ -97,8 +96,8 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
         binding.rvContent.adapter = adapter
         binding.rvContent.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
         adapter.setListener(object :CommentsRVAdapter.OnCommentClickListener{
-            override fun onClick(personalModel: PersonalModel) {
-                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,personalModel)
+            override fun onClick(personalBean: PersonalBean) {
+                PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,personalBean)
             }
 
         })
@@ -108,7 +107,6 @@ class CommentFragment(val videoBean: VideoBean,val application: Application):Fra
     override fun onDestroy() {
         commentList?.clear()
         commentList = null
-        clearFindViewByIdCache()
         super.onDestroy()
     }
 }

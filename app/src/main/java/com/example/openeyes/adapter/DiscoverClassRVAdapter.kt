@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemRvDiscoverBinding
-import com.example.openeyes.model.ClassModel
+import com.example.openeyes.bean.ClassBean
 
 
 /**
@@ -19,7 +16,7 @@ import com.example.openeyes.model.ClassModel
  * email : 1623658271@qq.com
  * date : 2022/7/15 13:03
  */
-class DiscoverClassRVAdapter(val classModelList:MutableList<ClassModel>):RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
+class DiscoverClassRVAdapter(val classModelList:MutableList<ClassBean>):RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
     inner class MyViewHolder(itemView:ItemRvDiscoverBinding) : RecyclerView.ViewHolder(itemView.root) {
         var itemRvDiscoverBinding:ItemRvDiscoverBinding = itemView
     }
@@ -51,7 +48,7 @@ class DiscoverClassRVAdapter(val classModelList:MutableList<ClassModel>):Recycle
     }
 
     interface OnItemClickListener {
-        fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int,classlist:MutableList<ClassModel>)
+        fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int,classlist:MutableList<ClassBean>)
         fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean
     }
 }

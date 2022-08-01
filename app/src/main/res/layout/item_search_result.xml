@@ -5,7 +5,7 @@
     <data>
         <variable
             name="message"
-            type="com.example.openeyes.model.VideoBean" />
+            type="com.example.openeyes.bean.VideoBean" />
     </data>
 
     <androidx.cardview.widget.CardView

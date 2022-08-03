@@ -1,4 +1,4 @@
-package com.example.openeyes.bean
+package com.example.openeyes.model
 
 /**
  * description ： 根据每日精选接收的json生成的数据类

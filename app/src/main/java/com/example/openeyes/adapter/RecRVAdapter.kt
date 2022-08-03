@@ -11,9 +11,9 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemPicsCardBinding
 import com.example.openeyes.databinding.ItemVideCardBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.PicsBean
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.PersonalBean
+import com.example.openeyes.model.PicsBean
+import com.example.openeyes.model.VideoBean
 
 
 /**
@@ -22,7 +22,8 @@ import com.example.openeyes.bean.VideoBean
  * email : 1623658271@qq.com
  * date : 2022/7/22 18:52
  */
-class RecRVAdapter(var mapList:MutableList<Map<String,Any>>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val mapList:MutableList<Map<String,Any>> = ArrayList()
 
     val TYPE_PIC = 0
     val TYPE_VIDEO = 1
@@ -144,4 +145,10 @@ class RecRVAdapter(var mapList:MutableList<Map<String,Any>>):RecyclerView.Adapte
         this.loadState = state
     }
 
+    fun setData(mapList:MutableList<Map<String,Any>>){
+        val before = this.mapList.size
+        this.mapList.clear()
+        this.mapList.addAll(mapList)
+        notifyItemRangeChanged(before,mapList.size-before)
+    }
 }

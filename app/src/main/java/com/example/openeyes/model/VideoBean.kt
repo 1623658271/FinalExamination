@@ -1,4 +1,4 @@
-package com.example.openeyes.bean
+package com.example.openeyes.model
 
 import android.os.Parcelable
 

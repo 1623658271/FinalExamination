@@ -1,6 +1,8 @@
 package com.example.openeyes
 
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,69 +10,61 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.adapter.ClassInRVAdapter
 import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.ActivityClassInBinding
-import com.example.openeyes.bean.*
+import com.example.openeyes.model.*
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
-import com.example.openeyes.viewmodel.MyViewModel
+import com.example.openeyes.utils.LoadState
+import com.example.openeyes.viewmodel.ClassInPageViewModel
 
 class ClassInActivity : BaseActivity() {
     private lateinit var binding:ActivityClassInBinding
-    private lateinit var viewModel: MyViewModel
     private lateinit var adapter:ClassInRVAdapter
-    private lateinit var list: MutableList<VideoBean>
-    private lateinit var mapList:MutableList<Map<String,String>>
-    private lateinit var listMore:MutableList<ClassDeepMoreMsgBean.Item>
     private lateinit var classModel:ClassBean
-    private var fistGet = true
-    private var nextPageUrl:String = ""
+    private val classInPageViewModel:ClassInPageViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_class_in)
-        initData()
+        init()
+        initObserver()
     }
 
-    private fun initData(){
-        viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
-        list = ArrayList()
-        listMore = ArrayList()
-        mapList = ArrayList()
-        adapter = ClassInRVAdapter(list,mapList)
+    private fun initObserver() {
+        classInPageViewModel.apply {
+            loadClassInMsg(classModel.id.toString(),URL.udid)
+            mapList.observe(this@ClassInActivity){
+                adapter.setData(it)
+            }
+            state.observe(this@ClassInActivity){
+                hideAll()
+                when(it){
+                    LoadState.SUCCESS -> {
+                        binding.rvClassIn.visibility = View.VISIBLE
+                    }
+                    LoadState.LOADING -> {
+                        binding.stateLoading.root.visibility = View.VISIBLE
+                    }
+                    LoadState.ERROR -> {
+                        binding.stateLoadError.root.visibility = View.VISIBLE
+                    }
+                    else->{}
+                }
+            }
+        }
+    }
+
+    fun hideAll(){
+        binding.rvClassIn.visibility = View.GONE
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
+    }
+
+    private fun init(){
+        adapter = ClassInRVAdapter()
         binding.classDeepToolbar.setNavigationOnClickListener { finish() }
         binding.rvClassIn.adapter = adapter
         binding.rvClassIn.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         classModel = intent.getParcelableExtra("classModel")!!
         binding.classDeepToolbar.title = "openEyes   分类:《${classModel.title.split('#').last()}》"
-        viewModel.getClassInLiveData(classModel.id.toString(), URL.udid).observe(this){
-            for(m in it.itemList){
-                val map = HashMap<String,String>()
-                map["type"] = m.type?:""
-                map["text"] = m.data.text?:""
-                mapList.add(map)
-                list.add(VideoBean(
-                    m.data.content?.data?.id?:m.data.id?:0,
-                    m.data.content?.data?.title?:m.data.title?:"",
-                    m.data.header?.description?:m.data.author?.name?:"",
-                    m.data.content?.data?.cover?.feed?:m.data.cover?.feed?:"",
-                    m.data.content?.data?.playUrl?:m.data.playUrl?:"",
-                    m.data.content?.data?.description?:m.data.description?:"",
-                    PersonalBean(
-                        m.data.content?.data?.author?.id?:m.data.author?.id?:0,
-                        m.data.content?.data?.author?.icon?:m.data.author?.icon?:"",
-                        DefaultUtil.defaultCoverUrl,
-                        m.data.content?.data?.author?.description?:m.data.author?.description?:"",
-                        m.data.content?.data?.author?.name?:m.data.author?.name?:"",
-                        "",""
-                    ),m.data.consumptionBean
-                ))
-            }
-            adapter.notifyDataSetChanged()
-            nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl)
-        }
-        binding.refreshClassIn.setOnRefreshListener {
-            viewModel.updateClassInLiveData(classModel.id.toString(), URL.udid)
-            binding.refreshClassIn.isRefreshing = false
-            adapter.notifyDataSetChanged()
-        }
         adapter.setClickListener(object :ClassInRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(videoBean: VideoBean) {
                 VideoPlayActivity.startVideoPlayActivity(this@ClassInActivity,videoBean)
@@ -94,44 +88,11 @@ class ClassInActivity : BaseActivity() {
 
     fun loadMore() {
         adapter.setClassInLoadState(adapter.LOADING)
-        val url = nextPageUrl.split('?').first() + '/'
-        val m = nextPageUrl.split('?').last().split('&')
-        val start = m[0].filter { it.isDigit() }.toInt()
-        val num = m[1].filter { it.isDigit() }.toInt()
-
-        if (fistGet) {
-            viewModel.getClassInMoreLiveData(url, start, num, URL.udid).observe(this) {
-                for (m in it.itemList) {
-                    val map = HashMap<String, String>()
-                    map["type"] = m.type ?: ""
-                    map["text"] = ""
-                    mapList.add(map)
-                    list.add(
-                        VideoBean(
-                            m.data.content.data.id ?: 0,
-                            m.data.content.data.title ?: "",
-                            m.data.header.description ?: "",
-                            m.data.content.data.cover.feed ?: "",
-                            m.data.content.data.playUrl ?: "",
-                            m.data.content.data.description ?: "",
-                            PersonalBean(
-                                m.data.content.data.author.id ?: 0,
-                                m.data.content.data.author.icon ?: "",
-                                DefaultUtil.defaultCoverUrl,
-                                m.data.content.data.author.description ?: "",
-                                m.data.content.data.author.name ?: "",
-                            "",""
-                            ),m.data.content.data.consumptionBean
-                        )
-                    )
-                }
-                nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl ?: "")
-                adapter.setClassInLoadState(adapter.COMPLETE)
-                adapter.notifyDataSetChanged()
-            }
-            fistGet = false
-        } else {
-            viewModel.updateClassInMoreLiveData(url, start, num, URL.udid)
+        val success = classInPageViewModel.loadClassInMoreMsg(classModel.id.toString(),URL.udid)
+        if(success){
+            adapter.setClassInLoadState(adapter.COMPLETE)
+        }else{
+            adapter.setClassInLoadState(adapter.END)
         }
     }
     /**
@@ -150,11 +111,7 @@ class ClassInActivity : BaseActivity() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        if(nextPageUrl.isEmpty()){
-                            adapter.setClassInLoadState(adapter.END)
-                        }else {
-                            loadMore()
-                        }
+                        loadMore()
                     }
                 }
             }

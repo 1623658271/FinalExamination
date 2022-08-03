@@ -1,4 +1,4 @@
-package com.example.openeyes.bean
+package com.example.openeyes.model
 
 /**
  * description ： 评论格式的Bean数据类

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
  * email : 1623658271@qq.com
  * date : 2022/8/1 21:18
  */
-class HotVideoFragment():Fragment() {
+class HotVideoFragment:Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

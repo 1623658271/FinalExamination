@@ -9,7 +9,7 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.VideoBean
 
 /**
  * description ： 分类进入后的页面
@@ -17,7 +17,8 @@ import com.example.openeyes.bean.VideoBean
  * email : 1623658271@qq.com
  * date : 2022/7/21 19:42
  */
-class ClassInRVAdapter(var videoBeanList:MutableList<VideoBean>, var typeList:MutableList<Map<String,String>>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClassInRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var mapList:MutableList<Map<String,Any>> = ArrayList()
 
     val TYPE_ITEM = 0
     val TYPE_TEXT = 1
@@ -68,13 +69,13 @@ class ClassInRVAdapter(var videoBeanList:MutableList<VideoBean>, var typeList:Mu
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is itemViewHolder->{
-                val videoBean = videoBeanList[position]
+                val videoBean = mapList[position]["content"] as VideoBean
                 holder.binding.message = videoBean
                 holder.binding.ivItemCoverVideo.setOnClickListener { clickListener.onVideoImageClickedListener(videoBean) }
                 holder.binding.itemPersonCoverCircleImage.setOnClickListener { clickListener.onAvatarImageClickedListener(videoBean) }
             }
             is textViewHolder->{
-                holder.binding.name = typeList[position]["text"]
+                holder.binding.name = mapList[position]["content"] as String
             }
             is loadViewHolder->{
                 when(loadState) {
@@ -96,12 +97,12 @@ class ClassInRVAdapter(var videoBeanList:MutableList<VideoBean>, var typeList:Mu
         }
     }
 
-    override fun getItemCount(): Int = videoBeanList.size + 1
+    override fun getItemCount(): Int = mapList.size + 1
 
     override fun getItemViewType(position: Int): Int {
         return if(position+1==itemCount){
             TYPE_LOAD
-        }else if(typeList[position]["type"] == "textCard"){
+        }else if(mapList[position]["type"] == "textCard"){
             TYPE_TEXT
         }else{
             TYPE_ITEM
@@ -134,4 +135,10 @@ class ClassInRVAdapter(var videoBeanList:MutableList<VideoBean>, var typeList:Mu
         this.clickListener = clickListener
     }
 
+    fun setData(list:MutableList<Map<String,Any>>){
+        val before = mapList.size
+        mapList.clear()
+        mapList.addAll(list)
+        notifyItemRangeChanged(before,mapList.size-before)
+    }
 }

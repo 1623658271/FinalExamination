@@ -4,9 +4,13 @@
     <data>
         <variable
             name="message"
-            type="com.example.openeyes.bean.VideoBean" />
+            type="com.example.openeyes.model.VideoBean" />
     </data>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sr_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -24,21 +28,24 @@
             android:layout_gravity="top|center"
             android:gravity="center" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/sr_homepage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                <include
+                    android:id="@+id/state_loading"
+                    layout="@layout/layout_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"/>
+                <include
+                    android:id="@+id/state_load_error"
+                    layout="@layout/layout_load_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_homepage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
 
     </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

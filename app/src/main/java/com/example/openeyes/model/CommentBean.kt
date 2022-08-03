@@ -1,4 +1,4 @@
-package com.example.openeyes.bean
+package com.example.openeyes.model
 
 /**
  * description ： 评论真正接收的json格式的数据类

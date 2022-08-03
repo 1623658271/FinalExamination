@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.openeyes.databinding.*
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.SearchMoreBean
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.PersonalBean
+import com.example.openeyes.model.SearchMoreBean
+import com.example.openeyes.model.VideoBean
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
-import com.example.openeyes.viewmodel.MyViewModel
+import com.example.openeyes.viewmodel.SearchPageViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -26,11 +27,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SearchActivity : BaseActivity() {
     private lateinit var binding:LayoutSearchActivityBinding
-    private lateinit var viewModel: MyViewModel
-    private lateinit var listHot:MutableList<String>
+    private val searchPageViewModel: SearchPageViewModel by viewModels()
     private lateinit var adapterHot:HotRVAdapter
     private lateinit var adapterResult:ResultRVAdapter
-    private lateinit var listResult:MutableList<VideoBean>
     private var firstSearch = true
     private var nextPageUrl:String = ""
     private var hasSearch = false
@@ -38,17 +37,27 @@ class SearchActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        initObserver()
         initData()
+
+    }
+
+    private fun initObserver() {
+        searchPageViewModel.apply {
+            hotWordsList.observe(this@SearchActivity){
+                adapterHot.setData(it)
+            }
+            videoBean.observe(this@SearchActivity){
+                adapterResult.setData(it)
+            }
+        }
     }
 
 
     private fun initView(){
         binding = DataBindingUtil.setContentView(this,R.layout.layout_search_activity)
-        viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application))[MyViewModel::class.java]
-        listHot = ArrayList()
-        listResult = ArrayList()
-        adapterResult = ResultRVAdapter(listResult)
-        adapterHot = HotRVAdapter(listHot)
+        adapterResult = ResultRVAdapter()
+        adapterHot = HotRVAdapter()
         binding.rvSearchResult.adapter = adapterResult
         adapterResult.setListener(object :ResultRVAdapter.OnItemClickListener{
             override fun onClick(viewBean: VideoBean) {
@@ -62,10 +71,6 @@ class SearchActivity : BaseActivity() {
 
 
     private fun initData() {
-        viewModel.getHotSearchLiveData().observe(this){
-            listHot.addAll(it.toMutableList())
-            adapterHot.notifyDataSetChanged()
-        }
         adapterHot.setListener(object :HotRVAdapter.OnItemClickListener{
             override fun onClick(text: String) {
                 binding.searchView.setQuery(text,false)
@@ -102,7 +107,7 @@ class SearchActivity : BaseActivity() {
         setRecyclerOnScrollListener()
         binding.refreshSearch.setOnRefreshListener {
             if(hasSearch) {
-                viewModel.updateSearchLiveData(nowText)
+                searchPageViewModel.loadSearchMsg(nowText)
             }
             binding.refreshSearch.isRefreshing = false
         }
@@ -111,32 +116,13 @@ class SearchActivity : BaseActivity() {
     fun doSearch(query:String){
         hasSearch = true
         binding.llHotEarch.visibility = View.GONE
-        if(firstSearch){
-            firstSearch=false
-            viewModel.getSearchLiveData(query).observe(this){
-                listResult.clear()
-                for(m in it.itemList){
-                    if(m.type=="followCard"){
-                        listResult.add(VideoBean(m.data.content!!.data.id?:0,m.data.content.data.title,m.data.content.data.author?.name?:"",
-                            m.data.content.data.cover.feed,m.data.content.data.playUrl,m.data.content.data.description,
-                            PersonalBean(m.data.content.data.author?.id?:0,m.data.content.data.author?.icon?:"",
-                                DefaultUtil.defaultCoverUrl,m.data.content.data.author?.description?:"",
-                                m.data.content.data.author?.name?:"","","")
-                        ,m.data.content.data.consumptionBean)
-                        )
-                    }
-                }
-                nextPageUrl = DecodeUtil.urlDecode(it.nextPageUrl?:"")
-                adapterResult.notifyDataSetChanged()
-                binding.rvSearchResult.visibility = View.VISIBLE
-            }
-        }else{
-            viewModel.updateSearchLiveData(query)
-        }
+        searchPageViewModel.loadSearchMsg(query)
     }
 
 
-    class HotRVAdapter(var list:MutableList<String>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    class HotRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        private val list:MutableList<String> = ArrayList()
+
         inner class MyViewHolder(itemView: ItemHotSearchBinding):RecyclerView.ViewHolder(itemView.root){
             var binding: ItemHotSearchBinding = itemView
         }
@@ -171,9 +157,17 @@ class SearchActivity : BaseActivity() {
         fun setListener(listener:OnItemClickListener){
             this.listener = listener
         }
+
+        fun setData(list:MutableList<String>){
+            this.list.clear()
+            this.list.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
-    class ResultRVAdapter(var list:MutableList<VideoBean>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    class ResultRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        private val list:MutableList<VideoBean> = ArrayList()
+
         //普通布局
         private val TYPE_ITEM = 1
         //脚布局
@@ -267,6 +261,12 @@ class SearchActivity : BaseActivity() {
                 TYPE_ITEM
             }
         }
+
+        fun setData(list:MutableList<VideoBean>){
+            this.list.clear()
+            this.list.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
     /**
@@ -303,57 +303,11 @@ class SearchActivity : BaseActivity() {
 
     fun loadingMore() {
         adapterResult.setLoadState(adapterResult.LOADING)
-        val url = nextPageUrl.split("?").last().split("&")
-        val start = url[0].filter { it.isDigit() }.toInt()
-        val num = url[1].filter { it.isDigit() }.toInt()
-        val query = url[2].split("=").last()
-        MyRepository("http://baobab.kaiyanapp.com/api/v3/search/")
-            .getService()
-            .getMoreSearchMsg(start, num, query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<SearchMoreBean> {
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: SearchMoreBean) {
-                    nextPageUrl = DecodeUtil.urlDecode(t.nextPageUrl?:"")
-                    for (m in t.itemList) {
-                        if (m.type == "followCard") {
-                            listResult.add(
-                                VideoBean(
-                                    m.data.content.data.id ?: 0,
-                                    m.data.content.data.title,
-                                    m.data.content.data.author?.name ?: "",
-                                    m.data.content.data.cover.feed ?: "",
-                                    m.data.content.data.playUrl ?: "",
-                                    m.data.content.data.description ?: "",
-                                    PersonalBean(
-                                        m.data.content.data.author?.id ?: 0,
-                                        m.data.content.data.author?.icon ?: "",
-                                        DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.author?.description ?: "",
-                                        m.data.content.data.author?.name ?: "","",""
-                                    )
-                                ,m.data.content.data.consumptionBean)
-                            )
-                        }
-                    }
-                    adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
-                    adapterResult.notifyDataSetChanged()
-                }
-
-                override fun onError(e: Throwable) {
-                    adapterResult.setLoadState(adapterResult.LOADING_END)
-                    adapterResult.notifyDataSetChanged()
-                }
-
-                override fun onComplete() {
-
-                }
-
-            })
-
+        val success = searchPageViewModel.loadSearchMore()
+        if(success){
+            adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
+        }else{
+            adapterResult.setLoadState(adapterResult.LOADING_END)
+        }
     }
 }

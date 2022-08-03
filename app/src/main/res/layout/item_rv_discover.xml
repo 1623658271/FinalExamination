@@ -4,7 +4,7 @@
     <data>
         <variable
             name="findClass"
-            type="com.example.openeyes.bean.ClassBean" />
+            type="com.example.openeyes.model.ClassBean" />
     </data>
 
         <androidx.cardview.widget.CardView

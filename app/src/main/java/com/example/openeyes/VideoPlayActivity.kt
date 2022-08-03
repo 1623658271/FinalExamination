@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import cn.jzvd.Jzvd
 import com.bumptech.glide.Glide
@@ -12,9 +15,11 @@ import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
 import com.example.openeyes.fragment.DetailsFragment
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.VideoBean
 //import com.example.openeyes.room.MyDatabase
 import com.example.openeyes.utils.ActivityController
+import com.example.openeyes.utils.LoadState
+import com.example.openeyes.viewmodel.VideoPlayPageViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 /**
@@ -27,6 +32,7 @@ class VideoPlayActivity : BaseActivity() {
     private lateinit var binding:LayoutVideoPlayBinding
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private lateinit var videoBean: VideoBean
+    private val videoPlayPageViewModel:VideoPlayPageViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
@@ -41,7 +47,7 @@ class VideoPlayActivity : BaseActivity() {
             }
             fragmentPagerAdapter = FragmentPagerAdapter(this)
             fragmentPagerAdapter.add{DetailsFragment(videoBean)}
-            fragmentPagerAdapter.add{CommentFragment(videoBean,application)}
+            fragmentPagerAdapter.add{CommentFragment(videoBean)}
             binding.vp2Video.adapter = fragmentPagerAdapter
             binding.vp2Video.offscreenPageLimit = 2
             TabLayoutMediator(binding.tlVideo,binding.vp2Video){
@@ -63,6 +69,7 @@ class VideoPlayActivity : BaseActivity() {
             ActivityController.removeActivity(this)
         }
     }
+
 
     /**
      * 播放视频

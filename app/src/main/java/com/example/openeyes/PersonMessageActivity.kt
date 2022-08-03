@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.PicsBean
+import com.example.openeyes.model.PersonalBean
+import com.example.openeyes.model.PicsBean
 
 /**
  * description ： 展示个人信息的fragment

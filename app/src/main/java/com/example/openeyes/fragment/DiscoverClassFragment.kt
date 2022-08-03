@@ -3,6 +3,7 @@ package com.example.openeyes.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.navigation.fragment.findNavController
@@ -20,8 +23,9 @@ import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.adapter.DiscoverClassRVAdapter
 import com.example.openeyes.databinding.LayoutDiscoveryClassFragmentBinding
-import com.example.openeyes.bean.ClassBean
-import com.example.openeyes.viewmodel.MyViewModel
+import com.example.openeyes.model.ClassBean
+import com.example.openeyes.utils.LoadState
+import com.example.openeyes.viewmodel.DiscoverPageViewModel
 
 
 /**
@@ -33,9 +37,8 @@ import com.example.openeyes.viewmodel.MyViewModel
 class DiscoverClassFragment:Fragment() {
 //    private val TAG = "lfy"
     private lateinit var binding:LayoutDiscoveryClassFragmentBinding
-    private lateinit var list:MutableList<ClassBean>
     private lateinit var adapter:DiscoverClassRVAdapter
-    private lateinit var viewModel:MyViewModel
+    private val discoverClassViewModel:DiscoverPageViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,18 +51,41 @@ class DiscoverClassFragment:Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            AndroidViewModelFactory(MyApplication.application!!)
-        )[MyViewModel::class.java]
-        binding.rvDiscover.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        list = ArrayList()
-        adapter = DiscoverClassRVAdapter(list)
-        binding.rvDiscover.adapter = adapter
+        init()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        discoverClassViewModel.apply {
+            classList.observe(activity!!){
+                adapter.setData(it)
+            }
+            state2.observe(activity!!){
+                hideAll()
+                when(it){
+                    LoadState.LOADING -> binding.stateLoading.root.visibility = View.VISIBLE
+                    LoadState.SUCCESS -> binding.rvDiscover.visibility = View.VISIBLE
+                    LoadState.ERROR -> binding.stateLoadError.root.visibility = View.VISIBLE
+                    else->{}
+                }
+            }
+        }
         binding.srDiscover.setOnRefreshListener {
-            viewModel.updateFindMoreViewModel()
+            discoverClassViewModel.loadClassMsg()
             binding.srDiscover.isRefreshing = false
         }
+    }
+
+    private fun hideAll() {
+        binding.rvDiscover.visibility = View.GONE
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
+    }
+
+    fun init(){
+        binding.rvDiscover.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        adapter = DiscoverClassRVAdapter()
+        binding.rvDiscover.adapter = adapter
         adapter.setOnItemClickListener(object:DiscoverClassRVAdapter.OnItemClickListener{
             override fun onItemClick(
                 view: View?,
@@ -87,25 +113,6 @@ class DiscoverClassFragment:Fragment() {
                     R.anim.recycler_fade_in
                 )
             )
-        viewModel.getFindMoreLiveData().observe(viewLifecycleOwner, Observer {
-            val dataList = it.itemList
-            list.clear()
-            for (m in dataList) {
-                if (!TextUtils.isEmpty(m.data.icon) && !TextUtils.isEmpty(m.data.title)) {
-                    list.add(
-                        ClassBean(
-                            m.data.id,
-                            m.data.icon,
-                            m.data.title,
-                            m.data.description,
-                            m.data.actionUrl,
-                            m.data.follow.itemId
-                        )
-                    )
-                }
-            }
-            adapter.notifyDataSetChanged()
-        })
     }
 
 //        //额,好像没什么用，必须要安装了应用才行

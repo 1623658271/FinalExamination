@@ -1,5 +1,6 @@
 package com.example.openeyes.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemRvDiscoverBinding
-import com.example.openeyes.bean.ClassBean
+import com.example.openeyes.model.ClassBean
 
 
 /**
@@ -16,7 +17,8 @@ import com.example.openeyes.bean.ClassBean
  * email : 1623658271@qq.com
  * date : 2022/7/15 13:03
  */
-class DiscoverClassRVAdapter(val classModelList:MutableList<ClassBean>):RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
+class DiscoverClassRVAdapter:RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
+    private val classModelList:MutableList<ClassBean> = ArrayList()
     inner class MyViewHolder(itemView:ItemRvDiscoverBinding) : RecyclerView.ViewHolder(itemView.root) {
         var itemRvDiscoverBinding:ItemRvDiscoverBinding = itemView
     }
@@ -50,5 +52,12 @@ class DiscoverClassRVAdapter(val classModelList:MutableList<ClassBean>):Recycler
     interface OnItemClickListener {
         fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int,classlist:MutableList<ClassBean>)
         fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean
+    }
+
+    fun setData(list:MutableList<ClassBean>){
+        classModelList.clear()
+        classModelList.addAll(list)
+        Log.e("lfy", "setData: ${classModelList.size}", )
+        notifyDataSetChanged()
     }
 }

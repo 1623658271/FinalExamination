@@ -7,30 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.openeyes.MyApplication
 import com.example.openeyes.PicWatchActivity
 import com.example.openeyes.R
 import com.example.openeyes.adapter.RecRVAdapter
-import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.LayoutDiscoveryRecFragmentBinding
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.PicsBean
-import com.example.openeyes.bean.SocialRecommendBean
-import com.example.openeyes.bean.VideoBean
-import com.example.openeyes.respository.MyRepository
-import com.example.openeyes.utils.DefaultUtil
-import com.example.openeyes.viewmodel.MyViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.openeyes.model.PersonalBean
+import com.example.openeyes.model.PicsBean
+import com.example.openeyes.model.VideoBean
+import com.example.openeyes.utils.LoadState
+import com.example.openeyes.viewmodel.DiscoverPageViewModel
 
 /**
  * description ： 发现页的推荐页fragment
@@ -40,11 +31,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  */
 class DiscoverRecFragment:Fragment() {
     private lateinit var binding:LayoutDiscoveryRecFragmentBinding
-    private lateinit var viewModel: MyViewModel
+    private val discoverRecViewModel:DiscoverPageViewModel by viewModels()
     private lateinit var adapter0:RecRVAdapter
-    private lateinit var mapList: MutableList<Map<String,Any>>
-//    private val TAG = "lfy"
-    private var nextPageUrl = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,72 +45,46 @@ class DiscoverRecFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewAndData()
+        init()
+        initObserver()
     }
 
-    private fun initViewAndData() {
-        viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(MyApplication.application!!))[MyViewModel::class.java]
-        mapList = ArrayList()
-        adapter0 = RecRVAdapter(mapList)
+    private fun initObserver() {
+        discoverRecViewModel.apply {
+            dataList.observe(activity!!){
+                adapter0.setData(it)
+                Log.e("lfy", "initObserver:${it.size} ", )
+            }
+            state1.observe(activity!!){
+                hideAll()
+                when(it){
+                    LoadState.LOADING -> binding.stateLoading.root.visibility = View.VISIBLE
+                    LoadState.SUCCESS -> binding.rvRec.visibility = View.VISIBLE
+                    LoadState.ERROR -> binding.stateLoadError.root.visibility = View.VISIBLE
+                    else->{}
+                }
+            }
+        }
+        binding.refreshRec.setOnRefreshListener {
+            discoverRecViewModel.loadRecMsg()
+            binding.refreshRec.isRefreshing = false
+        }
+    }
+
+    fun hideAll(){
+        binding.rvRec.visibility = View.GONE
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
+    }
+
+    private fun init() {
+        adapter0 = RecRVAdapter()
         binding.rvRec.apply {
             adapter = adapter0
             layoutManager = StaggeredGridLayoutManager(2,RecyclerView.VERTICAL)
             setHasFixedSize(true)
         }
-        viewModel.getRecLiveData().observe(viewLifecycleOwner){
-            mapList.clear()
-            nextPageUrl = it.nextPageUrl?:""
-//            Log.e(TAG, "initViewAndData: ${it.itemList.size}", )
-            var mapListX:MutableList<Map<String,Any>> = ArrayList()
-            for(m in it.itemList){
-                if(m.data.content!=null) {
-                    if (m.data.content.type == "ugcPicture"){
-                        val map = HashMap<String,Any>()
-                        map["type"] = "ugcPicture"
-                        map["message"] = PicsBean(
-                            m.data.content.data.description,
-                            m.data.content.data.cover.feed,
-                            m.data.content.data.urls!!.toMutableList(),
-                            m.data.content.data.consumptionBean,
-                            PersonalBean(
-                                m.data.content.data.owner.uid,
-                                m.data.content.data.owner.avatar,
-                                m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
-                                m.data.content.data.owner.description?:"",
-                                m.data.content.data.owner.nickname,
-                                m.data.content.data.owner.city?:"",
-                                m.data.content.data.owner.job?:""
-                            )
-                        )
-                        mapListX.add(map)
-                    }else if(m.data.content.type == "video"){
-                        val map = HashMap<String,Any>()
-                        map["type"] = "video"
-                        map["message"] = VideoBean(
-                            m.data.content.data.id,
-                            m.data.content.data.description,
-                            m.data.content.data.owner.nickname,
-                            m.data.content.data.cover.feed,
-                            m.data.content.data.playUrl?:"",
-                            m.data.content.data.description,
-                            PersonalBean(
-                                m.data.content.data.owner.uid,
-                                m.data.content.data.owner.avatar,
-                                m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
-                                m.data.content.data.owner.description?:"",
-                                m.data.content.data.owner.nickname,
-                                m.data.content.data.owner.city?:"",
-                                m.data.content.data.owner.job?:""
-                            ),
-                            m.data.content.data.consumptionBean
-                        )
-                        mapListX.add(map)
-                    }
-                }
-            }
-            mapList.addAll(mapListX)
-            adapter0.notifyDataSetChanged()
-        }
+
         setRecyclerOnScrollListener()
         binding.rvRec.layoutAnimation = // 入场动画
             LayoutAnimationController(
@@ -130,10 +93,7 @@ class DiscoverRecFragment:Fragment() {
                     R.anim.recycler_fade_in
                 )
             )
-        binding.refreshRec.setOnRefreshListener {
-            viewModel.updateRecLiveData()
-            binding.refreshRec.isRefreshing = false
-        }
+
         adapter0.setClickListener(object :RecRVAdapter.OnClickListener{
             override fun onVideoClick(videoBean: VideoBean) {
                 val toVideoPlayActivity =
@@ -174,12 +134,7 @@ class DiscoverRecFragment:Fragment() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if ((intArray[0] == itemCount - 1) ||(intArray[1] == itemCount - 1)&& isUp) {
-                        if(nextPageUrl.isEmpty()){
-                            adapter0.setLoadState(adapter0.LOADING_END)
-                        }else {
-//                            Log.e(TAG, "onScrollStateChanged: $nextPageUrl", )
-                            loadingMore()
-                        }
+                        loadingMore()
                     }
                 }
             }
@@ -193,85 +148,11 @@ class DiscoverRecFragment:Fragment() {
 
     fun loadingMore(){
         adapter0.setLoadState(adapter0.LOADING)
-        val m = nextPageUrl.split("?").last().split("&")
-        val start = m[0].filter { it.isDigit() }.toLong()
-        val page = m[1].filter { it.isDigit() }.toInt()
-//        Log.e(TAG, "loadingMore: $start + $page", )
-        MyRepository(URL.RecUrl)
-            .getService()
-            .getSocialMore(start,page)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<SocialRecommendBean>{
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: SocialRecommendBean) {
-//                    Log.e(TAG, "onNext: ${t.itemList.size}", )
-                    nextPageUrl = t.nextPageUrl
-                    var mapListX:MutableList<Map<String,Any>> = ArrayList()
-                    for(m in t.itemList){
-                        if(m.data.content!=null) {
-                            if (m.data.content.type == "ugcPicture"){
-                                val map = HashMap<String,Any>()
-                                map["type"] = "ugcPicture"
-                                map["message"] = PicsBean(
-                                    m.data.content.data.description,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.urls!!.toMutableList(),
-                                    m.data.content.data.consumptionBean,
-                                    PersonalBean(
-                                        m.data.content.data.owner.uid,
-                                        m.data.content.data.owner.avatar,
-                                        m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.owner.description?:"",
-                                        m.data.content.data.owner.nickname,
-                                        m.data.content.data.owner.city?:"",
-                                        m.data.content.data.owner.job?:""
-                                    )
-                                )
-                                mapListX.add(map)
-                            }else if(m.data.content.type == "video"){
-                                val map = HashMap<String,Any>()
-                                map["type"] = "video"
-                                map["message"] = VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.description,
-                                    m.data.content.data.owner.nickname,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl?:"",
-                                    m.data.content.data.description,
-                                    PersonalBean(
-                                        m.data.content.data.owner.uid,
-                                        m.data.content.data.owner.avatar,
-                                        m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.owner.description?:"",
-                                        m.data.content.data.owner.nickname,
-                                        m.data.content.data.owner.city?:"",
-                                        m.data.content.data.owner.job?:""
-                                    ),
-                                    m.data.content.data.consumptionBean
-                                )
-                                mapListX.add(map)
-                            }
-                        }
-                    }
-                    val size = mapList.size
-                    mapList.addAll(mapListX)
-                    adapter0.setLoadState(adapter0.LOADING_COMPLETE)
-                    adapter0.notifyItemRangeChanged(size,mapListX.size)
-                }
-
-                override fun onError(e: Throwable) {
-//                    Log.e(TAG, "onError: $e", )
-                    Toast.makeText(MyApplication.context,"请检查你的网络！", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onComplete() {
-                    
-                }
-
-            })
+        var flag = discoverRecViewModel.loadRecMoreMsg()
+        if(flag){
+            adapter0.setLoadState(adapter0.LOADING_COMPLETE)
+        }else{
+            adapter0.setLoadState(adapter0.LOADING_END)
+        }
     }
 }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.MyApplication
@@ -15,9 +15,8 @@ import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RelatedRVAdapter
 import com.example.openeyes.databinding.LayoutVideoDetailsFragmentBinding
-import com.example.openeyes.bean.RelatedVideoBean
-import com.example.openeyes.bean.VideoBean
-import com.example.openeyes.viewmodel.MyViewModel
+import com.example.openeyes.model.VideoBean
+import com.example.openeyes.viewmodel.VideoPlayPageViewModel
 
 /**
  * description ： 视频详情Fragment
@@ -28,8 +27,7 @@ import com.example.openeyes.viewmodel.MyViewModel
 class DetailsFragment(val videoBean: VideoBean):Fragment() {
     private lateinit var binding:LayoutVideoDetailsFragmentBinding
     private lateinit var adapter: RelatedRVAdapter
-    private lateinit var list:MutableList<RelatedVideoBean.Item>
-    private lateinit var viewModel: MyViewModel
+    private val videoPlayPageViewModel: VideoPlayPageViewModel by viewModels()
 //    private val TAG = "lfy"
 
     override fun onCreateView(
@@ -43,18 +41,22 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list = ArrayList()
-        adapter = RelatedRVAdapter(videoBean,list)
+        init()
+        initObserver()
+    }
+
+    fun initObserver(){
+        videoPlayPageViewModel.apply {
+            relatedList.observe(activity!!){
+                adapter.setData(it)
+            }
+            loadRelatedMsg(videoBean.id)
+        }
+    }
+    fun init(){
+        adapter = RelatedRVAdapter(videoBean)
         binding.rvDetailsMore.adapter = adapter
         binding.rvDetailsMore.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory(MyApplication.application!!))[MyViewModel::class.java]
-        viewModel.getRelatedLiveData(videoBean.id).observe(viewLifecycleOwner){
-            list.clear()
-            list.addAll(it.itemList)
-//            Log.d(TAG, "onViewCreated: ${list.size}")
-            adapter.notifyDataSetChanged()
-        }
         adapter.setClickListener(object :RelatedRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(
                 videoBean: VideoBean

@@ -6,8 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemCommentBinding
-import com.example.openeyes.bean.CommentNormalBean
-import com.example.openeyes.bean.PersonalBean
+import com.example.openeyes.model.CommentNormalBean
+import com.example.openeyes.model.PersonalBean
 
 /**
  * description ： 评论RV的适配器，传入一个CommentBean以加载评论
@@ -15,7 +15,9 @@ import com.example.openeyes.bean.PersonalBean
  * email : 1623658271@qq.com
  * date : 2022/7/18 09:18
  */
-class CommentsRVAdapter(val commentList:MutableList<CommentNormalBean>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentsRVAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var commentList:MutableList<CommentNormalBean> = ArrayList()
+
     inner class MyViewHolder(itemView:ItemCommentBinding):RecyclerView.ViewHolder(itemView.root){
         var binding: ItemCommentBinding = itemView
     }
@@ -47,5 +49,11 @@ class CommentsRVAdapter(val commentList:MutableList<CommentNormalBean>): Recycle
 
     fun setListener(listener:OnCommentClickListener){
         this.listener = listener
+    }
+
+    fun setData(list:MutableList<CommentNormalBean>){
+        commentList.clear()
+        commentList.addAll(list)
+        notifyDataSetChanged()
     }
 }

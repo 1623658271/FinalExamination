@@ -8,7 +8,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.View
 import android.widget.LinearLayout
@@ -19,7 +18,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.openeyes.MyApplication.Companion.context
 import com.example.openeyes.adapter.PicWatchPagerAdapter
 import com.example.openeyes.databinding.ActivityPicWatchBinding
-import com.example.openeyes.bean.PicsBean
+import com.example.openeyes.model.PicsBean
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer

@@ -8,9 +8,9 @@ import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemTextCardBinding
 import com.example.openeyes.databinding.ItemVideoCardBinding
 import com.example.openeyes.databinding.LayoutVideoDetailBinding
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.RelatedVideoBean
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.PersonalBean
+import com.example.openeyes.model.RelatedVideoBean
+import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 
 /**
@@ -19,7 +19,9 @@ import com.example.openeyes.utils.DefaultUtil
  * email : 1623658271@qq.com
  * date : 2022/7/19 11:07
  */
-class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<RelatedVideoBean.Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RelatedRVAdapter(var nowMessage:VideoBean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var itemList:MutableList<RelatedVideoBean.Item> = ArrayList()
+
     val TYPE_TEXT = 0
     val TYPE_VIDEO = 1
     val TYPE_NOW = 3
@@ -84,10 +86,10 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
                 holder.binding.message = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",
                     m.data.playUrl?:"",m.data.description?:"", PersonalBean(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
                         m.data.author?.name?:"","","")
-                ,m.data.consumptionBean)
+                ,m.data.consumption)
                 val videoBean = VideoBean(m.data.id?:0,m.data.title?:"",m.data.author?.name?:"",m.data.cover?.feed?:"",m.data.playUrl?:"",
                 m.data.description?:"",PersonalBean(m.data.author?.id?:0,m.data.author?.icon?:"",DefaultUtil.defaultCoverUrl,m.data.author?.description?:"",
-                    m.data.author?.name?:"","",""),m.data.consumptionBean)
+                    m.data.author?.name?:"","",""),m.data.consumption)
                 holder.binding.llVideoCard.setOnClickListener { clickedListener?.onVideoImageClickedListener(videoBean) }
             }
         }
@@ -119,5 +121,12 @@ class RelatedRVAdapter(var nowMessage:VideoBean,var itemList:MutableList<Related
      */
     fun setClickListener(clickListener:OnSomethingClickedListener){
         this.clickedListener = clickListener
+    }
+
+    fun setData(list:MutableList<RelatedVideoBean.Item>){
+        val before = itemList.size
+        itemList.clear()
+        itemList.addAll(list)
+        notifyItemRangeChanged(before,itemList.size-before)
     }
 }

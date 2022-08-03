@@ -11,7 +11,7 @@ import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.LayoutCirImageBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
-import com.example.openeyes.bean.VideoBean
+import com.example.openeyes.model.VideoBean
 import com.example.openeyes.view.CirLayout
 
 
@@ -21,10 +21,11 @@ import com.example.openeyes.view.CirLayout
  * email : 1623658271@qq.com
  * date : 2022/7/16 19:43
  */
-class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlList:MutableList<VideoBean>):
+class HomePageRVAdapter:
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 //    private val TAG = "lfy"
-
+    private var videoBeanList: MutableList<VideoBean> = ArrayList()
+    private var imageUrlList:MutableList<VideoBean> = ArrayList()
     private var adapter:CirVp2Adapter?=null
 
     companion object {
@@ -191,5 +192,21 @@ class HomePageRVAdapter(val videoBeanList: MutableList<VideoBean>,var imageUrlLi
      */
     fun setClickListener(clickListener:OnSomethingClickedListener){
         this.clickListener = clickListener
+    }
+
+    fun setData(data:List<VideoBean>){
+        imageUrlList.clear()
+        videoBeanList.clear()
+        if(data.size>6) {
+            for (i in 0 until 5) {
+                imageUrlList.add(data[i])
+            }
+            for (i in 5 until data.size) {
+                videoBeanList.add(data[i])
+            }
+        }else{
+            imageUrlList.addAll(data)
+        }
+        notifyDataSetChanged()
     }
 }

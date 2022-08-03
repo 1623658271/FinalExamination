@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,15 +19,9 @@ import com.example.openeyes.R
 import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
-import com.example.openeyes.bean.HomepageMoreBean
-import com.example.openeyes.bean.PersonalBean
-import com.example.openeyes.bean.VideoBean
-import com.example.openeyes.respository.MyRepository
-import com.example.openeyes.utils.DefaultUtil
-import com.example.openeyes.viewmodel.MyViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.openeyes.model.VideoBean
+import com.example.openeyes.utils.LoadState
+import com.example.openeyes.viewmodel.HomePageViewModel
 
 /**
  * description ： 首页的Fragement
@@ -38,10 +32,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class HomepageFragment:Fragment() {
     private lateinit var binding:LayoutHomepageFragmentBinding
     private lateinit var adapter:HomePageRVAdapter
-    private lateinit var beanList:MutableList<VideoBean>
-    private lateinit var viewModel: MyViewModel
-    private lateinit var nextUrl:String
-    private lateinit var imageUrlList:MutableList<VideoBean>
+    private val homePageViewModel:HomePageViewModel by viewModels()
 //    private val TAG = "lfy"
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,69 +49,54 @@ class HomepageFragment:Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        beanList = ArrayList()
-        imageUrlList = ArrayList()
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(MyApplication.application!!)
-        )[MyViewModel::class.java]
-        adapter = HomePageRVAdapter(beanList,imageUrlList)
-        binding.rvHomepage.adapter = adapter
-        binding.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
-        binding.srHomepage.setOnRefreshListener {
-            viewModel.updateDailyHandpickViewModel()
-            binding.srHomepage.isRefreshing = false
-        }
-        viewModel.getDailyHandpickLiveData().observe(viewLifecycleOwner, Observer {
-            val dataList = it.itemList
-            beanList.clear()
-            imageUrlList.clear()
-            var i = 0
-            for (m in dataList) {
-                    if (m.type == "followCard") {
-                        if(i<7){
-                            i+=1
-                            imageUrlList.add(
-                                VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.title,
-                                    m.data.header.title,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl,
-                                    m.data.content.data.description,
-                                    PersonalBean(
-                                        m.data.content.data.author.id ?: 0,
-                                        m.data.content.data.author.icon ?: "",
-                                        DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.author.description ?: "",
-                                        m.data.content.data.author.name ?: "","",""
-                                    )
-                                ,m.data.content.data.consumptionBean)
-                            )
-                        }else {
-                            beanList.add(
-                                VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.title,
-                                    m.data.header.title,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl,
-                                    m.data.content.data.description,
-                                    PersonalBean(
-                                        m.data.content.data.author.id ?: 0,
-                                        m.data.content.data.author.icon ?: "",
-                                        DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.author.description ?: "",
-                                        m.data.content.data.author.name ?: "","",""
-                                    )
-                                ,m.data.content.data.consumptionBean)
-                            )
-                        }
+        init()
+        initObserver()
+        setRecyclerOnScrollListener()
+    }
+
+    private fun initObserver() {
+        homePageViewModel.apply {
+            dataList.observe(activity!!){
+                adapter.setData(it)
+            }
+            state.observe(activity!!){
+                hideAll()
+                when(it){
+                    LoadState.SUCCESS -> {
+                        binding.rvHomepage.visibility = View.VISIBLE
+                    }
+                    LoadState.LOADING -> {
+                        binding.stateLoading.root.visibility = View.VISIBLE
+                    }
+                    LoadState.ERROR -> {
+                        binding.stateLoadError.root.visibility = View.VISIBLE
+                    }
+                    else -> {}
                 }
             }
-            nextUrl = it.nextPageUrl
-            adapter.notifyDataSetChanged()
-        })
+        }
+        binding.srHomepage.setOnRefreshListener {
+            homePageViewModel.loadDailyMsg()
+            binding.srHomepage.isRefreshing = false
+        }
+    }
+
+    /**
+     * 隐藏所有状态布局
+     */
+    fun hideAll(){
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
+        binding.rvHomepage.visibility = View.GONE
+    }
+
+    /**
+     * 初始化
+     */
+    fun init(){
+        adapter = HomePageRVAdapter()
+        binding.rvHomepage.adapter = adapter
+        binding.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
         adapter.setClickListener(object :HomePageRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(
                 view: View,
@@ -146,7 +122,6 @@ class HomepageFragment:Fragment() {
             }
 
         })
-        setRecyclerOnScrollListener()
         binding.rvHomepage.layoutAnimation = // 入场动画
             LayoutAnimationController(
                 AnimationUtils.loadAnimation(
@@ -172,11 +147,7 @@ class HomepageFragment:Fragment() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        if(nextUrl.isEmpty()){
-                            adapter.setLoadState(adapter.LOADING_END)
-                            }else {
-                            loadingMore()
-                        }
+                        loadingMore()
                     }
                 }
             }
@@ -193,57 +164,12 @@ class HomepageFragment:Fragment() {
      */
     fun loadingMore(){
         adapter.setLoadState(adapter.LOADING)
-        val url = nextUrl.split('?').last().split('&')
-        val date = url[0].filter { it.isDigit() }
-        val num = url[1].filter { it.isDigit() }
-//        Log.d(TAG, "loadingMore: $url")
-        MyRepository("http://baobab.kaiyanapp.com/api/v5/index/tab/feed/")
-                .getService()
-                .getMoreHomepageMsg(date.toLong(),num.toInt())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : io.reactivex.rxjava3.core.Observer<HomepageMoreBean> {
-                    override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: HomepageMoreBean) {
-                    val dataList = t.itemList
-                    for (m in dataList) {
-                        if(m.data!=null) {
-                            if (true) {
-                                if (m.type == "followCard" && m.data.content!=null) {
-                                    beanList.add(
-                                        VideoBean(
-                                            m.data.content.data.id,
-                                            m.data.content.data.title,
-                                            m.data.header!!.title,
-                                            m.data.content.data.cover.feed,
-                                            m.data.content.data.playUrl,
-                                            m.data.content.data.description,
-                                            PersonalBean(m.data.content.data.author.id,m.data.content.data.author.icon,DefaultUtil.defaultCoverUrl,m.data.content.data.author.description,m.data.content.data.author.name,"","")
-                                        ,m.data.content.data.consumptionBean)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    nextUrl = t.nextPageUrl?:""
-                    adapter.setLoadState(adapter.LOADING_COMPLETE)
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onError(e: Throwable) {
-                    adapter.setLoadState(adapter.LOADING_END)
-                    adapter.notifyDataSetChanged()
-//                    Log.d(TAG, "onError: $e")
-                }
-
-                override fun onComplete() {
-
-                }
-
-            })
+        var flag = homePageViewModel.loadDailyMore()
+        if(flag){
+            adapter.setLoadState(adapter.LOADING_COMPLETE)
+        }else{
+            adapter.setLoadState(adapter.LOADING_END)
+        }
     }
 
 }

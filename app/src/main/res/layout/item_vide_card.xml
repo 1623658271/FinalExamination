@@ -4,7 +4,7 @@
     <data>
         <variable
             name="message"
-            type="com.example.openeyes.bean.VideoBean" />
+            type="com.example.openeyes.model.VideoBean" />
         <import type="com.example.openeyes.utils.ToStringUtil"/>
     </data>
 
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{ToStringUtil.IntToString(message.consumptionBean.collectionCount)}"/>
+                android:text="@{ToStringUtil.IntToString(message.consumption.collectionCount)}"/>
         </LinearLayout>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

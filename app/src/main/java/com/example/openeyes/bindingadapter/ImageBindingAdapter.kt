@@ -5,9 +5,7 @@ import android.text.TextUtils
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.R
 
 import de.hdodenhof.circleimageview.CircleImageView

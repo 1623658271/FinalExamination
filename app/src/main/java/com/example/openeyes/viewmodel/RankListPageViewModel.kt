@@ -4,7 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.RankListVideoBean
 import com.example.openeyes.model.VideoBean

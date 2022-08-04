@@ -1,4 +1,4 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.Manifest
 import android.app.Activity
@@ -15,7 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
-import com.example.openeyes.MyApplication.Companion.context
+import com.example.openeyes.R
+import com.example.openeyes.activity.MyApplication.Companion.context
 import com.example.openeyes.adapter.PicWatchPagerAdapter
 import com.example.openeyes.databinding.ActivityPicWatchBinding
 import com.example.openeyes.model.PicsBean
@@ -38,7 +39,7 @@ class PicWatchActivity : BaseActivity() {
     private lateinit var binding:ActivityPicWatchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_pic_watch)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pic_watch)
         initData()
     }
 
@@ -103,7 +104,7 @@ class PicWatchActivity : BaseActivity() {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun saveImage(image:String){
-        getImage(image,object :HttpCallBackListener{
+        getImage(image,object : HttpCallBackListener {
             override fun onFinish(bitmap: Bitmap?) {
                 val saveUri =
                     contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues())
@@ -175,7 +176,7 @@ class PicWatchActivity : BaseActivity() {
     }
     companion object{
         fun startPicWatchActivity(context: Context,picModel:PicsBean){
-            val intent = Intent(context,PicWatchActivity::class.java)
+            val intent = Intent(context, PicWatchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("pics",picModel)
             context.startActivity(intent)

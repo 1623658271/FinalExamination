@@ -3,13 +3,12 @@ package com.example.openeyes.viewmodel
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.ClassDeepMoreMsgBean
 import com.example.openeyes.model.ClassDeepMsgBean
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.respository.MyRepository
-import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 import io.reactivex.rxjava3.core.Observer

@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.R
-import com.example.openeyes.VideoPlayActivity
+import com.example.openeyes.activity.VideoPlayActivity
 import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.LayoutCirImageBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding

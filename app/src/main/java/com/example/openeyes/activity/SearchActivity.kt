@@ -1,33 +1,21 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.openeyes.R
 import com.example.openeyes.adapter.HotRVAdapter
 import com.example.openeyes.adapter.ResultRVAdapter
 import com.example.openeyes.databinding.*
-import com.example.openeyes.model.PersonalBean
-import com.example.openeyes.model.SearchMoreBean
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.respository.MyRepository
-import com.example.openeyes.utils.DecodeUtil
-import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 import com.example.openeyes.viewmodel.SearchPageViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SearchActivity : BaseActivity() {
     private lateinit var binding:LayoutSearchActivityBinding
@@ -57,13 +45,13 @@ class SearchActivity : BaseActivity() {
 
 
     private fun initView(){
-        binding = DataBindingUtil.setContentView(this,R.layout.layout_search_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_search_activity)
         adapterResult = ResultRVAdapter()
         adapterHot = HotRVAdapter()
         binding.rvSearchResult.adapter = adapterResult
         adapterResult.setListener(object : ResultRVAdapter.OnItemClickListener{
             override fun onClick(viewBean: VideoBean) {
-                VideoPlayActivity.startVideoPlayActivity(this@SearchActivity,viewBean)
+                VideoPlayActivity.startVideoPlayActivity(this@SearchActivity, viewBean)
             }
         })
         binding.rvSearchResult.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.databinding.ItemPicsCardBinding
 import com.example.openeyes.databinding.ItemVideCardBinding

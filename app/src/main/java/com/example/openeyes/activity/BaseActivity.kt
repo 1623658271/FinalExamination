@@ -1,4 +1,4 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.content.pm.ActivityInfo
 import android.graphics.Color

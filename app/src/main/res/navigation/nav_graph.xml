@@ -96,7 +96,7 @@
         tools:layout="@layout/layout_mine_fragment"/>
     <activity
         android:id="@+id/personMessageActivity"
-        android:name="com.example.openeyes.PersonMessageActivity"
+        android:name="com.example.openeyes.activity.PersonMessageActivity"
         android:label="PersonMessageActivity"
         tools:layout="@layout/layout_person_message">
         <argument
@@ -106,12 +106,12 @@
     </activity>
     <activity
         android:id="@+id/searchActivity"
-        android:name="com.example.openeyes.SearchActivity"
+        android:name="com.example.openeyes.activity.SearchActivity"
         android:label="SearchActivity"
         tools:layout="@layout/layout_search_activity"/>
     <activity
         android:id="@+id/classInActivity"
-        android:name="com.example.openeyes.ClassInActivity"
+        android:name="com.example.openeyes.activity.ClassInActivity"
         android:label="ClassInActivity"
         tools:layout="@layout/activity_class_in">
         <argument
@@ -121,7 +121,7 @@
     </activity>
     <activity
         android:id="@+id/videoPlayActivity"
-        android:name="com.example.openeyes.VideoPlayActivity"
+        android:name="com.example.openeyes.activity.VideoPlayActivity"
         android:label="VideoPlayActivity"
         tools:layout="@layout/layout_video_play">
         <argument
@@ -131,7 +131,7 @@
     </activity>
     <activity
         android:id="@+id/picWatchActivity"
-        android:name="com.example.openeyes.PicWatchActivity"
+        android:name="com.example.openeyes.activity.PicWatchActivity"
         android:label="PicWatchActivity"
         tools:layout="@layout/activity_pic_watch">
         <argument
@@ -141,7 +141,7 @@
     </activity>
     <activity
         android:id="@+id/specialActivity"
-        android:name="com.example.openeyes.SpecialActivity"
+        android:name="com.example.openeyes.activity.SpecialActivity"
         android:label="SpecialActivity" >
         <argument
             android:name="id"

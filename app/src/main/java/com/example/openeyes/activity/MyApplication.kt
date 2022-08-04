@@ -1,8 +1,7 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.app.Application
 import android.content.Context
-import android.net.ConnectivityManager
 
 
 /**

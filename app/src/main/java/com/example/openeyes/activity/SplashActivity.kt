@@ -1,17 +1,14 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.openeyes.databinding.ActivitySplashBinding
 import com.example.openeyes.viewmodel.SplashViewModel
-import io.reactivex.rxjava3.schedulers.Schedulers.start
 import kotlinx.coroutines.Runnable
 
 class SplashActivity : BaseActivity() {
@@ -38,10 +35,12 @@ class SplashActivity : BaseActivity() {
             binding.tvSplashCopyright.text = it.images[0].copyright
         }
         window.decorView.postDelayed(Runnable {
-            val intent = Intent(this@SplashActivity,MainActivity::class.java)
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
+            finish()
         },2000)
     }
+
     private fun cancelStatusBar() {
         val window = this.window
         val decorView = window.decorView
@@ -54,5 +53,9 @@ class SplashActivity : BaseActivity() {
         val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
         windowInsetsController?.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
         window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 }

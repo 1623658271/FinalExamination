@@ -1,8 +1,6 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -10,12 +8,12 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.openeyes.R
 import com.example.openeyes.adapter.SpecialRVAdapter
 import com.example.openeyes.databinding.ActivitySpecialBinding
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.LoadState
 import com.example.openeyes.viewmodel.SpecialInPageViewModel
-import kotlin.math.log
 
 class SpecialActivity : BaseActivity() {
     private lateinit var binding:ActivitySpecialBinding
@@ -24,7 +22,7 @@ class SpecialActivity : BaseActivity() {
     private lateinit var id:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_special)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_special)
         init()
         initObserver()
     }
@@ -57,11 +55,14 @@ class SpecialActivity : BaseActivity() {
         }
         adapter.setClickListener(object :SpecialRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(videoBean: VideoBean) {
-                VideoPlayActivity.startVideoPlayActivity(this@SpecialActivity,videoBean)
+                VideoPlayActivity.startVideoPlayActivity(this@SpecialActivity, videoBean)
             }
 
             override fun onAvatarImageClickedListener(videoBean: VideoBean) {
-                PersonMessageActivity.startPersonMessageActivity(this@SpecialActivity,videoBean.personalBean!!)
+                PersonMessageActivity.startPersonMessageActivity(
+                    this@SpecialActivity,
+                    videoBean.personalBean!!
+                )
             }
 
         })

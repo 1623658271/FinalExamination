@@ -2,8 +2,6 @@ package com.example.openeyes.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +10,9 @@ import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.openeyes.MyApplication
 import com.example.openeyes.R
 import com.example.openeyes.adapter.DiscoverClassRVAdapter
 import com.example.openeyes.databinding.LayoutDiscoveryClassFragmentBinding

@@ -10,13 +10,11 @@ import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.R
-import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.HomePageRVAdapter
 import com.example.openeyes.databinding.LayoutHomepageFragmentBinding
 import com.example.openeyes.model.VideoBean

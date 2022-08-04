@@ -1,17 +1,16 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import cn.jzvd.Jzvd
 import com.bumptech.glide.Glide
+import com.example.openeyes.R
 import com.example.openeyes.adapter.FragmentPagerAdapter
 import com.example.openeyes.databinding.LayoutVideoPlayBinding
 import com.example.openeyes.fragment.CommentFragment
@@ -40,7 +39,7 @@ class VideoPlayActivity : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_video_play)
         ActivityController.addActivity(this)
         if(intent!=null) {
             videoBean = intent.getParcelableExtra("video")!!
@@ -123,7 +122,7 @@ class VideoPlayActivity : BaseActivity() {
      */
     companion object{
         fun startVideoPlayActivity(context: Context,videoBean:VideoBean){
-            val intent = Intent(context,VideoPlayActivity::class.java)
+            val intent = Intent(context, VideoPlayActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("video",videoBean)
             context.startActivity(intent)

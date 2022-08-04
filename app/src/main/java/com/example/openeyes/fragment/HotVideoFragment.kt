@@ -12,10 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.openeyes.MyApplication
-import com.example.openeyes.PersonMessageActivity
 import com.example.openeyes.R
-import com.example.openeyes.VideoPlayActivity
 import com.example.openeyes.adapter.RankListRVAdapter
 import com.example.openeyes.databinding.LayoutHotFragmentBinding
 import com.example.openeyes.model.VideoBean

@@ -1,4 +1,4 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.os.Bundle
 import android.view.View
@@ -6,16 +6,14 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.openeyes.MyApplication.Companion.context
+import com.example.openeyes.activity.MyApplication.Companion.context
+import com.example.openeyes.R
 import com.example.openeyes.adapter.ClassInRVAdapter
 import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.ActivityClassInBinding
 import com.example.openeyes.model.*
-import com.example.openeyes.utils.DecodeUtil
-import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 import com.example.openeyes.viewmodel.ClassInPageViewModel
 
@@ -26,7 +24,7 @@ class ClassInActivity : BaseActivity() {
     private val classInPageViewModel:ClassInPageViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_class_in)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_class_in)
         init()
         initObserver()
     }
@@ -74,11 +72,14 @@ class ClassInActivity : BaseActivity() {
         binding.classDeepToolbar.title = "openEyes   分类:《${classModel.title.split('#').last()}》"
         adapter.setClickListener(object :ClassInRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(videoBean: VideoBean) {
-                VideoPlayActivity.startVideoPlayActivity(this@ClassInActivity,videoBean)
+                VideoPlayActivity.startVideoPlayActivity(this@ClassInActivity, videoBean)
             }
 
             override fun onAvatarImageClickedListener(videoBean: VideoBean) {
-                PersonMessageActivity.startPersonMessageActivity(this@ClassInActivity,videoBean.personalBean!!)
+                PersonMessageActivity.startPersonMessageActivity(
+                    this@ClassInActivity,
+                    videoBean.personalBean!!
+                )
             }
         })
         setRecyclerOnScrollListener()

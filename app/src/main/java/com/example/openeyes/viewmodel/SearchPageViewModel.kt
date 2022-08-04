@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.openeyes.MyApplication
+import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.*
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DecodeUtil

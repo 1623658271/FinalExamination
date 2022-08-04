@@ -1,4 +1,4 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.app.Activity
 import android.content.Context
@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import com.example.openeyes.R
 import com.example.openeyes.databinding.LayoutPersonMessageBinding
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.PicsBean
@@ -20,7 +21,7 @@ class PersonMessageActivity : BaseActivity() {
     private lateinit var binding:LayoutPersonMessageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.layout_person_message)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_person_message)
         val h = intent.getParcelableExtra<PersonalBean>("person")
         binding.person = h
         if(binding.tvCity.text.isEmpty()){
@@ -32,12 +33,12 @@ class PersonMessageActivity : BaseActivity() {
         binding.civAvatar.setOnClickListener {
             val list = ArrayList<String>()
             list.add(h!!.avatar)
-            PicWatchActivity.startPicWatchActivity(this, PicsBean("",h.avatar,list,null,null))
+            PicWatchActivity.startPicWatchActivity(this, PicsBean("", h.avatar, list, null, null))
         }
         binding.ivBackground.setOnClickListener {
             val list = ArrayList<String>()
             list.add(h!!.cover)
-            PicWatchActivity.startPicWatchActivity(this, PicsBean("",h.avatar,list,null,null))
+            PicWatchActivity.startPicWatchActivity(this, PicsBean("", h.avatar, list, null, null))
         }
     }
     companion object {

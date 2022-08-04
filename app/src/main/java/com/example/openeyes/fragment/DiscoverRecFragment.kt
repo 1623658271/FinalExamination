@@ -1,7 +1,6 @@
 package com.example.openeyes.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.openeyes.PicWatchActivity
+import com.example.openeyes.activity.PicWatchActivity
 import com.example.openeyes.R
 import com.example.openeyes.adapter.RecRVAdapter
 import com.example.openeyes.databinding.LayoutDiscoveryRecFragmentBinding

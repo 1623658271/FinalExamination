@@ -1,13 +1,11 @@
-package com.example.openeyes
+package com.example.openeyes.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.Fade
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.openeyes.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -33,7 +31,7 @@ class MainActivity : BaseActivity() {
         toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.search -> {
-                    startActivity(Intent(this,SearchActivity::class.java))
+                    startActivity(Intent(this, SearchActivity::class.java))
                 }
             }
             true
@@ -46,6 +44,5 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
     }
 }

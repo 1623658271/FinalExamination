@@ -2,6 +2,7 @@ package com.example.openeyes
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.openeyes.adapter.HotRVAdapter
+import com.example.openeyes.adapter.ResultRVAdapter
 import com.example.openeyes.databinding.*
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.SearchMoreBean
@@ -19,6 +22,7 @@ import com.example.openeyes.model.VideoBean
 import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
+import com.example.openeyes.utils.LoadState
 import com.example.openeyes.viewmodel.SearchPageViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
@@ -30,8 +34,6 @@ class SearchActivity : BaseActivity() {
     private val searchPageViewModel: SearchPageViewModel by viewModels()
     private lateinit var adapterHot:HotRVAdapter
     private lateinit var adapterResult:ResultRVAdapter
-    private var firstSearch = true
-    private var nextPageUrl:String = ""
     private var hasSearch = false
     private var nowText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +61,7 @@ class SearchActivity : BaseActivity() {
         adapterResult = ResultRVAdapter()
         adapterHot = HotRVAdapter()
         binding.rvSearchResult.adapter = adapterResult
-        adapterResult.setListener(object :ResultRVAdapter.OnItemClickListener{
+        adapterResult.setListener(object : ResultRVAdapter.OnItemClickListener{
             override fun onClick(viewBean: VideoBean) {
                 VideoPlayActivity.startVideoPlayActivity(this@SearchActivity,viewBean)
             }
@@ -71,7 +73,7 @@ class SearchActivity : BaseActivity() {
 
 
     private fun initData() {
-        adapterHot.setListener(object :HotRVAdapter.OnItemClickListener{
+        adapterHot.setListener(object : HotRVAdapter.OnItemClickListener{
             override fun onClick(text: String) {
                 binding.searchView.setQuery(text,false)
                 nowText = text
@@ -111,163 +113,40 @@ class SearchActivity : BaseActivity() {
             }
             binding.refreshSearch.isRefreshing = false
         }
+        searchPageViewModel.apply {
+            state.observe(this@SearchActivity){
+                hideAll()
+                when(it){
+                    LoadState.SUCCESS -> {
+                        binding.rvSearchResult.visibility = View.VISIBLE
+                    }
+                    LoadState.LOADING -> {
+                        binding.stateLoading.root.visibility = View.VISIBLE
+                    }
+                    LoadState.ERROR -> {
+                        binding.stateLoadError.root.visibility = View.VISIBLE
+                    }
+                    else ->{}
+                }
+            }
+        }
+    }
+
+    private fun hideAll() {
+        binding.rvSearchResult.visibility = View.GONE
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
     }
 
     fun doSearch(query:String){
         hasSearch = true
         binding.llHotEarch.visibility = View.GONE
+        binding.rvSearchResult.visibility = View.VISIBLE
+        binding.rvSearchResult.adapter = adapterResult
         searchPageViewModel.loadSearchMsg(query)
+        binding.searchView.clearFocus()
     }
 
-
-    class HotRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-        private val list:MutableList<String> = ArrayList()
-
-        inner class MyViewHolder(itemView: ItemHotSearchBinding):RecyclerView.ViewHolder(itemView.root){
-            var binding: ItemHotSearchBinding = itemView
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val binding:ItemHotSearchBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_hot_search,
-                parent,
-                false
-            )
-            return MyViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            if(holder is MyViewHolder){
-                holder.binding.tvHot.apply {
-                    text = list[position]
-                    setOnClickListener { listener?.onClick(list[position]) }
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = list.size
-
-        private var listener:OnItemClickListener? = null
-
-        interface OnItemClickListener{
-            fun onClick(text:String)
-        }
-
-        fun setListener(listener:OnItemClickListener){
-            this.listener = listener
-        }
-
-        fun setData(list:MutableList<String>){
-            this.list.clear()
-            this.list.addAll(list)
-            notifyDataSetChanged()
-        }
-    }
-
-    class ResultRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-        private val list:MutableList<VideoBean> = ArrayList()
-
-        //普通布局
-        private val TYPE_ITEM = 1
-        //脚布局
-        private val TYPE_FOOTER = 2
-
-        // 正在加载
-        val LOADING = 1
-
-        // 加载完成
-        val LOADING_COMPLETE = 2
-
-        // 加载到底
-        val LOADING_END = 3
-
-        inner class FootViewHolder(itemView: LayoutLoadMessageBinding):RecyclerView.ViewHolder(itemView.root){
-            val binding = itemView
-        }
-
-        inner class MyViewHolder(itemView: ItemSearchResultBinding):RecyclerView.ViewHolder(itemView.root){
-            var binding: ItemSearchResultBinding = itemView
-        }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            if(viewType==TYPE_ITEM){
-                val binding:ItemSearchResultBinding = DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    R.layout.item_search_result,
-                    parent,
-                    false
-                )
-                return MyViewHolder(binding)
-            }else{
-                val loadBinding: LayoutLoadMessageBinding = DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    R.layout.layout_load_message,
-                    parent,
-                    false
-                )
-                return FootViewHolder(loadBinding)
-            }
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, p: Int) {
-            val position = p
-            if(holder is MyViewHolder){
-                holder.binding.message = list[position]
-                holder.binding.ivItemResultVideo.setOnClickListener { listener?.onClick(list[position]) }
-            }else if(holder is FootViewHolder){
-                when(loadState) {
-                    LOADING -> {
-                        holder.binding.tvLoad.visibility = View.VISIBLE
-                        holder.binding.tvLoad.text = "加载中..."
-                    }
-                    LOADING_COMPLETE -> {
-                        holder.binding.tvLoad.visibility = View.VISIBLE
-                        holder.binding.tvLoad.text = "加载完成"
-                    }
-                    LOADING_END -> {
-                        holder.binding.tvLoad.visibility = View.VISIBLE
-                        holder.binding.tvLoad.text = "亲！到底线了~~~"
-                    }
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = list.size + 1
-
-        private var listener: OnItemClickListener? = null
-
-        interface OnItemClickListener{
-            fun onClick(viewBean:VideoBean)
-        }
-
-        fun setListener(listener:OnItemClickListener){
-            this.listener = listener
-        }
-
-        private var loadState = 0
-
-        /**
-         * 设置加载状态，以显示或隐藏脚布局
-         */
-        fun setLoadState(loadState:Int){
-            this.loadState = loadState
-            notifyDataSetChanged()
-        }
-
-        override fun getItemViewType(position: Int): Int {
-            return if(position + 1 == itemCount){
-                TYPE_FOOTER
-            } else{
-                TYPE_ITEM
-            }
-        }
-
-        fun setData(list:MutableList<VideoBean>){
-            this.list.clear()
-            this.list.addAll(list)
-            notifyDataSetChanged()
-        }
-    }
 
     /**
      * 设置滑动监听，以检查上滑状态以更新数据
@@ -285,11 +164,7 @@ class SearchActivity : BaseActivity() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        if (nextPageUrl.isEmpty()) {
-                            adapterResult.setLoadState(adapterResult.LOADING_END)
-                        } else {
-                            loadingMore()
-                        }
+                        loadingMore()
                     }
                 }
             }

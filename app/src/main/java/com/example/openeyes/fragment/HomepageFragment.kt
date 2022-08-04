@@ -99,21 +99,16 @@ class HomepageFragment:Fragment() {
         binding.rvHomepage.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
         adapter.setClickListener(object :HomePageRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(
-                view: View,
-                holder: RecyclerView.ViewHolder,
-                position: Int,
-                videoBeanList: MutableList<VideoBean>
+                videoBean: VideoBean
             ) {
-                VideoPlayActivity.startVideoPlayActivity(MyApplication.context!!,videoBeanList[position])
+                val toVideoPlayActivity = HomepageFragmentDirections.actionHomepageFragmentToVideoPlayActivity(videoBean)
+                findNavController().navigate(toVideoPlayActivity)
             }
 
             override fun onAvatarImageClickedListener(
-                view: View,
-                holder: RecyclerView.ViewHolder,
-                position: Int,
-                videoBeanList: MutableList<VideoBean>
+                videoBean: VideoBean
             ) {
-                val personMessage = videoBeanList[position].personalBean
+                val personMessage = videoBean.personalBean
                 val toPersonMessageActivity =
                     HomepageFragmentDirections.actionHomepageFragmentToPersonMessageActivity(
                         personMessage

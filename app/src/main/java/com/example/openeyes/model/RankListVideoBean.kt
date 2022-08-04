@@ -6,7 +6,7 @@ package com.example.openeyes.model
  * email : 1623658271@qq.com
  * date : 2022/8/1 21:20
  */
-data class HotVideoBean(
+data class RankListVideoBean(
     val itemList: List<Item>,
     val count: Int, // 10
     val total: Int, // 0

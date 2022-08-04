@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,9 +26,10 @@ import com.example.openeyes.viewmodel.VideoPlayPageViewModel
  * email : 1623658271@qq.com
  * date : 2022/7/17 21:05
  */
-class CommentFragment(val videoBean: VideoBean):Fragment() {
+class CommentFragment:Fragment() {
+    private lateinit var videoBean: VideoBean
     private lateinit var binding:LayoutVideoCommentFragmentBinding
-    private val videoPlayPageViewModel: VideoPlayPageViewModel by viewModels()
+    private val videoPlayPageViewModel: VideoPlayPageViewModel by activityViewModels()
     private lateinit var adapter:CommentsRVAdapter
 //    private val TAG = "lfy"
     override fun onCreateView(
@@ -49,12 +51,22 @@ class CommentFragment(val videoBean: VideoBean):Fragment() {
         videoPlayPageViewModel.apply {
             commentList.observe(activity!!){
                 adapter.setData(it)
+                if(it.size==0){
+                    binding.tvNoComment.visibility = View.VISIBLE
+                }else{
+                    binding.tvNoComment.visibility = View.GONE
+                }
             }
             loadCommentMsg(videoBean.id)
+        }
+        binding.refreshComment.setOnRefreshListener {
+            videoPlayPageViewModel.loadCommentMsg(videoBean.id)
+            binding.refreshComment.isRefreshing = false
         }
     }
 
     fun init(){
+        videoBean = arguments?.getParcelable("videoBean")!!
         adapter = CommentsRVAdapter()
         binding.rvContent.adapter = adapter
         binding.rvContent.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)
@@ -62,7 +74,6 @@ class CommentFragment(val videoBean: VideoBean):Fragment() {
             override fun onClick(personalBean: PersonalBean) {
                 PersonMessageActivity.fragmentStartVideoPlayActivity(MyApplication.context!!,activity!!,personalBean)
             }
-
         })
     }
 }

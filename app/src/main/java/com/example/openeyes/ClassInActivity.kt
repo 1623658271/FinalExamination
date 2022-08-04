@@ -2,11 +2,14 @@ package com.example.openeyes
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.openeyes.MyApplication.Companion.context
 import com.example.openeyes.adapter.ClassInRVAdapter
 import com.example.openeyes.api.URL
 import com.example.openeyes.databinding.ActivityClassInBinding
@@ -50,6 +53,10 @@ class ClassInActivity : BaseActivity() {
                 }
             }
         }
+        binding.refreshClassIn.setOnRefreshListener {
+            classInPageViewModel.loadClassInMsg(classModel.id.toString(),URL.udid)
+            binding.refreshClassIn.isRefreshing = false
+        }
     }
 
     fun hideAll(){
@@ -75,6 +82,13 @@ class ClassInActivity : BaseActivity() {
             }
         })
         setRecyclerOnScrollListener()
+        binding.rvClassIn.layoutAnimation = // 入场动画
+            LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.recycler_fade_in
+                )
+            )
     }
 
 //    companion object{

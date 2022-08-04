@@ -53,7 +53,6 @@ class DiscoverRecFragment:Fragment() {
         discoverRecViewModel.apply {
             dataList.observe(activity!!){
                 adapter0.setData(it)
-                Log.e("lfy", "initObserver:${it.size} ", )
             }
             state1.observe(activity!!){
                 hideAll()

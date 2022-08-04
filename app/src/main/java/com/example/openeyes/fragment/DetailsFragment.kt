@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +25,11 @@ import com.example.openeyes.viewmodel.VideoPlayPageViewModel
  * email : 1623658271@qq.com
  * date : 2022/7/17 21:05
  */
-class DetailsFragment(val videoBean: VideoBean):Fragment() {
+class DetailsFragment:Fragment() {
+    private lateinit var videoBean: VideoBean
     private lateinit var binding:LayoutVideoDetailsFragmentBinding
     private lateinit var adapter: RelatedRVAdapter
-    private val videoPlayPageViewModel: VideoPlayPageViewModel by viewModels()
+    private val videoPlayPageViewModel: VideoPlayPageViewModel by activityViewModels()
 //    private val TAG = "lfy"
 
     override fun onCreateView(
@@ -54,6 +56,7 @@ class DetailsFragment(val videoBean: VideoBean):Fragment() {
         }
     }
     fun init(){
+        videoBean = arguments?.getParcelable("videoBean")!!
         adapter = RelatedRVAdapter(videoBean)
         binding.rvDetailsMore.adapter = adapter
         binding.rvDetailsMore.layoutManager = LinearLayoutManager(MyApplication.context,RecyclerView.VERTICAL,false)

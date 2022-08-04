@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 
 /**
- * description ： TODO:类的作用
+ * description ： 首页的viewModel
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/8/2 15:10
@@ -54,7 +54,6 @@ class HomePageViewModel:ViewModel(){
             override fun onSubscribe(d: Disposable) {
             }
             override fun onNext(t: DailyHandpickBean) {
-                Log.e("lfy", "onNext0000: $t" )
                 nextPageUrl.value = t.nextPageUrl?:""
                 var list:MutableList<VideoBean> = ArrayList()
                 for (m in t.itemList) {
@@ -84,7 +83,6 @@ class HomePageViewModel:ViewModel(){
             }
 
             override fun onError(e: Throwable) {
-                Log.e("lfy", "onError0000:" )
                 loadState.value = LoadState.ERROR
             }
 

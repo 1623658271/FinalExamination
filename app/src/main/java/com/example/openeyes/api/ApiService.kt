@@ -64,4 +64,8 @@ interface ApiService {
     //推荐下一页
     @GET("v7/community/tab/rec")
     fun getSocialMore(@Query("startScore")start: Long,@Query("pageCount")page:Int):Observable<SocialRecommendBean>
+
+    //获取视频排行数据
+    @GET("v4/rankList/videos")
+    fun getRankListMsg(@Query("strategy")strategy:String):Observable<RankListVideoBean>
 }

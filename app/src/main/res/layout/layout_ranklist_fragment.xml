@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
 
     </data>
@@ -11,18 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/deepGray">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="发现"
-            android:gravity="center"
+            android:background="@color/deepGray"
             android:textSize="30sp"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:text="热门排行"
+            android:gravity="center"/>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_findmore"
+            android:id="@+id/tl_rankList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"
@@ -35,10 +34,9 @@
             android:background="@color/deepGray"/>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/discover_viewpager2"
+            android:id="@+id/vp2_rankList"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </layout>

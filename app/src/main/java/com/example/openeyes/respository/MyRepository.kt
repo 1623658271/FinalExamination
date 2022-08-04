@@ -122,6 +122,13 @@ class MyRepository{
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(observer)
 
-
+    /**
+     * 视频排行界面数据
+     */
+    fun getRankListMsg(strategy:String,observer: Observer<RankListVideoBean>) = RetrofitClient.apiService
+        .getRankListMsg(strategy)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
 
 }

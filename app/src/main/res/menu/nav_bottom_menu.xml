@@ -11,6 +11,11 @@
         android:title="发现"/>
 
     <item
+        android:id="@+id/rankListFragment"
+        android:icon="@drawable/drawer_select_btn_hot"
+        android:title="热门"/>
+
+    <item
         android:id="@+id/mineFragment"
         android:icon="@drawable/drawer_select_btn_mine"
         android:title="我的"/>

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import cn.jzvd.Jzvd
 import com.bumptech.glide.Glide
 import com.example.openeyes.adapter.FragmentPagerAdapter
@@ -32,7 +33,11 @@ class VideoPlayActivity : BaseActivity() {
     private lateinit var binding:LayoutVideoPlayBinding
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private lateinit var videoBean: VideoBean
-    private val videoPlayPageViewModel:VideoPlayPageViewModel by viewModels()
+    private lateinit var detailsFragment:DetailsFragment
+    private lateinit var commentFragment: CommentFragment
+    private val videoPlayPageViewModel:VideoPlayPageViewModel by lazy {
+        ViewModelProvider(this@VideoPlayActivity).get(VideoPlayPageViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.layout_video_play)
@@ -45,9 +50,19 @@ class VideoPlayActivity : BaseActivity() {
                 add("详情")
                 add("评论")
             }
+            detailsFragment = DetailsFragment()
+            detailsFragment.arguments = with(Bundle()){
+                putParcelable("videoBean",videoBean)
+                this
+            }
+            commentFragment = CommentFragment()
+            commentFragment.arguments = with(Bundle()){
+                putParcelable("videoBean",videoBean)
+                this
+            }
             fragmentPagerAdapter = FragmentPagerAdapter(this)
-            fragmentPagerAdapter.add{DetailsFragment(videoBean)}
-            fragmentPagerAdapter.add{CommentFragment(videoBean)}
+            fragmentPagerAdapter.add{detailsFragment}
+            fragmentPagerAdapter.add{commentFragment}
             binding.vp2Video.adapter = fragmentPagerAdapter
             binding.vp2Video.offscreenPageLimit = 2
             TabLayoutMediator(binding.tlVideo,binding.vp2Video){
@@ -68,8 +83,31 @@ class VideoPlayActivity : BaseActivity() {
         binding.videoToolbar.setNavigationOnClickListener {
             ActivityController.removeActivity(this)
         }
+
+        videoPlayPageViewModel.apply {
+            state.observe(this@VideoPlayActivity){
+                hideAll()
+                when(it){
+                    LoadState.SUCCESS -> {
+                        binding.llVideo.visibility = View.VISIBLE
+                    }
+                    LoadState.LOADING -> {
+                        binding.stateLoading.root.visibility = View.VISIBLE
+                    }
+                    LoadState.ERROR -> {
+                        binding.stateLoadError.root.visibility = View.VISIBLE
+                    }
+                    else ->{}
+                }
+            }
+        }
     }
 
+    fun hideAll(){
+        binding.llVideo.visibility = View.GONE
+        binding.stateLoading.root.visibility = View.GONE
+        binding.stateLoadError.root.visibility = View.GONE
+    }
 
     /**
      * 播放视频

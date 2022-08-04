@@ -135,8 +135,8 @@ class HomePageRVAdapter:
             }
             is MyViewHolder -> {
                 holder.binding.message = videoBeanList[position]
-                holder.binding.ivItemCoverVideo.setOnClickListener { clickListener.onVideoImageClickedListener(holder.binding.root,holder,position,videoBeanList) }
-                holder.binding.itemPersonCoverCircleImage.setOnClickListener { clickListener.onAvatarImageClickedListener(holder.binding.root,holder,position,videoBeanList) }
+                holder.binding.ivItemCoverVideo.setOnClickListener { clickListener.onVideoImageClickedListener(videoBeanList[position]) }
+                holder.binding.itemPersonCoverCircleImage.setOnClickListener { clickListener.onAvatarImageClickedListener(videoBeanList[position]) }
             }
             is FootViewHolder -> {
                 when(loadState) {
@@ -181,10 +181,10 @@ class HomePageRVAdapter:
     /**
      * 点击监听的接口，头像点击和视频图片点击
      */
-    interface OnSomethingClickedListener{
-        fun onVideoImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
+    interface OnSomethingClickedListener {
+        fun onVideoImageClickedListener(videoBean: VideoBean)
 
-        fun onAvatarImageClickedListener(view:View,holder:RecyclerView.ViewHolder,position: Int,videoBeanList: MutableList<VideoBean>)
+        fun onAvatarImageClickedListener(videoBean: VideoBean)
     }
 
     /**
@@ -198,10 +198,10 @@ class HomePageRVAdapter:
         imageUrlList.clear()
         videoBeanList.clear()
         if(data.size>6) {
-            for (i in 0 until 5) {
+            for (i in 0 until 6) {
                 imageUrlList.add(data[i])
             }
-            for (i in 5 until data.size) {
+            for (i in 6 until data.size) {
                 videoBeanList.add(data[i])
             }
         }else{

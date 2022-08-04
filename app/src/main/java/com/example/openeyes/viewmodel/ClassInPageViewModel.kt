@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 
 /**
- * description ： TODO:类的作用
+ * description ： 分类进入的页面的viewModel
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/8/3 15:34

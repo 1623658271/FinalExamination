@@ -7,6 +7,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/circle_indicator2.xml" value="0.1" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_findmore.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_homepage.xml" value="0.1005" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_hot.xml" value="0.1" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/drawer_select_btn_mine.xml" value="0.1005" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_default_head.xml" value="0.1" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/drawable/ic_findmore.xml" value="0.1005" />
@@ -43,6 +44,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_discovery_rec_fragment.xml" value="0.11684782608695653" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_homepage_fragment.xml" value="0.14175724637681159" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_host_fragment.xml" value="0.165" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_hot_fragment.xml" value="0.11865942028985507" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_load.xml" value="0.215625" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_load_error.xml" value="0.125" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_load_message.xml" value="0.1" />
@@ -50,6 +52,7 @@
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_main_activity.xml" value="0.335" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_mine_fragment.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_person_message.xml" value="0.165" />
+        <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_ranklist_fragment.xml" value="0.11865942028985507" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_search_activity.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_search_fragment.xml" value="0.165" />
         <entry key="..\:/android/AndroidProject/FinalExamination/app/src/main/res/layout/layout_square_fragment.xml" value="0.215625" />

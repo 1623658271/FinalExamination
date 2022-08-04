@@ -57,7 +57,6 @@ class DiscoverClassRVAdapter:RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewH
     fun setData(list:MutableList<ClassBean>){
         classModelList.clear()
         classModelList.addAll(list)
-        Log.e("lfy", "setData: ${classModelList.size}", )
         notifyDataSetChanged()
     }
 }

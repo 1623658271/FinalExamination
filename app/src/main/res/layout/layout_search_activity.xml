@@ -5,7 +5,10 @@
     <data>
 
     </data>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,15 +70,24 @@
             android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <include
+                android:id="@+id/state_loading"
+                layout="@layout/layout_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+            <include
+                android:id="@+id/state_load_error"
+                layout="@layout/layout_load_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

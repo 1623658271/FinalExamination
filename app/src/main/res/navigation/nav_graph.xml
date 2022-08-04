@@ -23,6 +23,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homepageFragment_to_videoPlayActivity"
+            app:destination="@id/videoPlayActivity" />
 
     </fragment>
     <fragment
@@ -54,6 +57,26 @@
         <action
             android:id="@+id/action_discoverFragment_to_picWatchActivity"
             app:destination="@id/picWatchActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/rankListFragment"
+        android:name="com.example.openeyes.fragment.RankListFragment"
+        android:label="RankListFragment"
+        tools:layout="@layout/layout_ranklist_fragment">
+        <action
+            android:id="@+id/action_rankListFragment_to_personMessageActivity"
+            app:destination="@id/personMessageActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_rankListFragment_to_videoPlayActivity"
+            app:destination="@id/videoPlayActivity"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

@@ -23,6 +23,7 @@ class DiscoverFragment:Fragment() {
     private lateinit var binding:LayoutDiscoveryFragmentBinding
     private lateinit var discoverClassFragment: DiscoverClassFragment
     private lateinit var discoverRecFragment: DiscoverRecFragment
+    private lateinit var discoverSpeFragment: DiscoverSpeFragment
     private lateinit var data:MutableList<String>
     private lateinit var adapter: FragmentPagerAdapter
 //    private val TAG = "lfy"
@@ -40,17 +41,20 @@ class DiscoverFragment:Fragment() {
         data = ArrayList()
         data.add("推荐")
         data.add("分类")
+        data.add("专题")
         adapter = FragmentPagerAdapter(this)
         discoverRecFragment = DiscoverRecFragment()
         discoverClassFragment = DiscoverClassFragment()
+        discoverSpeFragment = DiscoverSpeFragment()
         adapter.add { discoverRecFragment }
         adapter.add{ discoverClassFragment }
+        adapter.add{ discoverSpeFragment }
         binding.discoverViewpager2.adapter = adapter
         TabLayoutMediator(
             binding.tlFindmore, binding.discoverViewpager2
         ) { tab, position -> tab.text = data[position] }.attach()
         binding.discoverViewpager2.setPageTransformer(SquareBoxTransformer())
-        binding.discoverViewpager2.offscreenPageLimit = 2
+        binding.discoverViewpager2.offscreenPageLimit = 3
     }
 
     class SquareBoxTransformer : ViewPager2.PageTransformer {

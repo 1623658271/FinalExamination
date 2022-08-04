@@ -1,12 +1,15 @@
 package com.example.openeyes
 
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 
 /**

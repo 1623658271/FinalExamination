@@ -60,6 +60,12 @@ class MyRepository{
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(observer)
+    //更多-专题
+    fun getSpecialMsg(observer: Observer<SpecialBean>) = RetrofitClient.apiService
+        .getSpecialMsg()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
 
 
     /**
@@ -131,4 +137,21 @@ class MyRepository{
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(observer)
 
+    /**
+     * 专题页面数据
+     */
+    fun getSpecialInMsg(path:String,observer: Observer<SpecialInBean>) = RetrofitClient.apiService
+        .getSpecialInMsg(path)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
+
+    /**
+     * 每日一图
+     */
+    fun getDailyImg(observer: Observer<DailyImgBean>) = RetrofitClient.apiService
+        .getDailyImg()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
 }

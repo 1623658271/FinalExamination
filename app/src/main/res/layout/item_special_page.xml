@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="message"
+            type="com.example.openeyes.model.SpecialPageBean" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/deepGray">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="top"
+                app:ImageView="@{message.headerUrl}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:background="@color/deepGray"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                android:layout_gravity="top|center"
+                android:maxLines="10"
+                android:textStyle="bold"
+                android:text="@{message.brief}"
+                android:layout_marginTop="270dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:maxLines="10"
+                android:text="@{message.text}"
+                android:background="@color/deepGray"
+                android:textColor="@color/gray2"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom|center"
+                android:layout_marginTop="350dp"/>
+        </FrameLayout>
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gray2"/>
+    </LinearLayout>
+</layout>

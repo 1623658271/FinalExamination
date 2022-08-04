@@ -2,6 +2,7 @@ package com.example.openeyes.api
 
 import com.example.openeyes.model.*
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -68,4 +69,16 @@ interface ApiService {
     //获取视频排行数据
     @GET("v4/rankList/videos")
     fun getRankListMsg(@Query("strategy")strategy:String):Observable<RankListVideoBean>
+
+    //获取专题数据
+    @GET("v3/specialTopics")
+    fun getSpecialMsg():Observable<SpecialBean>
+
+    //专题进入后的数据
+    @GET("v3/lightTopics/internal/{path}")
+    fun getSpecialInMsg(@Path("path")path:String):Observable<SpecialInBean>
+
+    //每日必应一图
+    @GET("http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
+    fun getDailyImg(): Observable<DailyImgBean>
 }

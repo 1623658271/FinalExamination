@@ -44,4 +44,8 @@ class MainActivity : BaseActivity() {
         return controller.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

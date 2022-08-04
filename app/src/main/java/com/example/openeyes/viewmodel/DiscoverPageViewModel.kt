@@ -28,6 +28,9 @@ class DiscoverPageViewModel:ViewModel() {
     private var loadState2 = MutableLiveData<LoadState>()
     val state2:LiveData<LoadState>
         get() = loadState2
+    private var loadState3 = MutableLiveData<LoadState>()
+    val state3:LiveData<LoadState>
+        get() = loadState3
     //仓库
     private val myRepository by lazy {
         MyRepository()
@@ -52,6 +55,14 @@ class DiscoverPageViewModel:ViewModel() {
     }
     val classList:LiveData<MutableList<ClassBean>>
         get() = discoverClassList
+    //专题页的数据
+    private val specialList:MutableLiveData<MutableList<SpecialPicBean>> by lazy {
+        MutableLiveData<MutableList<SpecialPicBean>>().also {
+            loadSpecialMsg()
+        }
+    }
+    val specialPics:LiveData<MutableList<SpecialPicBean>>
+    get() = specialList
 
 
     /**
@@ -244,6 +255,36 @@ class DiscoverPageViewModel:ViewModel() {
 
         })
     }
+
+    /**
+     * 加载专题数据
+     */
+    fun loadSpecialMsg(){
+        loadState3.value = LoadState.LOADING
+        myRepository.getSpecialMsg(object :Observer<SpecialBean>{
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onNext(t: SpecialBean) {
+                val list:MutableList<SpecialPicBean> = ArrayList()
+                for(m in t.itemList){
+                    list.add(SpecialPicBean(m.data.id,m.data.image))
+                }
+                specialList.value = list
+                loadState3.value = LoadState.SUCCESS
+            }
+
+            override fun onError(e: Throwable) {
+                showNetWorkError()
+                loadState3.value = LoadState.ERROR
+            }
+
+            override fun onComplete() {
+            }
+
+        })
+    }
+
 
     private fun showNetWorkError() {
         Toast.makeText(MyApplication.context!!,"请检查你的网络!",Toast.LENGTH_SHORT).show()

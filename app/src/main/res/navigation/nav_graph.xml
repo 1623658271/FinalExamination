@@ -61,6 +61,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_discoverFragment_to_specialActivity"
+            app:destination="@id/specialActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/rankListFragment"
@@ -130,6 +137,15 @@
         <argument
             android:name="pics"
             app:argType="string[]"
+            app:nullable="true" />
+    </activity>
+    <activity
+        android:id="@+id/specialActivity"
+        android:name="com.example.openeyes.SpecialActivity"
+        android:label="SpecialActivity" >
+        <argument
+            android:name="id"
+            app:argType="string"
             app:nullable="true" />
     </activity>
 

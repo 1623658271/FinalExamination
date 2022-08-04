@@ -32,7 +32,7 @@
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorFullWidth="false"
             android:scrollbarSize="10dp"
-            android:background="@color/deepGray"/>
+            android:background="@color/black"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/discover_viewpager2"

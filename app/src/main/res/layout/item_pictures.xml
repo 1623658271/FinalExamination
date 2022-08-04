@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="message"
+            type="com.example.openeyes.model.SpecialPicBean" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/deepGray"
+        app:cardCornerRadius="5dp">
+        <ImageView
+            android:id="@+id/iv_pics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:ImageView="@{message.picUrl}"/>
+    </androidx.cardview.widget.CardView>
+</layout>

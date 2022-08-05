@@ -11,19 +11,23 @@
 
 ### 功能页介绍  
 1.首页  
-<img src=https://user-images.githubusercontent.com/89245928/180635825-890137f0-9955-4f45-8340-160f1e9d5074.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183068535-70ed44e7-7ecd-4845-aeee-c641d4d0c1c0.jpg width="200px">  
 通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
 为一个RecyclerView，上拉加载更多是用了脚布局，同时判断上拉状态和数据源状态，动态进行更新数据    
 2.发现  
-<img src=https://user-images.githubusercontent.com/89245928/180635980-63039ce6-d8f0-44c7-8bb1-0c619e1648e8.jpg width="200px">  
-<img src=https://user-images.githubusercontent.com/89245928/180635996-369ec4e8-252c-432e-baa3-422832480964.jpg width="200px">  <img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183068739-9c7d927c-1117-4dd6-a147-a4a7c666edb7.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/183068869-f8b648a2-9c2d-43b0-8479-2d331925f968.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/183068876-bc64a824-0c60-4a1a-9daa-36a03e484a8f.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183069273-49e47c63-f38d-4b24-90d3-a7961a086487.jpg width="200px">  
 
-包含推荐和分类页面  
+包含推荐，分类和专题页面  
 推荐页面使用了RV的瀑布流布局  
 分类页面使用了帧布局实现文字和图片共存，CardView美化视觉    
 3.我的  
-<img src=https://user-images.githubusercontent.com/89245928/180636062-b3b0cb7e-a0b5-4471-9f95-dd3fa56fcaae.jpg width="200px">   
-暂时还啥都没实现    
+<img src=https://user-images.githubusercontent.com/89245928/183069020-9d4a7e04-1daa-4062-9cf4-cdc93388c1a1.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183069118-a8b81138-bcab-4ab6-9402-41752c2e77b1.jpg width="200px">  
+只实现了历史观看功能    
 4.视频播放  
 <img src=https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="200px">  
 <img src=https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg width="200px">  

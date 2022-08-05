@@ -17,24 +17,24 @@
 2.发现  
 <img src=https://user-images.githubusercontent.com/89245928/183068739-9c7d927c-1117-4dd6-a147-a4a7c666edb7.jpg width="200px">
 <img src=https://user-images.githubusercontent.com/89245928/183068869-f8b648a2-9c2d-43b0-8479-2d331925f968.jpg width="200px">
-<img src=https://user-images.githubusercontent.com/89245928/183068876-bc64a824-0c60-4a1a-9daa-36a03e484a8f.jpg width="200px">
-<img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="200px">  
-<img src=https://user-images.githubusercontent.com/89245928/183069273-49e47c63-f38d-4b24-90d3-a7961a086487.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183068876-bc64a824-0c60-4a1a-9daa-36a03e484a8f.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636176-1f49ddb4-078f-4aba-9523-efe256411b53.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/183069273-49e47c63-f38d-4b24-90d3-a7961a086487.jpg width="200px">
 
 包含推荐，分类和专题页面  
 推荐页面使用了RV的瀑布流布局  
 分类页面使用了帧布局实现文字和图片共存，CardView美化视觉    
 3.我的  
-<img src=https://user-images.githubusercontent.com/89245928/183069020-9d4a7e04-1daa-4062-9cf4-cdc93388c1a1.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183069020-9d4a7e04-1daa-4062-9cf4-cdc93388c1a1.jpg width="200px">
 <img src=https://user-images.githubusercontent.com/89245928/183069118-a8b81138-bcab-4ab6-9402-41752c2e77b1.jpg width="200px">  
 只实现了历史观看功能    
 4.视频播放  
-<img src=https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="200px">  
-<img src=https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636093-f48ddf7f-fa93-4f93-9f28-c9c90db01b6d.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/180636098-c99f922c-448c-45f7-a5d0-3ff68393c2c2.jpg width="200px">
 <img src=https://user-images.githubusercontent.com/89245928/180636457-fe9e8465-500e-477e-9b38-2bba0f97f0c3.jpg width="200px">  
 使用了第三方库饺子播放器'cn.jzvd:jiaozivideoplayer:7.5.0'  
 5.搜索  
-<img src=https://user-images.githubusercontent.com/89245928/180636142-7ced769f-8059-43ce-8f53-32cb42df38e4.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/180636142-7ced769f-8059-43ce-8f53-32cb42df38e4.jpg width="200px">
 <img src=https://user-images.githubusercontent.com/89245928/180636137-1f7a3b0f-0b2d-4f98-abf9-37f7f066d7b0.jpg width="200px">  
 6.用户信息  
 <img src=https://user-images.githubusercontent.com/89245928/180636160-b9466835-bdba-45ca-af16-c3563aa01d7d.jpg width="200px">  

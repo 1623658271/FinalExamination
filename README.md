@@ -47,7 +47,7 @@
 一个activity+viewpagerAdapter实现  
 
 ### 知识点  
-retrofit、rxjava3、mvvm、databinding、viewmodel、navigation、LiveData  
+retrofit、rxjava3、mvvm、databinding、viewmodel、navigation、LiveData、SQLite数据库储存  
 ### 心得体会  
 认真做了十天，这次考核还是收获挺大的，对网络请求的理解加深了一些，  
 但是做的不太好，毕竟我自己掌握的知识还是少了，上学期确实比较马虎。  

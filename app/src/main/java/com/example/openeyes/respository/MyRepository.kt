@@ -160,7 +160,6 @@ class MyRepository{
      * 获取历史观看数据
      */
     fun getHistoryMsg(name:String):MutableList<VideoBean>{
-        Log.e("lfy", "getHistoryMsg: ", )
         val list = MySQLiteHelper.getHistoryVideoBeanList(name)
         return list
     }

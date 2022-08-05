@@ -27,7 +27,6 @@ object MySQLiteHelper {
      * 插入数据
      */
     fun insertHistoryToDatabase(name:String,videoBean: VideoBean){
-        Log.e("lfy", "insertHistoryToDatabase: ", )
         if(findHistory(name,videoBean)){
             deleteHistory(name,videoBean)
         }
@@ -104,7 +103,6 @@ object MySQLiteHelper {
             }while (cursor.moveToNext())
         }
         cursor.close()
-        Log.e("lfy", "getHistoryVideoBeanList:${list.size} ", )
         return list
     }
 

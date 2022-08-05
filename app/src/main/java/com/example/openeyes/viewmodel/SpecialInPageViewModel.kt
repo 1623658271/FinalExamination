@@ -53,18 +53,18 @@ class SpecialInPageViewModel:ViewModel() {
                         for (m in t.itemList) {
                             add(
                                 VideoBean(
-                                    m.data.content.data.id,
-                                    m.data.content.data.title,
-                                    m.data.content.data.author.name,
-                                    m.data.content.data.cover.feed,
-                                    m.data.content.data.playUrl,
-                                    m.data.content.data.description,
+                                    m.data.content.data.id?:0,
+                                    m.data.content.data.title?:"",
+                                    m.data.content.data.author?.name?:"",
+                                    m.data.content.data.cover?.feed?:"",
+                                    m.data.content.data.playUrl?:"",
+                                    m.data.content.data.description?:"",
                                     PersonalBean(
-                                        m.data.content.data.author.id,
-                                        m.data.content.data.author.icon,
+                                        m.data.content.data.author?.id?:0,
+                                        m.data.content.data.author?.icon?:"",
                                         DefaultUtil.defaultCoverUrl,
-                                        m.data.content.data.author.description,
-                                        m.data.content.data.author.name,
+                                        m.data.content.data.author?.description?:"",
+                                        m.data.content.data.author?.name?:"",
                                         "", ""
                                     ),
                                     m.data.content.data.consumption

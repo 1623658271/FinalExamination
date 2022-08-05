@@ -81,4 +81,10 @@ interface ApiService {
     //每日必应一图
     @GET("http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
     fun getDailyImg(): Observable<DailyImgBean>
+
+
+    //主题详情
+    @GET("v6/tag/dynamics")
+    fun getDynamicsMsg(@Query("id")id:Int):Observable<DynamicBean>
+
 }

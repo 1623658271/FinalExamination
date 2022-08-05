@@ -74,7 +74,26 @@ class HomePageViewModel:ViewModel(){
                                 ), m.data.content.data.consumption
                             )
                         )
-
+                    }else if(m.type == "autoPlayFollowCard"){
+                        list.add(
+                            VideoBean(
+                                m.data.content.data.id,
+                                m.data.content.data.description,
+                                m.data.header.issuerName,
+                                m.data.content.data.cover.feed,
+                                m.data.content.data.playUrl,
+                                m.data.content.data.description,
+                                PersonalBean(
+                                    m.data.content.data.owner.uid ?: 0,
+                                    m.data.content.data.owner.avatar ?: "",
+                                    m.data.content.data.owner.cover?:DefaultUtil.defaultCoverUrl,
+                                    m.data.content.data.owner.description ?: "",
+                                    m.data.content.data.owner.nickname ?: "",
+                                    m.data.content.data.owner.city?:"",
+                                    m.data.content.data.owner.job?:""
+                                ), m.data.content.data.consumption
+                            )
+                        )
                     }
                 }
                 homepageListLD.value = list

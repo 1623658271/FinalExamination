@@ -1,13 +1,16 @@
 # FinalExamination  
 ## OpenEyes App介绍  
 ### 页面布局  
-由六个Activity和七个Fragment组成  
+由九个Activity和十个Fragment组成  
 1.MainActivity：设置了toorbar、FragmentContainerView和BottomNavigationView用于切换首页、发现和我的三个fragment以及使用搜索功能  
 2.VideoPlayActivity：点击视频后进入的页面、其中包含CommentFragment(评论页面)和DetailsFragment(视频兮姐)两个小界面，用的TabLayout进行切换  
 3.SearchActivity：搜索界面，包含两个RecyclerView(用于热搜关键词和搜索结果)和SearchView(用于搜索)  
 4.ClassInActivity：分类具体界面，点击一个分类的item后进入，包含一个RecyclerView和一个toolbar(便于返回和提醒当前分类)  
 5.PersonMessageActivity：个人信息界面，用于查看用户信息，在任何区域点击一个头像都会进入该界面  
 6.PicWatchActivity：查看大图界面，可以长按保存图片，可从有图片的界面点击进入    
+7.HistoryActivity：历史观看记录界面  
+8.SplashActivity：每日一图初始化界面  
+9.SpecialActivity：专题进入后的页面  
 
 ### 功能页介绍  
 1.首页  

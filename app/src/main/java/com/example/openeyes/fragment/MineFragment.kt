@@ -26,6 +26,7 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.openeyes.R
+import com.example.openeyes.activity.HistoryActivity
 import com.example.openeyes.databinding.LayoutMineFragmentBinding
 import permissions.dispatcher.NeedsPermission
 import java.io.File
@@ -50,5 +51,13 @@ class MineFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init(){
+        binding.tvHistory.setOnClickListener {
+            val intent = Intent(activity!!,HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

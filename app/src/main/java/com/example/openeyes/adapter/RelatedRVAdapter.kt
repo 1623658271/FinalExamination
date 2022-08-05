@@ -14,7 +14,7 @@ import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.DefaultUtil
 
 /**
- * description ： 精选的更多数据的RV适配器
+ * description ： 相关视频的RV适配器
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/19 11:07

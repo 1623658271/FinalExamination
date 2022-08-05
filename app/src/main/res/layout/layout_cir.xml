@@ -38,7 +38,7 @@
             android:textColor="@color/black"
             android:text="标题"
             android:textAlignment="center"/>
-         <com.example.openeyes.view.LopViewpager
+         <com.example.openeyes.customeview.LopViewpager
             android:id="@+id/looper_vp_cir"
             android:layout_width="match_parent"
             android:layout_height="0dp"

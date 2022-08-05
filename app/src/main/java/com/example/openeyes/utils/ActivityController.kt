@@ -1,6 +1,7 @@
 package com.example.openeyes.utils
 
 import android.app.Activity
+import android.util.Log
 
 /**
  * description ：管理播放的活动
@@ -18,6 +19,7 @@ object ActivityController {
         for(i in list){
             i.finish()
         }
+        list.clear()
     }
     fun removeActivity(activity: Activity){
         activity.finish()

@@ -22,6 +22,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SpecialActivity"
             android:exported="false" />
         <activity
@@ -48,10 +51,9 @@
             android:exported="true"
             android:label="@string/title_activity_main"
             android:launchMode="singleTask"
-            tools:ignore="Instantiatable"/>
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".activity.SplashActivity"
-            android:launchMode="singleTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

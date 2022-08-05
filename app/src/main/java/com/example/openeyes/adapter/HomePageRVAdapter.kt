@@ -12,7 +12,7 @@ import com.example.openeyes.databinding.ItemHomepageVideoBinding
 import com.example.openeyes.databinding.LayoutCirImageBinding
 import com.example.openeyes.databinding.LayoutLoadMessageBinding
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.view.CirLayout
+import com.example.openeyes.customeview.CirLayout
 
 
 /**
@@ -95,9 +95,9 @@ class HomePageRVAdapter:
         val position = p - 1
         when (holder) {
             is CirViewHolder -> {
-                if(imageUrlList.size>0 && adapter==null) {
+                if(imageUrlList.size>5 && adapter==null) {
 //                    Log.d(TAG, "onBindViewHolder: adapter_create")
-                    adapter  = CirVp2Adapter(imageUrlList)
+                    adapter = CirVp2Adapter(imageUrlList)
                     holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
                        override fun getTitle(position: Int): String {
                            return imageUrlList[position % imageUrlList.size].bigTitle
@@ -114,7 +114,7 @@ class HomePageRVAdapter:
                     })
                     holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2
                     adapter!!.notifyDataSetChanged()
-                }else if(imageUrlList.size>0 && adapter!=null){
+                }else if(imageUrlList.size>5 && adapter!=null){
                     holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
                         override fun getTitle(position: Int): String {
                             return imageUrlList[position % imageUrlList.size].bigTitle

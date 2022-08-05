@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import com.example.openeyes.model.VideoBean
 //import com.example.openeyes.room.MyDatabase
 import com.example.openeyes.utils.ActivityController
 import com.example.openeyes.utils.LoadState
+import com.example.openeyes.utils.MySQLiteHelper
 import com.example.openeyes.viewmodel.VideoPlayPageViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -67,6 +69,7 @@ class VideoPlayActivity : BaseActivity() {
             TabLayoutMediator(binding.tlVideo,binding.vp2Video){
                     tab,position->tab.text = data[position]
             }.attach()
+            MySQLiteHelper.insertHistoryToDatabase("Video",videoBean)
         }else{
             Toast.makeText(this,"读取视频信息出错！",Toast.LENGTH_SHORT).show()
             finish()
@@ -100,6 +103,11 @@ class VideoPlayActivity : BaseActivity() {
                 }
             }
         }
+        saveToHistory()
+    }
+
+    private fun saveToHistory() {
+
     }
 
     fun hideAll(){

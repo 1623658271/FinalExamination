@@ -13,7 +13,7 @@ import java.net.URL
 
 
 /**
- * description ： TODO:类的作用
+ * description ： 查看图片的vp适配器
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/7/23 15:17

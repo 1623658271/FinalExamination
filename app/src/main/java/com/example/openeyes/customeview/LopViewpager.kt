@@ -1,18 +1,10 @@
-package com.example.openeyes.view
+package com.example.openeyes.customeview
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.Interpolator
-import android.widget.Scroller
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.viewpager.widget.ViewPager
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.math.max
 

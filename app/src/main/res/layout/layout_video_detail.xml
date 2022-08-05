@@ -58,10 +58,11 @@
             android:background="#666666"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/details_person_circleImage"
                 android:layout_width="50dp"
@@ -73,7 +74,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
                 <TextView
                     android:id="@+id/details_person_name"
                     android:layout_width="match_parent"
@@ -87,8 +89,7 @@
                 <TextView
                     android:id="@+id/details_person_description"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="11sp"
                     android:textStyle="bold"

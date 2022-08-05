@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.example.openeyes.view.CirLayout
+        <com.example.openeyes.customeview.CirLayout
             android:id="@+id/cl_banner"
             android:layout_width="match_parent"
             android:layout_height="250dp"

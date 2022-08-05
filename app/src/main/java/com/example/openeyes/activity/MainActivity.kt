@@ -6,6 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.openeyes.R
+import com.example.openeyes.model.MyDatabaseHelper
+import com.example.openeyes.utils.MySQLiteHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -20,6 +22,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_main_activity)
+        MySQLiteHelper.initDatabase(this,"VideoHistory.db",1)
         //1、先拿NavHostFragment
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
@@ -40,9 +43,5 @@ class MainActivity : BaseActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return controller.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 }

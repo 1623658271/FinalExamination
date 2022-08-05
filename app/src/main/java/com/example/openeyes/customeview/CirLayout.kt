@@ -1,18 +1,15 @@
-package com.example.openeyes.view
+package com.example.openeyes.customeview
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginStart
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.openeyes.R
 import com.example.openeyes.adapter.CirVp2Adapter
-import org.w3c.dom.Text
 
 /**
  * description ： 自定义view，用于实现轮播图

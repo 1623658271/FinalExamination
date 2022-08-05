@@ -11,7 +11,7 @@ import com.example.openeyes.databinding.LayoutLoadMessageBinding
 import com.example.openeyes.model.VideoBean
 
 /**
- * description ： TODO:类的作用
+ * description ： 搜索页的RV适配器
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/8/4 13:20

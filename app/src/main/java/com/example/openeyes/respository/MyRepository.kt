@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
 import com.example.openeyes.model.*
+import com.example.openeyes.utils.MySQLiteHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -154,4 +155,13 @@ class MyRepository{
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(observer)
+
+    /**
+     * 获取历史观看数据
+     */
+    fun getHistoryMsg(name:String):MutableList<VideoBean>{
+        Log.e("lfy", "getHistoryMsg: ", )
+        val list = MySQLiteHelper.getHistoryVideoBeanList(name)
+        return list
+    }
 }

@@ -11,7 +11,7 @@
 7.HistoryActivity：历史观看记录界面  
 8.SplashActivity：每日一图初始化界面  
 9.SpecialActivity：专题进入后的页面  
-10.DynInActivity：主题深入页面
+10.DynInActivity：主题深入页面  
 11.DynMsgActivity：主题详情页面
 
 ### 功能页介绍  

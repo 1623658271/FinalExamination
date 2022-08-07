@@ -37,7 +37,6 @@ class HomePageRVAdapter:
         private const val TYPE_CIR = 4
     }
 
-
     //当前加载状态，默认为加载完成
     private var loadState = 0
     // 正在加载

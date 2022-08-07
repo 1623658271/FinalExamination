@@ -106,7 +106,7 @@ class HomepageHandpickFragment:Fragment() {
             override fun onVideoImageClickedListener(
                 videoBean: VideoBean
             ) {
-                val toVideoPlayActivity = HomepageHandpickFragmentDirections.actionHomepageHandpickFragmentToVideoPlayActivity(videoBean)
+                val toVideoPlayActivity = HomepageFragmentDirections.actionHomepageFragmentToVideoPlayActivity(videoBean)
                 findNavController().navigate(toVideoPlayActivity)
             }
 
@@ -115,7 +115,7 @@ class HomepageHandpickFragment:Fragment() {
             ) {
                 val personMessage = videoBean.personalBean
                 val toPersonMessageActivity =
-                    HomepageHandpickFragmentDirections.actionHomepageHandpickFragmentToPersonMessageActivity(
+                    HomepageFragmentDirections.actionHomepageFragmentToPersonMessageActivity(
                         personMessage
                     )
                 findNavController().navigate(toPersonMessageActivity)

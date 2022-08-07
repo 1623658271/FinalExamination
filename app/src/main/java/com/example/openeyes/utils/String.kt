@@ -1,5 +1,6 @@
 package com.example.openeyes.utils
 
+import android.util.Log
 import android.widget.Toast
 import com.example.openeyes.activity.MyApplication
 
@@ -11,4 +12,7 @@ import com.example.openeyes.activity.MyApplication
  */
 fun String.toast(){
     Toast.makeText(MyApplication.context,this,Toast.LENGTH_SHORT).show()
+}
+fun String.loge(){
+    Log.e("", this )
 }

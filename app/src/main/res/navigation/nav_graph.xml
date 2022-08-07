@@ -9,30 +9,23 @@
         android:id="@+id/homepageFragment"
         android:name="com.example.openeyes.fragment.HomepageFragment"
         android:label="homepageFragment"
-        tools:layout="@layout/layout_homepage_fragment"/>
+        tools:layout="@layout/layout_homepage_fragment">
+        <action
+            android:id="@+id/action_homepageFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+        <action
+            android:id="@+id/action_homepageFragment_to_personMessageActivity"
+            app:destination="@id/personMessageActivity" />
+        <action
+            android:id="@+id/action_homepageFragment_to_videoPlayActivity"
+            app:destination="@id/videoPlayActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/homepageHandpickFragment"
         android:name="com.example.openeyes.fragment.HomepageHandpickFragment"
         android:label="HomepageHandpickFragment"
         tools:layout="@layout/layout_homepage_handpick_fragment">
-        <action
-            android:id="@+id/action_homepageHandpickFragment_to_personMessageActivity"
-            app:destination="@id/personMessageActivity"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homepageHandpickFragment_to_searchActivity"
-            app:destination="@id/searchActivity"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_homepageHandpickFragment_to_videoPlayActivity"
-            app:destination="@id/videoPlayActivity" />
 
     </fragment>
     <fragment

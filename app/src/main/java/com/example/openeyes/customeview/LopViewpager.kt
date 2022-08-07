@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
+import com.example.openeyes.utils.loge
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -16,7 +17,7 @@ import kotlin.math.max
  */
 class LopViewpager:ViewPager {
     init {
-        init()
+        setPageTransformer(false,MyPagerTransformer())
     }
     private val view = this
 //    private val TAG = "lfy"
@@ -26,34 +27,20 @@ class LopViewpager:ViewPager {
     }
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
     }
-    fun init(){
-        setOnTouchListener(object :View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                val action = event?.action
-                when(action){
-                    MotionEvent.ACTION_DOWN,MotionEvent.ACTION_MOVE->{
-                        if(isStop){
-
-                        }else {
-                            stopLooper()
-//                            Log.d(TAG ,"onTouch: stop")
-                        }
-                    }
-                    MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP ->{
-                        startLooper()
-//                        Log.d(TAG ,"onTouch: start")
-                    }
-                }
-                return false
-            }
-
-        })
-        setPageTransformer(false,MyPagerTransformer())
-    }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        when(ev?.action){
+            MotionEvent.ACTION_DOWN,MotionEvent.ACTION_MOVE->{
+                if(!isStop){
+                    stopLooper()
+                }
+            }
+            MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP ->{
+                startLooper()
+//                        Log.d(TAG ,"onTouch: start")
+            }
+        }
         return super.onTouchEvent(ev)
-
     }
 
     override fun setCurrentItem(item: Int) {

@@ -29,11 +29,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"/>
+        <com.example.openeyes.customeview.ViewPager2Container
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_homepage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"/>
+        </com.example.openeyes.customeview.ViewPager2Container>
 
     </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

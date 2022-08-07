@@ -50,6 +50,13 @@ class ClassInActivity : BaseActivity() {
                     else->{}
                 }
             }
+            stateMore.observe(this@ClassInActivity){
+                when(it){
+                    LoadState.LOADING->adapter.setClassInLoadState(adapter.LOADING)
+                    LoadState.SUCCESS->adapter.setClassInLoadState(adapter.COMPLETE)
+                    else->adapter.setClassInLoadState(adapter.END)
+                }
+            }
         }
         binding.refreshClassIn.setOnRefreshListener {
             classInPageViewModel.loadClassInMsg(classModel.id.toString(),URL.udid)
@@ -102,13 +109,7 @@ class ClassInActivity : BaseActivity() {
 //    }
 
     fun loadMore() {
-        adapter.setClassInLoadState(adapter.LOADING)
-        val success = classInPageViewModel.loadClassInMoreMsg(classModel.id.toString(),URL.udid)
-        if(success){
-            adapter.setClassInLoadState(adapter.COMPLETE)
-        }else{
-            adapter.setClassInLoadState(adapter.END)
-        }
+        classInPageViewModel.loadClassInMoreMsg(classModel.id.toString(),URL.udid)
     }
     /**
      * 设置滑动监听，以检查上滑状态以更新数据

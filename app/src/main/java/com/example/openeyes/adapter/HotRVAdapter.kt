@@ -16,9 +16,7 @@ import com.example.openeyes.databinding.ItemHotSearchBinding
 class HotRVAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private val list:MutableList<String> = ArrayList()
 
-    inner class MyViewHolder(itemView: ItemHotSearchBinding): RecyclerView.ViewHolder(itemView.root){
-        var binding: ItemHotSearchBinding = itemView
-    }
+    inner class MyViewHolder(val binding: ItemHotSearchBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemHotSearchBinding = DataBindingUtil.inflate(

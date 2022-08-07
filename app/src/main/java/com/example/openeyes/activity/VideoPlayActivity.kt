@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -41,6 +40,10 @@ class VideoPlayActivity : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        init()
+    }
+
+    private fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.layout_video_play)
         ActivityController.addActivity(this)
         if(intent!=null) {
@@ -103,11 +106,6 @@ class VideoPlayActivity : BaseActivity() {
                 }
             }
         }
-        saveToHistory()
-    }
-
-    private fun saveToHistory() {
-
     }
 
     fun hideAll(){

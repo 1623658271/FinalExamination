@@ -1,15 +1,11 @@
 package com.example.openeyes.viewmodel
 
 import android.text.TextUtils
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.*
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 
@@ -19,8 +15,7 @@ import com.example.openeyes.utils.LoadState
  * email : 1623658271@qq.com
  * date : 2022/8/2 17:10
  */
-class DiscoverPageViewModel:ViewModel() {
-    //初始化状态
+class DiscoverPageViewModel:BaseViewModel() {
     private var loadState1 = MutableLiveData<LoadState>()
     val state1:LiveData<LoadState>
         get() = loadState1
@@ -30,10 +25,7 @@ class DiscoverPageViewModel:ViewModel() {
     private var loadState3 = MutableLiveData<LoadState>()
     val state3:LiveData<LoadState>
         get() = loadState3
-    //仓库
-    private val myRepository by lazy {
-        MyRepository()
-    }
+
     //发现的推荐页数据
     private val discoverRecList: MutableLiveData<MutableList<Map<String,Any>>> by lazy {
         MutableLiveData<MutableList<Map<String, Any>>>().also {
@@ -138,8 +130,9 @@ class DiscoverPageViewModel:ViewModel() {
     /**
      * 加载发现推荐更多数据
      */
-    fun loadRecMoreMsg():Boolean{
-        return if(!TextUtils.isEmpty(nextPageUrl.value)) {
+    fun loadRecMoreMsg(){
+        loadState.value = LoadState.LOADING
+        if(!TextUtils.isEmpty(nextPageUrl.value)) {
             val m = nextPageUrl.value!!.split("?").last().split("&")
             val start = m[0].filter { it.isDigit() }.toLong()
             val page = m[1].filter { it.isDigit() }.toInt()
@@ -197,20 +190,22 @@ class DiscoverPageViewModel:ViewModel() {
                             }
                         }
                     }
-                    discoverRecList.value = mapListX
+                    if(mapListX.size!=discoverRecList.value!!.size) {
+                        discoverRecList.value = mapListX
+                        loadState.value = LoadState.SUCCESS
+                    }else{
+                        loadState.value = LoadState.EMPTY
+                    }
                 }
 
                 override fun onError(e: Throwable) {
+                    loadState.value = LoadState.ERROR
                     showNetWorkError()
                 }
 
                 override fun onComplete() {
                 }
-
             })
-            true
-        }else{
-            false
         }
     }
 
@@ -282,10 +277,5 @@ class DiscoverPageViewModel:ViewModel() {
             }
 
         })
-    }
-
-
-    private fun showNetWorkError() {
-        Toast.makeText(MyApplication.context!!,"请检查你的网络!",Toast.LENGTH_SHORT).show()
     }
 }

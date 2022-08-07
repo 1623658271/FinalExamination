@@ -40,6 +40,13 @@ class SearchActivity : BaseActivity() {
             videoBean.observe(this@SearchActivity){
                 adapterResult.setData(it)
             }
+            stateMore.observe(this@SearchActivity){
+                when(it){
+                    LoadState.LOADING->adapterResult.setLoadState(adapterResult.LOADING)
+                    LoadState.SUCCESS->adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
+                    else->adapterResult.setLoadState(adapterResult.LOADING_END)
+                }
+            }
         }
     }
 
@@ -152,7 +159,9 @@ class SearchActivity : BaseActivity() {
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == itemCount - 1 && isUp) {
-                        loadingMore()
+                        if(searchPageViewModel.stateMore.value!=LoadState.LOADING){
+                            loadingMore()
+                        }
                     }
                 }
             }
@@ -165,12 +174,6 @@ class SearchActivity : BaseActivity() {
     }
 
     fun loadingMore() {
-        adapterResult.setLoadState(adapterResult.LOADING)
-        val success = searchPageViewModel.loadSearchMore()
-        if(success){
-            adapterResult.setLoadState(adapterResult.LOADING_COMPLETE)
-        }else{
-            adapterResult.setLoadState(adapterResult.LOADING_END)
-        }
+        searchPageViewModel.loadSearchMore()
     }
 }

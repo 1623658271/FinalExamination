@@ -2,7 +2,6 @@ package com.example.openeyes.api
 
 import com.example.openeyes.model.*
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -82,9 +81,28 @@ interface ApiService {
     @GET("http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
     fun getDailyImg(): Observable<DailyImgBean>
 
+    //推荐主题详情数据
+    @GET("v7/tag/childTab/0")
+    fun getRecDynamic(@Query("isRecTab")isRecTab:Boolean):Observable<DynamicMsgBean>
 
-    //主题详情
+    //主题所有分类
+    @GET("v7/tag/tabList")
+    fun getAllDynamics():Observable<AllDynamicsBean>
+
+    //分类主题详情数据
+    @GET("v7/tag/childTab/{path}")
+    fun getDynamicMsg(@Path("path")pathId:String):Observable<DynamicMsgBean>
+
+    //分类主题详情更多数据
+    @GET("v7/tag/childTab/{path}")
+    fun getDynamicMoreMsg(@Path("path")pathId: String,@Query("start")start:Int,@Query("num")num:Int):Observable<DynamicMsgBean>
+
+    //主题最终页
     @GET("v6/tag/dynamics")
-    fun getDynamicsMsg(@Query("id")id:Int):Observable<DynamicBean>
+    fun getDynamicInMsg(@Query("id")id:Long):Observable<DynamicInBean>
+
+    //主题最终页的加载更多
+    @GET("v6/tag/dynamics")
+    fun getDynamicInMoreMsg(@Query("start")start:Int,@Query("num")num:Int,@Query("id")id:Int):Observable<DynamicInBean>
 
 }

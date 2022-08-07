@@ -27,16 +27,10 @@ class RelatedRVAdapter(var nowMessage:VideoBean): RecyclerView.Adapter<RecyclerV
     val TYPE_NOW = 3
 //    val TAG = "lfy"
 
-    inner class NowMessageViewHolder(val binding: LayoutVideoDetailBinding):RecyclerView.ViewHolder(binding.root){
-    }
+    inner class NowMessageViewHolder(val binding: LayoutVideoDetailBinding):RecyclerView.ViewHolder(binding.root)
+    inner class TextCardViewHolder(val binding: ItemTextCardBinding):RecyclerView.ViewHolder(binding.root)
 
-    inner class TextCardViewHolder(itemTextCardBinding: ItemTextCardBinding):RecyclerView.ViewHolder(itemTextCardBinding.root){
-        val binding = itemTextCardBinding
-    }
-
-    inner class VideoCardViewHolder(itemVideoCardBinding: ItemVideoCardBinding):RecyclerView.ViewHolder(itemVideoCardBinding.root){
-        val binding = itemVideoCardBinding
-    }
+    inner class VideoCardViewHolder(val binding: ItemVideoCardBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {

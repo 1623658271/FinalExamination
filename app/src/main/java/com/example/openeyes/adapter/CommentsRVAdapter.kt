@@ -18,9 +18,7 @@ import com.example.openeyes.model.PersonalBean
 class CommentsRVAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var commentList:MutableList<CommentNormalBean> = ArrayList()
 
-    inner class MyViewHolder(itemView:ItemCommentBinding):RecyclerView.ViewHolder(itemView.root){
-        var binding: ItemCommentBinding = itemView
-    }
+    inner class MyViewHolder(val binding:ItemCommentBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding:ItemCommentBinding = DataBindingUtil.inflate(

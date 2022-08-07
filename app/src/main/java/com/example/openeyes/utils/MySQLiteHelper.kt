@@ -8,7 +8,7 @@ import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.VideoBean
 
 /**
- * description ： 封装的一个数据库操作类
+ * description ： 封装的一个历史数据的数据库操作类
  * author : lfy
  * email : 1623658271@qq.com
  * date : 2022/8/5 14:29
@@ -20,7 +20,6 @@ object MySQLiteHelper {
             dbHelper = MyDatabaseHelper(context,name,version)
         }
         dbHelper!!.writableDatabase
-        Log.e("lfy", "initDatabase: ", )
     }
 
     /**

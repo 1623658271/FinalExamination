@@ -33,13 +33,9 @@ class ResultRVAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     // 加载到底
     val LOADING_END = 3
 
-    inner class FootViewHolder(itemView: LayoutLoadMessageBinding): RecyclerView.ViewHolder(itemView.root){
-        val binding = itemView
-    }
+    inner class FootViewHolder(val binding: LayoutLoadMessageBinding): RecyclerView.ViewHolder(binding.root)
 
-    inner class MyViewHolder(itemView: ItemSearchResultBinding): RecyclerView.ViewHolder(itemView.root){
-        var binding: ItemSearchResultBinding = itemView
-    }
+    inner class MyViewHolder(val binding: ItemSearchResultBinding): RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType==TYPE_ITEM){
             val binding: ItemSearchResultBinding = DataBindingUtil.inflate(
@@ -101,8 +97,10 @@ class ResultRVAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      * 设置加载状态，以显示或隐藏脚布局
      */
     fun setLoadState(loadState:Int){
-        this.loadState = loadState
-        notifyDataSetChanged()
+        if(this.loadState!=loadState){
+            this.loadState=loadState
+            notifyItemChanged(itemCount-1)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

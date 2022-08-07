@@ -23,13 +23,9 @@ class SpecialRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_TOP = 0
     private val TYPE_NORMAL = 1
 
-    inner class NormalViewHolder(itemView: ItemHomepageVideoBinding):RecyclerView.ViewHolder(itemView.root){
-        val binding = itemView
-    }
+    inner class NormalViewHolder(val binding: ItemHomepageVideoBinding):RecyclerView.ViewHolder(binding.root)
 
-    inner class TopViewHolder(topView:ItemSpecialPageBinding):RecyclerView.ViewHolder(topView.root){
-        val binding = topView
-    }
+    inner class TopViewHolder(val binding:ItemSpecialPageBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType==TYPE_NORMAL){

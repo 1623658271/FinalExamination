@@ -29,18 +29,11 @@ class ClassInRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val END = 2
     val COMPLETE = 3
 
-    inner class itemViewHolder(itemBinding:ItemHomepageVideoBinding):RecyclerView.ViewHolder(itemBinding.root){
-        val binding = itemBinding
-    }
+    inner class itemViewHolder(val binding:ItemHomepageVideoBinding):RecyclerView.ViewHolder(binding.root)
 
-    inner class textViewHolder(textBinding:ItemTextCardBinding):RecyclerView.ViewHolder(textBinding.root){
-        val binding = textBinding
-    }
+    inner class textViewHolder(val binding:ItemTextCardBinding):RecyclerView.ViewHolder(binding.root)
 
-    inner class loadViewHolder(loadBinding:LayoutLoadMessageBinding):RecyclerView.ViewHolder(loadBinding.root){
-        val binding = loadBinding
-    }
-
+    inner class loadViewHolder(val binding:LayoutLoadMessageBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -113,8 +106,10 @@ class ClassInRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
      * 设置加载状态，以显示或隐藏脚布局
      */
     fun setClassInLoadState(loadState:Int){
-        this.loadState = loadState
-        notifyDataSetChanged()
+        if(this.loadState!=loadState){
+            this.loadState = loadState
+            notifyItemChanged(itemCount-1)
+        }
     }
 
     private lateinit var clickListener:OnSomethingClickedListener

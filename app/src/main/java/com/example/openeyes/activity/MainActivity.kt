@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.openeyes.R
-import com.example.openeyes.model.MyDatabaseHelper
 import com.example.openeyes.utils.MySQLiteHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

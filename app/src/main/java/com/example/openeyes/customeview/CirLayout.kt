@@ -2,6 +2,7 @@ package com.example.openeyes.customeview
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -22,25 +23,15 @@ class CirLayout:LinearLayout {
     private lateinit var linearLayout:LinearLayout
     private lateinit var title:TextView
     private lateinit var innoAdapter:CirVp2Adapter
-    constructor(context: Context?) : super(context){
-        init()
-    }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
-        init()
-    }
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    ){
-        init()
-    }
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes){
+    )
+
+    init {
         init()
     }
 
@@ -73,6 +64,7 @@ class CirLayout:LinearLayout {
 
     fun setData(pagerAdapter: PagerAdapter,listener: BindTitleListener){
         viewPager.adapter = pagerAdapter
+        viewPager.currentItem = Integer.MAX_VALUE / 2 + 3
         title.text = listener.getTitle(0)
         innoAdapter = pagerAdapter as CirVp2Adapter
         updateIndicator()

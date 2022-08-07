@@ -1,51 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable
-            name="message"
-            type="com.example.openeyes.model.VideoBean" />
+
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/sr_homepage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/deepGray">
-
         <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="日报精选"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:text="首页"
+            android:gravity="center"
             android:textSize="30sp"
-            android:layout_gravity="top|center"
-            android:gravity="center" />
-
-                <include
-                    android:id="@+id/state_loading"
-                    layout="@layout/layout_loading"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible"/>
-                <include
-                    android:id="@+id/state_load_error"
-                    layout="@layout/layout_load_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_homepage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"/>
-
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_homepage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="start"
+            app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="false"
+            android:scrollbarSize="10dp"
+            android:background="@color/black"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp2_homepage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
     </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

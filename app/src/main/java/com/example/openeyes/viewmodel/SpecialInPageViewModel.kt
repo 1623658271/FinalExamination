@@ -1,15 +1,11 @@
 package com.example.openeyes.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.SpecialInBean
 import com.example.openeyes.model.SpecialPageBean
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 import io.reactivex.rxjava3.core.Observer
@@ -21,15 +17,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  * email : 1623658271@qq.com
  * date : 2022/8/4 16:23
  */
-class SpecialInPageViewModel:ViewModel() {
-    //加载状态
-    private var loadState = MutableLiveData<LoadState>()
-    val state: LiveData<LoadState>
-        get() = loadState
-    //仓库
-    private val myRepository by lazy {
-        MyRepository()
-    }
+class SpecialInPageViewModel:BaseViewModel() {
     //专题数据
     private val specialInLD:MutableLiveData<SpecialPageBean> by lazy {
         MutableLiveData()
@@ -87,9 +75,5 @@ class SpecialInPageViewModel:ViewModel() {
             }
 
         })
-    }
-
-    private fun showNetWorkError() {
-        Toast.makeText(MyApplication.context!!,"请检查你的网络!", Toast.LENGTH_SHORT).show()
     }
 }

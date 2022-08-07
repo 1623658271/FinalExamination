@@ -1,6 +1,5 @@
 package com.example.openeyes.activity
 
-import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,7 +19,7 @@ import com.example.openeyes.utils.LoadState
 import com.example.openeyes.utils.MySQLiteHelper
 import com.example.openeyes.viewmodel.HistoryViewModel
 
-class HistoryActivity : AppCompatActivity() {
+class HistoryActivity : BaseActivity() {
     private lateinit var binding:ActivityHistoryBinding
     private lateinit var adapter:HistoryRVAdapter
     private val historyViewModel:HistoryViewModel by viewModels()
@@ -89,7 +88,7 @@ class HistoryActivity : AppCompatActivity() {
         binding.stateLoadEmpty.root.visibility = View.GONE
         adapter.setClickListener(object :HistoryRVAdapter.OnSomethingClickedListener{
             override fun onVideoImageClickedListener(videoBean: VideoBean) {
-                VideoPlayActivity.startVideoPlayActivity(this@HistoryActivity,videoBean)
+                VideoPlayActivity.startVideoPlayActivity(this@HistoryActivity, videoBean)
             }
 
         })

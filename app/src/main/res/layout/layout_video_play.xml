@@ -43,18 +43,23 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:background="@color/black"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:layout_gravity="left"
+            android:layout_gravity="top"
             app:tabTextColor="@color/white"
             app:tabSelectedTextColor="@color/white"
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorFullWidth="false"
             android:scrollbarSize="10dp"
             android:background="@color/black"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
         <View
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

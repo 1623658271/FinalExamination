@@ -15,19 +15,16 @@ import kotlin.math.max
  * date : 2022/7/20 21:21
  */
 class LopViewpager:ViewPager {
+    init {
+        init()
+    }
     private val view = this
 //    private val TAG = "lfy"
     private var isStop = false
 
     constructor(context: Context) : super(context){
-        init()
     }
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
-        init()
-    }
-
-    init {
-
     }
     fun init(){
         setOnTouchListener(object :View.OnTouchListener{

@@ -1,13 +1,9 @@
 package com.example.openeyes.viewmodel
 
 import android.text.TextUtils
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.*
-import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DecodeUtil
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
@@ -20,15 +16,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  * email : 1623658271@qq.com
  * date : 2022/8/3 16:57
  */
-class SearchPageViewModel:ViewModel() {
-    //加载状态
-    private var loadState = MutableLiveData<LoadState>()
-    val state: LiveData<LoadState>
-        get() = loadState
-    //仓库
-    private val myRepository by lazy {
-        MyRepository()
-    }
+class SearchPageViewModel:BaseViewModel() {
     //热搜关键词
     private val hotWordLD:MutableLiveData<HotSearchBean> by lazy {
         MutableLiveData<HotSearchBean>().also {
@@ -113,8 +101,9 @@ class SearchPageViewModel:ViewModel() {
     /**
      * 更多数据
      */
-    fun loadSearchMore():Boolean{
-        return if(!TextUtils.isEmpty(nextPageUrl.value)) {
+    fun loadSearchMore(){
+        loadStateMore.value = LoadState.LOADING
+        if(!TextUtils.isEmpty(nextPageUrl.value)) {
             val url = nextPageUrl.value!!.split("?").last().split("&")
             val start = url[0].filter { it.isDigit() }.toInt()
             val num = url[1].filter { it.isDigit() }.toInt()
@@ -148,11 +137,17 @@ class SearchPageViewModel:ViewModel() {
                             )
                         }
                     }
-                    searchVideoLD.value = listResult
+                    if(listResult.size==searchVideoLD.value!!.size){
+                        loadStateMore.value = LoadState.EMPTY
+                    }else{
+                        searchVideoLD.value = listResult
+                        loadStateMore.value = LoadState.SUCCESS
+                    }
                 }
 
                 override fun onError(e: Throwable) {
                     showNetWorkError()
+                    loadStateMore.value = LoadState.ERROR
                 }
 
                 override fun onComplete() {
@@ -161,12 +156,7 @@ class SearchPageViewModel:ViewModel() {
             })
             true
         }else{
-            false
+            loadStateMore.value = LoadState.EMPTY
         }
-    }
-
-
-    private fun showNetWorkError() {
-        Toast.makeText(MyApplication.context!!,"请检查你的网络!", Toast.LENGTH_SHORT).show()
     }
 }

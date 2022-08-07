@@ -50,7 +50,6 @@ class DiscoverSpeFragment:Fragment() {
         discoverPageViewModel.apply {
             specialPics.observe(activity!!){
                 adapter.setData(it)
-                Log.e("lfy", "initObserver:$it ", )
             }
             state3.observe(activity!!){
                 hideAll()

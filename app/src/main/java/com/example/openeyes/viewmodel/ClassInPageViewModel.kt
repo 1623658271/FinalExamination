@@ -1,14 +1,11 @@
 package com.example.openeyes.viewmodel
 
 import android.text.TextUtils
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.openeyes.activity.MyApplication
 import com.example.openeyes.model.ClassDeepMoreMsgBean
 import com.example.openeyes.model.ClassDeepMsgBean
 import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.VideoBean
-import com.example.openeyes.respository.MyRepository
 import com.example.openeyes.utils.DefaultUtil
 import com.example.openeyes.utils.LoadState
 import io.reactivex.rxjava3.core.Observer
@@ -20,15 +17,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  * email : 1623658271@qq.com
  * date : 2022/8/3 15:34
  */
-class ClassInPageViewModel:ViewModel() {
-    //初始化状态
-    private var loadState = MutableLiveData<LoadState>()
-    val state: LiveData<LoadState>
-        get() = loadState
-    //仓库
-    private val myRepository by lazy {
-        MyRepository()
-    }
+class ClassInPageViewModel:BaseViewModel() {
     //数据
     private val classInLD:MutableLiveData<MutableList<Map<String,Any>>> by lazy {
         MutableLiveData()
@@ -104,8 +93,9 @@ class ClassInPageViewModel:ViewModel() {
     /**
      * 加载更多数据
      */
-    fun loadClassInMoreMsg(pathId:String,udid:String):Boolean{
-        return if(!TextUtils.isEmpty(nextPageUrl.value)) {
+    fun loadClassInMoreMsg(pathId:String,udid:String){
+        loadStateMore.value = LoadState.LOADING
+        if(!TextUtils.isEmpty(nextPageUrl.value)) {
             val m = nextPageUrl.value!!.split('?').last().split('&')
             val start = m[0].filter { it.isDigit() }.toInt()
             val num = m[1].filter { it.isDigit() }.toInt()
@@ -139,23 +129,24 @@ class ClassInPageViewModel:ViewModel() {
                                 ), m.data.content.data.consumption)
                         mapList.add(map)
                     }
-                    classInLD.value = mapList
+                    if(mapList.size==classInLD.value!!.size){
+                        loadStateMore.value = LoadState.EMPTY
+                    }else{
+                        classInLD.value = mapList
+                        loadStateMore.value = LoadState.SUCCESS
+                    }
                 }
 
                 override fun onError(e: Throwable) {
                     showNetWorkError()
+                    loadStateMore.value = LoadState.ERROR
                 }
 
                 override fun onComplete() {
                 }
             })
-            true
         }else{
-            false
+            loadStateMore.value = LoadState.EMPTY
         }
-    }
-
-    private fun showNetWorkError() {
-        Toast.makeText(MyApplication.context!!,"请检查你的网络!", Toast.LENGTH_SHORT).show()
     }
 }

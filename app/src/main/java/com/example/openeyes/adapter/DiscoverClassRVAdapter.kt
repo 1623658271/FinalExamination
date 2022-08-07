@@ -19,9 +19,8 @@ import com.example.openeyes.model.ClassBean
  */
 class DiscoverClassRVAdapter:RecyclerView.Adapter<DiscoverClassRVAdapter.MyViewHolder>() {
     private val classModelList:MutableList<ClassBean> = ArrayList()
-    inner class MyViewHolder(itemView:ItemRvDiscoverBinding) : RecyclerView.ViewHolder(itemView.root) {
-        var itemRvDiscoverBinding:ItemRvDiscoverBinding = itemView
-    }
+
+    inner class MyViewHolder(val itemRvDiscoverBinding:ItemRvDiscoverBinding) : RecyclerView.ViewHolder(itemRvDiscoverBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemRvDiscoverBinding:ItemRvDiscoverBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),

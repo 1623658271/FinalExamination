@@ -17,9 +17,7 @@ import com.example.openeyes.model.VideoBean
 class HistoryRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val videoBeanList:MutableList<VideoBean> = ArrayList()
 
-    inner class MyViewHolder(item:ItemVideoCardBinding):RecyclerView.ViewHolder(item.root){
-        val binding = item
-    }
+    inner class MyViewHolder(val binding:ItemVideoCardBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding:ItemVideoCardBinding = DataBindingUtil.inflate(

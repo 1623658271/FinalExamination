@@ -17,9 +17,7 @@ import com.example.openeyes.model.SpecialPicBean
 class PictureRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val picList:MutableList<SpecialPicBean> = ArrayList()
 
-    inner class MyViewHolder(item:ItemPicturesBinding):RecyclerView.ViewHolder(item.root){
-        val binding = item
-    }
+    inner class MyViewHolder(val binding:ItemPicturesBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding:ItemPicturesBinding = DataBindingUtil.inflate(

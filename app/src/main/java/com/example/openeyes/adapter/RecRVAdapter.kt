@@ -75,43 +75,47 @@ class RecRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is PicCardHolder){
-            val picsBean = mapList[position]["message"] as PicsBean
-            holder.binding.message = picsBean
+        when (holder) {
+            is PicCardHolder -> {
+                val picsBean = mapList[position]["message"] as PicsBean
+                holder.binding.message = picsBean
 
-            val layoutParams: ViewGroup.LayoutParams = holder.binding.ivPic.layoutParams
-            Glide.with(MyApplication.application!!).load(picsBean.coverUrl)
-                .override(layoutParams.width, Int.MAX_VALUE)
-                .into(holder.binding.ivPic)
+                val layoutParams: ViewGroup.LayoutParams = holder.binding.ivPic.layoutParams
+                Glide.with(MyApplication.application!!).load(picsBean.coverUrl)
+                    .override(layoutParams.width, Int.MAX_VALUE)
+                    .into(holder.binding.ivPic)
 
-            holder.binding.ivPic.setOnClickListener { listener?.onPicClick(picsBean) }
-            holder.binding.picItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(picsBean.personalBean!!) }
-        }else if(holder is VideoCardHolder){
-            val videoBean = mapList[position]["message"] as VideoBean
-            holder.binding.message = videoBean
+                holder.binding.ivPic.setOnClickListener { listener?.onPicClick(picsBean) }
+                holder.binding.picItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(picsBean.personalBean!!) }
+            }
+            is VideoCardHolder -> {
+                val videoBean = mapList[position]["message"] as VideoBean
+                holder.binding.message = videoBean
 
-            val layoutParams: ViewGroup.LayoutParams = holder.binding.ivRecCoverVideo.layoutParams
-            Glide.with(MyApplication.application!!).load(videoBean.coverUrl)
-                .override(layoutParams.width, Int.MAX_VALUE)
-                .into(holder.binding.ivRecCoverVideo)
+                val layoutParams: ViewGroup.LayoutParams = holder.binding.ivRecCoverVideo.layoutParams
+                Glide.with(MyApplication.application!!).load(videoBean.coverUrl)
+                    .override(layoutParams.width, Int.MAX_VALUE)
+                    .into(holder.binding.ivRecCoverVideo)
 
-            holder.binding.ivRecCoverVideo.setOnClickListener { listener?.onVideoClick(videoBean) }
-            holder.binding.videItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(videoBean.personalBean!!) }
-        }else if(holder is FootViewHolder){
-            when(loadState) {
-                LOADING -> {
-                    holder.binding.tvLoad.visibility = View.VISIBLE
-                    holder.binding.tvLoad.text = "加载中..."
+                holder.binding.ivRecCoverVideo.setOnClickListener { listener?.onVideoClick(videoBean) }
+                holder.binding.videItemPersonCoverCircleImage.setOnClickListener { listener?.onPersonImageClick(videoBean.personalBean!!) }
+            }
+            is FootViewHolder -> {
+                when(loadState) {
+                    LOADING -> {
+                        holder.binding.tvLoad.visibility = View.VISIBLE
+                        holder.binding.tvLoad.text = "加载中..."
+                    }
+                    LOADING_COMPLETE -> {
+                        holder.binding.tvLoad.visibility = View.GONE
+                        holder.binding.tvLoad.text = "加载完成"
+                    }
+                    LOADING_END -> {
+                        holder.binding.tvLoad.visibility = View.VISIBLE
+                        holder.binding.tvLoad.text = "亲！到底线了~~~"
+                    }
+
                 }
-                LOADING_COMPLETE -> {
-                    holder.binding.tvLoad.visibility = View.GONE
-                    holder.binding.tvLoad.text = "加载完成"
-                }
-                LOADING_END -> {
-                    holder.binding.tvLoad.visibility = View.VISIBLE
-                    holder.binding.tvLoad.text = "亲！到底线了~~~"
-                }
-
             }
         }
     }
@@ -142,7 +146,10 @@ class RecRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun setLoadState(state:Int){
-        this.loadState = state
+        if(this.loadState!=state){
+            this.loadState = state
+            notifyItemChanged(itemCount-1)
+        }
     }
 
     fun setData(mapList:MutableList<Map<String,Any>>){

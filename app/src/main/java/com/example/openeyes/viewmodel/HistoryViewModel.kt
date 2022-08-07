@@ -14,15 +14,7 @@ import com.example.openeyes.utils.LoadState
  * email : 1623658271@qq.com
  * date : 2022/8/5 15:48
  */
-class HistoryViewModel: ViewModel() {
-    //初始化状态
-    private var loadState = MutableLiveData<LoadState>()
-    val state: LiveData<LoadState>
-        get() = loadState
-    //仓库
-    private val myRepository by lazy {
-        MyRepository()
-    }
+class HistoryViewModel:BaseViewModel() {
     private val historyListLD:MutableLiveData<MutableList<VideoBean>> by lazy {
         MutableLiveData()
     }

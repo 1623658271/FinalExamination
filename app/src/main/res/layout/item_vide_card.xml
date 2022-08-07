@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="3dp"
+        app:cardCornerRadius="5dp"
         android:background="@color/gray">
     <LinearLayout
         android:orientation="vertical"
@@ -40,7 +40,6 @@
                 android:src="@drawable/ic_video_start_image" />
         </FrameLayout>
         <TextView
-
             android:textStyle="bold"
             android:text="@{message.description}"
             android:textSize="12sp"

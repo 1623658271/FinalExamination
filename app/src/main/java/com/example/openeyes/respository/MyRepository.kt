@@ -1,16 +1,11 @@
 package com.example.openeyes.respository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.example.openeyes.api.ApiService
 import com.example.openeyes.api.RetrofitClient
 import com.example.openeyes.model.*
 import com.example.openeyes.utils.MySQLiteHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.http.Query
 
 /**
  * description ： 仓库层
@@ -36,7 +31,18 @@ class MyRepository{
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(observer)
-
+    //首页-推荐主题
+    fun getRecDynamicMsg(observer: Observer<DynamicMsgBean>) = RetrofitClient.apiService
+        .getRecDynamic(true)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
+    //首页-主题分类
+    fun getAllDynamics(observer: Observer<AllDynamicsBean>) = RetrofitClient.apiService
+        .getAllDynamics()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
 
     /**
      * 更多页面的各种数据的获取
@@ -159,8 +165,35 @@ class MyRepository{
     /**
      * 获取历史观看数据
      */
-    fun getHistoryMsg(name:String):MutableList<VideoBean>{
-        val list = MySQLiteHelper.getHistoryVideoBeanList(name)
-        return list
-    }
+    fun getHistoryMsg(name: String): MutableList<VideoBean> = MySQLiteHelper.getHistoryVideoBeanList(name)
+
+    /**
+     * 主题详情页
+     */
+    fun getDynamicMsg(pathId:String,observer: Observer<DynamicMsgBean>) = RetrofitClient.apiService
+        .getDynamicMsg(pathId)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
+    //详情页更多数据
+    fun getDynamicMoreMsg(start:Int,num:Int,pathId:String,observer: Observer<DynamicMsgBean>) = RetrofitClient.apiService
+        .getDynamicMoreMsg(pathId,start,num)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
+
+    /**
+     * 主题最终页
+     */
+    fun getDynamicInMsg(id: Int,observer: Observer<DynamicInBean>) = RetrofitClient.apiService
+        .getDynamicInMsg(id.toLong())
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
+    //主题最终页的加载更多
+    fun getDynamicInMoreMsg(start:Int,num:Int,id:Int,observer: Observer<DynamicInBean>) = RetrofitClient.apiService
+        .getDynamicInMoreMsg(start,num,id)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(observer)
 }

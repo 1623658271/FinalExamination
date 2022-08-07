@@ -46,16 +46,9 @@ class HomePageRVAdapter:
     val LOADING_COMPLETE = 2
     // 加载到底
     val LOADING_END = 3
-    inner class CirViewHolder(itemView: LayoutCirImageBinding):RecyclerView.ViewHolder(itemView.root){
-        var binding:LayoutCirImageBinding = itemView
-    }
-
-    inner class MyViewHolder(itemView:ItemHomepageVideoBinding):RecyclerView.ViewHolder(itemView.root){
-        var binding:ItemHomepageVideoBinding = itemView
-    }
-    inner class FootViewHolder(itemView:LayoutLoadMessageBinding):RecyclerView.ViewHolder(itemView.root){
-        val binding = itemView
-    }
+    inner class CirViewHolder(var binding: LayoutCirImageBinding):RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding:ItemHomepageVideoBinding):RecyclerView.ViewHolder(binding.root)
+    inner class FootViewHolder(var binding:LayoutLoadMessageBinding):RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //对view类型进行判断，然后做相应处理
         when (viewType) {
@@ -112,7 +105,6 @@ class HomePageRVAdapter:
                         }
 
                     })
-                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2
                     adapter!!.notifyDataSetChanged()
                 }else if(imageUrlList.size>5 && adapter!=null){
                     holder.binding.clBanner.setData(adapter!!,object : CirLayout.BindTitleListener {
@@ -129,7 +121,6 @@ class HomePageRVAdapter:
                         }
 
                     })
-                    holder.binding.clBanner.viewPager.currentItem = Integer.MAX_VALUE / 2
                     adapter!!.notifyDataSetChanged()
                 }
             }

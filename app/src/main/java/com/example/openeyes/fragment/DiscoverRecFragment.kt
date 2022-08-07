@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +21,7 @@ import com.example.openeyes.model.PersonalBean
 import com.example.openeyes.model.PicsBean
 import com.example.openeyes.model.VideoBean
 import com.example.openeyes.utils.LoadState
+import com.example.openeyes.utils.toast
 import com.example.openeyes.viewmodel.DiscoverPageViewModel
 
 /**
@@ -60,6 +62,13 @@ class DiscoverRecFragment:Fragment() {
                     LoadState.SUCCESS -> binding.rvRec.visibility = View.VISIBLE
                     LoadState.ERROR -> binding.stateLoadError.root.visibility = View.VISIBLE
                     else->{}
+                }
+            }
+            state.observe(activity!!){
+                when(it){
+                    LoadState.LOADING->adapter0.setLoadState(adapter0.LOADING)
+                    LoadState.SUCCESS->adapter0.setLoadState(adapter0.LOADING_COMPLETE)
+                    else ->adapter0.setLoadState(adapter0.LOADING_END)
                 }
             }
         }
@@ -131,8 +140,14 @@ class DiscoverRecFragment:Fragment() {
 //                    Log.e(TAG, "onScrollStateChanged: ${intArray[0]} +${intArray[1]} ${manager.itemCount-1}", )
                     val itemCount = manager.itemCount
                     // 判断是否滑动到了最后一个item，并且是向上滑动
-                    if ((intArray[0] == itemCount - 1) ||(intArray[1] == itemCount - 1)&& isUp) {
-                        loadingMore()
+//                    Log.e("lfy", "onScrollStateChanged:${intArray.toSet()} = = ${itemCount-1} ", )
+                    if (((intArray[0]==itemCount-2) || intArray[0] == itemCount - 1) || (intArray[1] == itemCount - 1) || (intArray[1] == itemCount -2)&& isUp) {
+//                        Log.e("lfy", "onScrollStateChanged: "+discoverRecViewModel.state.value )
+                        if(discoverRecViewModel.state.value!=LoadState.LOADING){
+                            loadingMore()
+                        }else{
+                            "正在加载,不要着急嘛".toast()
+                        }
                     }
                 }
             }
@@ -145,12 +160,6 @@ class DiscoverRecFragment:Fragment() {
     }
 
     fun loadingMore(){
-        adapter0.setLoadState(adapter0.LOADING)
-        var flag = discoverRecViewModel.loadRecMoreMsg()
-        if(flag){
-            adapter0.setLoadState(adapter0.LOADING_COMPLETE)
-        }else{
-            adapter0.setLoadState(adapter0.LOADING_END)
-        }
+        discoverRecViewModel.loadRecMoreMsg()
     }
 }

@@ -18,9 +18,7 @@ import com.example.openeyes.model.VideoBean
 class RankListRVAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val videoBeanList:MutableList<VideoBean> = ArrayList()
 
-    inner class MyViewHolder(item:ItemHomepageVideoBinding):RecyclerView.ViewHolder(item.root){
-        val binding = item
-    }
+    inner class MyViewHolder(val binding:ItemHomepageVideoBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemHomepageVideoBinding = DataBindingUtil.inflate(

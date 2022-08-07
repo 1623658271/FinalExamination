@@ -1,7 +1,7 @@
 # FinalExamination  
 ## OpenEyes App介绍  
 ### 页面布局  
-由九个Activity和十个Fragment组成  
+由11个Activity和12个Fragment组成  
 1.MainActivity：设置了toorbar、FragmentContainerView和BottomNavigationView用于切换首页、发现和我的三个fragment以及使用搜索功能  
 2.VideoPlayActivity：点击视频后进入的页面、其中包含CommentFragment(评论页面)和DetailsFragment(视频兮姐)两个小界面，用的TabLayout进行切换  
 3.SearchActivity：搜索界面，包含两个RecyclerView(用于热搜关键词和搜索结果)和SearchView(用于搜索)  
@@ -11,11 +11,16 @@
 7.HistoryActivity：历史观看记录界面  
 8.SplashActivity：每日一图初始化界面  
 9.SpecialActivity：专题进入后的页面  
+10.DynInActivity：主题深入页面
+11.DynMsgActivity：主题详情页面
 
 ### 功能页介绍  
 1.首页  
-<img src=https://user-images.githubusercontent.com/89245928/183068535-70ed44e7-7ecd-4845-aeee-c641d4d0c1c0.jpg width="200px">  
-通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
+<img src=https://user-images.githubusercontent.com/89245928/183271550-ef0b2330-56c8-41ce-ab49-fc1778ab2c00.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/183271567-abd0c623-6682-43dd-88c4-e4cf6f5f197e.jpg width="200px">  
+<img src=https://user-images.githubusercontent.com/89245928/183271593-ede0cca8-cdd0-42cf-b688-c7476703772d.jpg width="200px">
+<img src=https://user-images.githubusercontent.com/89245928/183271597-d712055d-12cd-4396-9250-09b8cf63f5b2.jpg width="200px">  
+包含日报和主题两个fragment，其中日报页面通过自定义的ViewPager和VagerAdapter实现了自动轮播图以及其中的小红点，视频其实不是视频，是图片加了个播放图标，点进去才会进入视频播放活动  
 为一个RecyclerView，上拉加载更多是用了脚布局，同时判断上拉状态和数据源状态，动态进行更新数据    
 2.发现  
 <img src=https://user-images.githubusercontent.com/89245928/183068739-9c7d927c-1117-4dd6-a147-a4a7c666edb7.jpg width="200px">

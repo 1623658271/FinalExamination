@@ -29,7 +29,6 @@ class SearchActivity : BaseActivity() {
         initView()
         initObserver()
         initData()
-
     }
 
     private fun initObserver() {

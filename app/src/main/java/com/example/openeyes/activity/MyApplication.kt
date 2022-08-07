@@ -2,6 +2,11 @@ package com.example.openeyes.activity
 
 import android.app.Application
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import androidx.databinding.ktx.BuildConfig
+import com.example.openeyes.utils.CrashHandler
+import com.example.openeyes.utils.toast
 
 
 /**
@@ -16,6 +21,8 @@ class MyApplication : Application() {
         //全局获取context和application
         mContext = applicationContext
         mApplication = this
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler)
     }
 
     companion object {

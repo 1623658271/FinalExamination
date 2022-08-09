@@ -1,7 +1,7 @@
 # FinalExamination  
 ## OpenEyes App介绍  
 ### 页面布局  
-由11个Activity和12个Fragment组成  
+由12个Activity和12个Fragment组成  
 1.MainActivity：设置了toorbar、FragmentContainerView和BottomNavigationView用于切换首页、发现和我的三个fragment以及使用搜索功能  
 2.VideoPlayActivity：点击视频后进入的页面、其中包含CommentFragment(评论页面)和DetailsFragment(视频兮姐)两个小界面，用的TabLayout进行切换  
 3.SearchActivity：搜索界面，包含两个RecyclerView(用于热搜关键词和搜索结果)和SearchView(用于搜索)  
@@ -13,6 +13,7 @@
 9.SpecialActivity：专题进入后的页面  
 10.DynInActivity：主题深入页面  
 11.DynMsgActivity：主题详情页面
+12.CrashActivity：错误异常界面，用于找bug的
 
 ### 功能页介绍  
 1.首页  
@@ -50,7 +51,8 @@
 7.查看大图  
 <img src=https://user-images.githubusercontent.com/89245928/180636188-722c0742-c038-4398-94ad-fab92b889c95.jpg width="200px">  
 一个activity+viewpagerAdapter实现  
-
+8.异常处理界面  
+<img src=https://user-images.githubusercontent.com/89245928/183281771-9d9eaae1-4847-467a-ab3e-afd79a9abfee.jpg width="200px">  
 ### 知识点  
 retrofit、rxjava3、mvvm、databinding、viewmodel、navigation、LiveData、SQLite数据库储存  
 ### 心得体会  

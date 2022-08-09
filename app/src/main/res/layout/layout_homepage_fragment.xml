@@ -30,7 +30,7 @@
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorFullWidth="false"
             android:scrollbarSize="10dp"
-            android:background="@color/black"/>
+            android:background="@color/deepGray"/>
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp2_homepage"
             android:layout_width="match_parent"
